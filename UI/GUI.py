@@ -18,7 +18,7 @@ class RootWin() :
         searchNameButton.pack(side=TOP)
         exitButton = Button(root, text="Exit", command=self.exitProgram)
         exitButton.pack(side=BOTTOM)
-        root.geometry('200x150+100+100')
+        root.geometry('300x250+200+100')
         root.mainloop()
         
     def popAddWin(self) :

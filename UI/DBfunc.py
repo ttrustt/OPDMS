@@ -24,7 +24,7 @@ def register(listOfSystem_user):
     email =listOfSystem_user[12]
     username = listOfSystem_user[13]
     password = listOfSystem_user[14]
-    typeOfUser = listOfSystem_user[15]
+    user_type = listOfSystem_user[15]
     
     try:
         connection = mysql.connector.connect(host='localhost',

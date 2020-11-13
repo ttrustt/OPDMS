@@ -1,4 +1,4 @@
-LOAD DATA LOCAL INFILE './res/user.csv' 
+LOAD DATA LOCAL INFILE './res/system_user.csv' 
 INTO TABLE system_user
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'

@@ -10,7 +10,7 @@ class RootWin() :
         header = Label(root, text="Main Menu")
         header.pack()
         
-        addButton = Button(root, text="Add New Customer", command=self.popAddWin)
+        addButton = Button(root, text="Register Customer", command=self.popAddWin)
         addButton.pack(side=TOP)
         searchButton = Button(root, text="Search by ID", command=self.popSearchWin)
         searchButton.pack(side=TOP)
@@ -61,10 +61,42 @@ class CustomerWindow() :
 
 
         
-class RegisterWin(CustomerWindow) :
+class RegisterWin() :
     def __init__(self, title) :
-        super().__init__(title)
-        self.button_submit.configure(text="AddNew", command=self.submitNewCust)
+        self.cwin = Toplevel()
+        self.cwin.title(title)
+        self.cwin.geometry('600x800+100+100')
+        
+        self.label_id=Label(self.cwin, text="username = ")
+        self.label_name=Label(self.cwin, text=" = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+        self.label_name=Label(self.cwin, text="Name = ")
+
+        self.entry_id=Entry(self.cwin)
+        self.entry_username=Entry(self.cwin)
+
+        self.button_submit=Button(self.cwin, text ="SUBMIT", command=self.cwin.destroy)
+        self.button_exit=Button(self.cwin, text="EXIT", command=self.cwin.destroy)
+
+        self.label_id.grid(row=0,column=0)
+        self.label_name.grid(row=1,column=0)
+        
+        self.entry_id.grid(row=0,column=1)
+        self.entry_name.grid(row=1,column=1)
+
+        self.button_submit.grid(row=2,column=1)
+        self.button_exit.grid(row=3, column=1)
+
+        self.label_status=Label(self.cwin, text="")
+        self.label_status.grid(row=5, columnspan=2)
+        self.button_submit.configure(text="Register", command=self.submitNewCust)
         
     def submitNewCust(self) :
         self.cwin.title("Submitted")

@@ -42,12 +42,14 @@ def register(listOfSystem_user):
                 if(username == x[14]): 
                     sameUsername = True ; 
             if not sameUsername : 
-                user_id = record[len(record)-1][0] + 1 
-                cursor.execute("insert into system_user values ("+user_id+','+fname+','+lname+','+religion+','+address+','+province+
-                ','+postal_code+','+identification_number+','+passport_number+','+mobile_number+','+nationlity+','+sex+','+birthdate+
-                ','+email+','+username+','+password+','+user_type+');')
-                return 'Registerd'
+                 cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ("
+                "'"+str(fname)+"','"+str(lname)+"','"+str(religion)+"','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+str(mobile_number)+"','"+str(nationlity)+"','"+str(sex)+"','"+str(birthdate)+
+                "','"+str(email)+"','"+str(username)+"','"+str(password)+"','"+str(user_type)+"');")
+                print('Registered')
+                connection.commit()
+                return 'Registered'
             else : 
+                print('Error Same Username')
                 return 'Error Same Username'
                 
     except Error as e:

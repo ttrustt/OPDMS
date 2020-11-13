@@ -110,7 +110,7 @@ CREATE TABLE DISPENSATION(
     dispensation_number int AUTO_INCREMENT,
     quantity int NOT NULL,
     price float NOT NULL,
-    time_ datetime NOT NULL,
+    created_time datetime NOT NULL,
     visit_number int,
     pharma_code varchar(8),
     receipt_number int NOT NULL,

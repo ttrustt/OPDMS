@@ -83,7 +83,7 @@ class CustomerDB() :
         except:
             retmsg = ["1", "Error"]
         else :
-            retmsg = ["1", "Not Found"]
+            retmsg = ["1", "Not FoundKUY"]
             if records[1] != "" :
                 retmsg = ["0", "Found"]
         finally:

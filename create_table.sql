@@ -101,7 +101,7 @@ CREATE TABLE SHOW_ICD(
 CREATE TABLE MEDICINE(
     pharma_code varchar(8),
     tmtid varchar(7),
-    general_name varchar(32) NOT NULL,
+    general_name varchar(64) NOT NULL,
     price float NOT NULL,
     PRIMARY KEY (pharma_code)
 );
@@ -116,8 +116,7 @@ CREATE TABLE DISPENSATION(
     receipt_number int NOT NULL,
     PRIMARY KEY (dispensation_number),
     FOREIGN KEY (visit_number) REFERENCES DIAGNOSIS (visit_number) ON DELETE CASCADE,
-    FOREIGN KEY (pharma_code) REFERENCES MEDICINE (pharma_code),
-    UNIQUE (receipt_number)
+    FOREIGN KEY (pharma_code) REFERENCES MEDICINE (pharma_code)
 );
 
 CREATE TABLE PHARMA_ROOM(

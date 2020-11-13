@@ -1,3 +1,4 @@
 UI/__pycache__/
 UI/configure.py
 .vscode/settings.json
+.DS_Store

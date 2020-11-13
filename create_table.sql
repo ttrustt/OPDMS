@@ -169,6 +169,7 @@ CREATE TABLE MEDICINE_ORDER(
     quantity int NOT NULL,
     price float NOT NULL,
     pharma_code varchar(8),
+    status varchar(16),
     PRIMARY KEY (order_id),
     FOREIGN KEY (pharma_room_id) REFERENCES PHARMA_ROOM(pharma_room_id) ON DELETE CASCADE,
     FOREIGN KEY (supplier_id) REFERENCES SUPPLIER(supplier_id),

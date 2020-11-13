@@ -6,7 +6,6 @@ password = password()
 databasename='opdms'
 table='system_user'
 
-<<<<<<< Updated upstream
 ############## Function
 
 def register(listOfSystem_user):
@@ -59,5 +58,3 @@ def register(listOfSystem_user):
             connection.close()
             print("MySQL connection is closed")
 
-=======
->>>>>>> Stashed changes

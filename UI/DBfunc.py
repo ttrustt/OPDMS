@@ -27,29 +27,29 @@ def register(listOfSystem_user):
     typeOfUser = listOfSystem_user[15]
     
     try:
-    connection = mysql.connector.connect(host='localhost',
-                                         database='opdms',
-                                         user='root',
-                                         password=password)
-    if connection.is_connected():
-        db_Info = connection.get_server_info()
-        print("Connected to MySQL Server version ", db_Info)
-        cursor = connection.cursor()
-        cursor.execute("select * from system_user;")
-        record = cursor.fetchall()
-        sameUsername = False ; 
-        for x in record:
-            if(username == x[14]): 
-                sameUsername = True ; 
-        if not sameUsername : 
-            user_id = record[len(record)-1][0] + 1 
-            cursor.execute("insert into system_user values ("+user_id+','+fname+','+lname+','+religion+','+address+','+province+
-            ','+postal_code+','+identification_number+','+passport_number+','+mobile_number+','+nationlity+','+sex+','+birthdate+
-            ','+email+','+username+','+password+','+user_type+');')
-            return 'Registerd'
-        else : 
-            return 'Error Same Username'
-            
+        connection = mysql.connector.connect(host='localhost',
+                                            database='opdms',
+                                            user='root',
+                                            password=password)
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            cursor = connection.cursor()
+            cursor.execute("select * from system_user;")
+            record = cursor.fetchall()
+            sameUsername = False ; 
+            for x in record:
+                if(username == x[14]): 
+                    sameUsername = True ; 
+            if not sameUsername : 
+                user_id = record[len(record)-1][0] + 1 
+                cursor.execute("insert into system_user values ("+user_id+','+fname+','+lname+','+religion+','+address+','+province+
+                ','+postal_code+','+identification_number+','+passport_number+','+mobile_number+','+nationlity+','+sex+','+birthdate+
+                ','+email+','+username+','+password+','+user_type+');')
+                return 'Registerd'
+            else : 
+                return 'Error Same Username'
+                
     except Error as e:
         print("Error while connecting to MySQL", e)
     finally:

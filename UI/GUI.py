@@ -152,7 +152,10 @@ class RegisterWin() :
         
     def submitNewCust(self) :
         self.cwin.title("Submitted")
-        dataentry = [self.entry_id.get(), self.entry_name.get()]
+        dataentry = [self.entry_fname.get(), self.entry_lname.get(),self.entry_religion.get(),self.entry_address.get(),self.entry_province,
+        self.entry_postal_code,self.entry_identification_number,self.entry_passport_number.get(),self.entry_mobile_number.get(),self.entry_nationality.get(),
+        self.entry_sex.get(),self.entry_birthdate.get(),self.entry_email.get(),self.entry_username.get(),self.entry_password.get(),self.entry_user_type.get()]
+       
         ########
         aCustomer = Customer(dataentry)
         retmsg = aCustomer.write()

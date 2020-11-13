@@ -6,5 +6,8 @@ password = password()
 databasename='opdms'
 table='system_user'
 
+<<<<<<< Updated upstream
 ############## Function
+=======
+>>>>>>> Stashed changes
 

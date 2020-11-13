@@ -89,7 +89,14 @@ class RegisterWin() :
         self.entry_id=Entry(self.cwin)
         self.entry_username=Entry(self.cwin)
 
-        self.enrty_
+        self.entry_fname=Entry(self.cwin)
+        self.entry_lname=Entry(self.cwin)
+        self.entry_religion=Entry(self.cwin)
+        self.entry_address=Entry(self.cwin)
+        self.entry_province=Entry(self.cwin)
+        self.entry_postal_code=Entry(self.cwin)
+        self.entry_identification_number=Entry(self.cwin)
+        self.entry_passport_number=Entry(self.cwin)
 
         self.button_submit=Button(self.cwin, text ="SUBMIT", command=self.cwin.destroy)
         self.button_exit=Button(self.cwin, text="EXIT", command=self.cwin.destroy)

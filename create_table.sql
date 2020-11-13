@@ -157,7 +157,7 @@ CREATE TABLE MEDICINE_ORDER(
     order_id int AUTO_INCREMENT,
     order_time datetime NOT NULL,
     pharma_room_id char(3),
-    supplier_id char(8),
+    supplier_id int,
     manufacturing_date date NOT NULL,
     expired_date date NOT NULL,
     quantity int NOT NULL,

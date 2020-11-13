@@ -1,0 +1,41 @@
+visit_number,schedule_number,doctors_recommendation,time,clinic_id,,
+1,1,,2020-11-09 14:57:01,4737,,X1lmqTOkat
+2,2,,2020-11-09 14:54:12,4737,,xdPyySTI44
+3,3,Patient should drink a lot of water.,2020-11-09 14:55:59,4737,,pgTpsEPYkc
+4,4,,2020-11-09 14:51:58,0015,,paBE5nv6Fi
+5,5,,2020-11-09 14:56:05,0015,,8CcddvVHIG
+6,6,,2020-11-09 15:15:18,4737,,kJL0GGrZmd
+7,7,Patient should drink a lot of water.,2020-11-09 15:16:26,4737,,LNS7yTBPvO
+8,8,,2020-11-09 15:16:03,4737,,wtxTjZnpp4
+9,9,,2020-11-09 15:10:40,0015,,VcVOVSVRAV
+10,10,,2020-11-09 15:11:50,0015,,NxB6Yunr8B
+11,11,,2020-11-09 15:12:00,0015,,8LtFV09n3K
+12,12,,2020-11-09 15:11:23,0015,,re8WzLG1gq
+13,13,Patient should rest for at least 6 hours.,2020-11-09 15:26:09,0015,,sFRvXWn33S
+14,14,,2020-11-09 15:41:30,0015,,tlPP0UfDNk
+15,15,Patient should rest for at least 6 hours.,2020-11-09 15:40:52,0015,,tUgOT59jgf
+16,16,,2020-11-09 15:42:01,0015,,brlb9liI0E
+17,17,,2020-11-09 15:41:08,0015,,EnUjfsfRqb
+18,18,,2020-11-09 15:57:02,0015,,LHPf2Fx0ED
+19,19,Patient should rest for at least 6 hours.,2020-11-10 14:56:12,4737,,RyOAe34G6p
+20,20,,2020-11-10 14:57:01,4737,,XdWyycK1KU
+21,21,Patient should drink a lot of water.,2020-11-10 14:52:56,4737,,F4xHstR25r
+22,22,,2020-11-10 14:53:51,0015,,rtsQv22eqA
+23,23,,2020-11-10 14:56:04,0015,,DZX63MrsO2
+24,24,,2020-11-10 15:15:05,4737,,KLBBAetM9s
+25,25,,2020-11-10 15:14:52,4737,,EnSdLDLu5Z
+26,26,Patient should exercise for 15 minutes twice a week.,2020-11-10 15:13:57,4737,,AXmoYJrjT7
+27,27,,2020-11-10 15:12:14,0015,,nHcFqszFn0
+28,28,,2020-11-10 15:13:12,0015,,ooMHPUcHFu
+29,29,,2020-11-10 15:14:35,0015,,96O5lWOCVy
+30,30,Patient should exercise for 15 minutes twice a week.,2020-11-10 15:14:23,0015,,F6Rdnmlx9W
+31,31,,2020-11-10 15:29:34,0015,,NO5RGAzuhw
+32,32,Patient should rest for at least 6 hours.,2020-11-10 15:44:12,0015,,8RaiIGJgnn
+33,33,,2020-11-10 15:44:53,0015,,y786k9pmBF
+34,34,,2020-11-10 15:43:25,0015,,jNrw47KAb7
+35,35,,2020-11-10 15:42:34,0015,,bkSHzJ6kvL
+36,36,,2020-11-10 15:59:12,0015,,jjVd0deyMZ
+37,37,,2020-11-10 14:58:09,4737,,bQVi3YzMRg
+38,38,,2020-11-10 14:57:01,4737,,iiqW6y2FLK
+39,39,Patient should exercise for 15 minutes twice a week.,2020-11-10 14:56:04,4737,,j5PVY3i3bv
+40,40,,2020-11-10 14:55:25,0015,,tDokMerr4C

@@ -158,7 +158,7 @@ class RegisterWin() :
        
         ########
         print(dataentry)
-        retmsg=[len(dataentry),'ok']
+        retmsg=register(dataentry)
         ########
         self.label_status.config(text=retmsg[0])
                 

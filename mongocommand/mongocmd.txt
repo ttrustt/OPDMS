@@ -1,0 +1,50 @@
+mongo
+mongo use opdms
+exit
+mongoimport --type csv -d opdms -c expertise_ --headerline --drop expertise.csv
+mongoimport --type csv -d opdms -c food_medicine_limitation_ --headerline --drop food_medicine_limitation.csv
+mongoimport --type csv -d opdms -c underlying_disease_ --headerline --drop underlying_disease.csv
+
+
+db.underlying_disease_.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$patient_id",
+           underlying_disease: { $push:"$underlying_disease" }
+         }
+     },
+     {$project:{_id:0,patient_id:"$_id",undertlying_disease:"$underlying_disease"}},
+     {$out:"underlying_disease"}
+   ]
+)
+
+db.food_medicine_limitation_.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$patient_id",
+           fm_limitation: { $push: "$fm_limitation"}
+         }
+     },
+     {$project:{_id:0,patient_id:"$_id",fm_limitation:"$fm_limitation"}},
+     {$out:"food_medicine_limitation"}
+   ]
+)
+
+
+db.expertise_.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$doctor_id",
+           expertise: { $push:"$expertise"}
+         }
+     },
+     {$project:{_id:0,doctor_id:"$_id",expertise:"$expertise"}},
+     {$out:"expertise"}
+   ]
+)

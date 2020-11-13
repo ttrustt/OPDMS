@@ -106,6 +106,12 @@ CREATE TABLE MEDICINE(
     PRIMARY KEY (pharma_code)
 );
 
+CREATE TABLE RECEIPT(
+    receipt_number int AUTO_INCREMENT,
+    status varchar(8),
+    PRIMARY KEY (receipt_number)
+);
+
 CREATE TABLE DISPENSATION(
     dispensation_number int AUTO_INCREMENT,
     quantity int NOT NULL,
@@ -113,10 +119,11 @@ CREATE TABLE DISPENSATION(
     created_time datetime NOT NULL,
     visit_number int,
     pharma_code varchar(8),
-    receipt_number int NOT NULL,
+    receipt_number int,
     PRIMARY KEY (dispensation_number),
     FOREIGN KEY (visit_number) REFERENCES DIAGNOSIS (visit_number) ON DELETE CASCADE,
-    FOREIGN KEY (pharma_code) REFERENCES MEDICINE (pharma_code)
+    FOREIGN KEY (pharma_code) REFERENCES MEDICINE (pharma_code),
+    FOREIGN KEY (receipt_number) REFERENCES RECEIPT (receipt_number)
 );
 
 CREATE TABLE PHARMA_ROOM(

@@ -34,12 +34,8 @@ def register(listOfSystem_user):
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
             cursor = connection.cursor()
-            #cursor.execute("select * from system_user;")
-            #record = cursor.fetchall()
             sameUsername = False ; 
-            #for x in record:
-            #    if(username == x[14]): 
-            #        sameUsername = True ; 
+            sameUsername = True ; 
 
             if not sameUsername : 
                 cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ("
@@ -60,7 +56,3 @@ def register(listOfSystem_user):
             connection.close()
             print("MySQL connection is closed")
 
-
-data = ['abcffffe','deffffe','Buddhist','472ddd','hatyai','90110','190812444321','213','902302424','Thai','Male','2000-03-24','pattanut32gmail.com','asdfeffff','kin184492318','Patient']
-print(password)
-register(data)

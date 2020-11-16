@@ -24,7 +24,6 @@ def register(listOfSystem_user):
     username = listOfSystem_user[13]
     password = listOfSystem_user[14]
     user_type = listOfSystem_user[15]
-    
     try:
         connection = mysql.connector.connect(host='localhost',
                                             database='opdms',
@@ -33,21 +32,13 @@ def register(listOfSystem_user):
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
-            cursor = connection.cursor()
-            sameUsername = False ; 
-            sameUsername = True ; 
-
-            if not sameUsername : 
-                cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ("
-                "'"+str(fname)+"','"+str(lname)+"','"+str(religion)+"','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+str(mobile_number)+"','"+str(nationlity)+"','"+str(sex)+"','"+str(birthdate)+
-                "','"+str(email)+"','"+str(username)+"','"+str(password)+"','"+str(user_type)+"');")
-                print('Registered')
-                connection.commit()
-                return 'Registered'
-            else : 
-                print('Error Same Username')
-                return 'Error Same Username'
-                
+            cursor = connection.cursor() 
+            cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ("
+            "'"+str(fname)+"','"+str(lname)+"','"+str(religion)+"','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+str(mobile_number)+"','"+str(nationlity)+"','"+str(sex)+"','"+str(birthdate)+
+            "','"+str(email)+"','"+str(username)+"','"+str(password)+"','"+str(user_type)+"');")
+            connection.commit()
+            print('Registered')
+            return 'Registered'
     except Error as e:
         print("Error while connecting to MySQL", e)
     finally:
@@ -56,3 +47,23 @@ def register(listOfSystem_user):
             connection.close()
             print("MySQL connection is closed")
 
+def login(username , password): 
+     try:
+        connection = mysql.connector.connect(host='localhost',
+                                            database='opdms',
+                                            user='root',
+                                            password='kin184492318')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+            cursor = connection.cursor()
+            
+            cursor.execute()
+            connection.commit()
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if (connection.is_connected()):
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed")

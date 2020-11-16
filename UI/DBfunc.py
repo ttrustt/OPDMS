@@ -57,9 +57,9 @@ def login(username , password):
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
             cursor = connection.cursor()
-            
-            cursor.execute()
-            connection.commit()
+            cursor.execute("select * from system_user")
+            tableOfsystem_user = cursor.fetchall() 
+
     except Error as e:
         print("Error while connecting to MySQL", e)
     finally:

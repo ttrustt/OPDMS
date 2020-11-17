@@ -1,5 +1,5 @@
 from flask import Flask
-from DBfunc import register
+from DBfunc import *
 app = Flask(__name__)
 
 @app.route('/')

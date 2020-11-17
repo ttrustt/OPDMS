@@ -1,6 +1,7 @@
+import os
 import mysql.connector
 from mysql.connector import Error
-
+from dotenv import load_dotenv
 
 databasename='opdms'
 
@@ -8,6 +9,9 @@ databasename='opdms'
 ############## Function
 
 def register(listOfSystem_user):
+    load_dotenv()
+    password = os.getenv('PASSWORD')
+    print(password)
     fname = listOfSystem_user[0]
     lname = listOfSystem_user[1]
     religion = listOfSystem_user[2]
@@ -26,10 +30,7 @@ def register(listOfSystem_user):
     user_type = listOfSystem_user[15]
     
     try:
-        connection = mysql.connector.connect(host='localhost',
-                                            database='opdms',
-                                            user='root',
-                                            password='91236621')
+        connection = mysql.connector.connect(host='localhost',database='opdms',user='root',password='91236621')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -49,14 +50,13 @@ def register(listOfSystem_user):
                 connection.commit()
                 return 'Registered'
             else : 
-                print('Error Same Username')
                 return 'Error Same Username'
                 
     except Error as e:
-        print("Error while connecting to MySQL", e)
+        return("Error while connecting to MySQL", e)
     finally:
         if (connection.is_connected()):
             cursor.close()
             connection.close()
-            print("MySQL connection is closed")
+            return("MySQL connection is closed")
 

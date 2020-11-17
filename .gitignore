@@ -4,3 +4,4 @@ UI/configure.py
 venv
 .vscode/settings.json
 .DS_Store
+backend/test.py

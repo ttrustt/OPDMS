@@ -30,7 +30,10 @@ def register(listOfSystem_user):
     user_type = listOfSystem_user[15]
     
     try:
-        connection = mysql.connector.connect(host='localhost',database='opdms',user='root',password='91236621')
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)

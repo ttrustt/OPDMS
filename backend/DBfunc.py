@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 
-password = password()
+
 databasename='opdms'
 table='system_user'
 
@@ -29,7 +29,7 @@ def register(listOfSystem_user):
         connection = mysql.connector.connect(host='localhost',
                                             database='opdms',
                                             user='root',
-                                            password=password)
+                                            password='91236621')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -41,9 +41,11 @@ def register(listOfSystem_user):
                 if(username == x[14]): 
                     sameUsername = True ; 
             if not sameUsername : 
-                 cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ("
-                "'"+str(fname)+"','"+str(lname)+"','"+str(religion)+"','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+str(mobile_number)+"','"+str(nationlity)+"','"+str(sex)+"','"+str(birthdate)+
-                "','"+str(email)+"','"+str(username)+"','"+str(password)+"','"+str(user_type)+"');")
+                cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
+                    mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (""'"+str(fname)+"','"+str(lname)+"','"+str(religion)+ \
+                        "','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+ \
+                            str(mobile_number)+"','"+str(nationlity)+"','"+str(sex)+"','"+str(birthdate)+ "','"+str(email)+"','"+str(username)+"','"+str(password)+ \
+                                "','"+str(user_type)+"');")
                 print('Registered')
                 connection.commit()
                 return 'Registered'

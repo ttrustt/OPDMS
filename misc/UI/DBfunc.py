@@ -25,10 +25,10 @@ def register(listOfSystem_user):
     password = listOfSystem_user[14]
     user_type = listOfSystem_user[15]
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
                                             user='root',
-                                            password='kin184492318')
+                                            password='!Opdmstrust69')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -49,10 +49,10 @@ def register(listOfSystem_user):
 
 def login(username , password): 
      try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
                                             user='root',
-                                            password='kin184492318')
+                                            password='!Opdmstrust69')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)

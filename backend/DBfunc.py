@@ -36,10 +36,10 @@ def register(listOfSystem_user):
             cursor = connection.cursor()
             cursor.execute("select * from system_user;")
             record = cursor.fetchall()
-            sameUsername = False ; 
+            sameUsername = False  
             for x in record:
                 if(username == x[14]): 
-                    sameUsername = True ; 
+                    sameUsername = True  
             if not sameUsername : 
                 cursor.execute("insert into system_user (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
                     mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (""'"+str(fname)+"','"+str(lname)+"','"+str(religion)+ \

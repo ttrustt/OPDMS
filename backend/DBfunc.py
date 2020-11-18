@@ -78,7 +78,7 @@ def login(listOfSystem_user):
     
     try: 
         cursor = connection.cursor()
-        cursor.execute("select username,password from SYSTEM_USER where username='"+username0+"'")
+        cursor.execute("select username,password,user_type from SYSTEM_USER where username='"+username0+"'")
         usernamePassword = cursor.fetchall()
         if(usernamePassword ==[]) :
             # print(1)
@@ -87,7 +87,7 @@ def login(listOfSystem_user):
             # print(2)
             return(False,('Passwod Incorrect',None))
         # print(3)
-        return(True,('OK',usernamePassword[0][0]))
+        return(True,('OK',usernamePassword[0][0],usernamePassword[0][2].strip()))
     except Error as e : 
          return(False,("Error while executing to MySQL "+str(e)))
     if (connection.is_connected()):

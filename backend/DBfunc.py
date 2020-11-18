@@ -79,7 +79,7 @@ def login(listOfSystem_user):
         usernamePassword = cursor.fetchall()
         if(usernamePassword ==[]) :
             return(False,('Username Incorrect',None))
-        if(password0 != usernamePassword[0][1]): 
+        if(password0 != usernamePassword[0][1]):
             return(False,('Passwod Incorrect',None))
         return(True,('OK',usernamePassword[0][0]))
     except Error as e : 

@@ -76,8 +76,8 @@ CREATE TABLE SCHEDULE(
 CREATE TABLE DIAGNOSIS(
     visit_number int AUTO_INCREMENT,
     schedule_number int,
-    doctors_recomendation varchar(1024),
-    time_ datetime NOT NULL,
+    doctors_recommendation varchar(1024),
+    created_time datetime NOT NULL,
     clinic_id char(4),
     PRIMARY KEY (visit_number),
     FOREIGN KEY (schedule_number) REFERENCES SCHEDULE(schedule_number)

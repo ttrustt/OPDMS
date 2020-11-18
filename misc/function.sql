@@ -29,7 +29,7 @@ END $$
 
 CREATE PROCEDURE getDiagnosis(IN UI int)
 BEGIN
-    SELECT time_, fname AS doctor_name, disease_name, doctors_recomendation 
+    SELECT g.created_time, fname AS doctor_name, disease_name, doctors_recommendation 
     FROM show_icd i, disease d, schedule s, diagnosis g, doctor c, system_user u
     WHERE i.icd_code = d.icd_code 
     AND i.visit_number = g.visit_number 

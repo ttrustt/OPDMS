@@ -10,7 +10,7 @@ class Header extends Component {
   state = {
     toggleLoginPane:false,
     toggleRegisterPane:false,
-    datasets:[],
+    userType:'user',
     
   }
   onClickLogin=()=>{
@@ -21,11 +21,22 @@ class Header extends Component {
   }
   onClickLogout=()=>{
   }
+  onChangeUserType=()=>{
+    this.setState({userType:"doctor"})
+    this.props.onClickToggleLogin()
+  }
   
 
   render() {
+    let headerContent = <div></div>
+    if(this.state.userType==='user'){
+        headerContent=<div>User</div>
+    }else if(this.state.userType==='doctor'){
+       headerContent=<div>Docter</div>
+    }
+
     const paneContent_Login = <div>
-      <Button onClick={this.props.onClickToggleLogin}>Toggle Log in</Button>
+      <Button onClick={this.onChangeUserType}>Toggle Log in</Button>
       
       </div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
@@ -34,6 +45,7 @@ class Header extends Component {
     return (
       <Navbar bg='light'>
         <Navbar.Brand href="#">OPDMS</Navbar.Brand>
+        {headerContent}
         <Navbar.Collapse className="justify-content-end">
         <Nav>
           {logButton}

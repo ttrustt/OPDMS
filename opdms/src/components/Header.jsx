@@ -3,6 +3,7 @@ import { Navbar ,  Nav, Button,Form} from 'react-bootstrap'
 import axios from 'axios'
 import SlidingBar from './SlidingBar'
 import RegisterPaneContent from './RegisterPaneContent'
+import LoginPaneContent from './LoginPaneContent'
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Header extends Component {
@@ -35,10 +36,7 @@ class Header extends Component {
        headerContent=<div>Docter</div>
     }
 
-    const paneContent_Login = <div>
-      <Button onClick={this.onChangeUserType}>Toggle Log in</Button>
-      
-      </div>
+    const paneContent_Login = <div><LoginPaneContent></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
     let logButton = !this.props.logged? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.props.onClickToggleLogin}>Logout</Nav.Link>
     let regButton = !this.props.logged?<Nav.Link onClick={this.onClickRegister}>Register</Nav.Link>:<div></div>

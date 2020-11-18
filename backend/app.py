@@ -40,6 +40,22 @@ def register_endpoint():
     response = make_response(jsonify('OK'),200)
     return response
 
+@app.route('/login', methods=['POST'])
+@cross_origin()
+def login_endpoint():
+    params = request.get_json()
+    params_list = [
+        params.get('username',''),
+        params.get('password','')
+    ]
+
+    print(params_list)
+    dbfunc_status = login(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):return custom_error(dbfunc_status[1],200)
+    response = make_response(jsonify('OK'),200)
+    return response
+
 
 def custom_error(message, status_code):
     response = make_response(jsonify(message), status_code)

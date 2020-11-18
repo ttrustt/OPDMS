@@ -27,5 +27,28 @@ BEGIN
     SELECT pharma_code, quantity FROM stored_medicine WHERE pharma_room_id=PR;
 END $$
 
+CREATE PROCEDURE getDiagnosis(IN UI int)
+BEGIN
+    SELECT time_, fname AS doctor_name, disease_name, doctors_recomendation 
+    FROM show_icd i, disease d, schedule s, diagnosis g, doctor c, system_user u
+    WHERE i.icd_code = d.icd_code 
+    AND i.visit_number = g.visit_number 
+    AND g.schedule_number = s.schedule_number
+    AND s.doctor_id = c.doctor_id
+    AND c.user_id = u.user_id
+    AND u.user_id = UI;
+END $$
+
+CREATE PROCEDURE getDispensation(IN UI int)
+BEGIN
+    SELECT p.created_time, fname AS doctor_name, general_name, quantity, p.price
+    FROM diagnosis d, dispensation p, medicine m, schedule s, doctor c, system_user u
+    WHERE p.visit_number = d.visit_number
+    AND p.pharma_code = m.pharma_code
+    AND d.schedule_number = s.schedule_number
+    AND s.doctor_id = c.doctor_id
+    AND c.user_id = u.user_id
+    AND u.user_id = UI;
+END $$
 
 DELIMITER ;

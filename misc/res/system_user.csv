@@ -1,6 +1,6 @@
 user_id,fname,lname,religion,address,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type
-1,Piyawat,Amnuayphoncharoen,Buddhist,34/35 Ratchapruek Rd. Bangrang Muang,Nonthaburi,11000,1102234334567,\N,0847702836,Thai,Male,2000-11-28,piyawat.amn@gmail.com,ttrustt_,Trustza007,Patient
-2,Chaichana,Thavornthaveekul,Buddhist,586 Onnut Rd. Suanluang,Bangkok,10250,1100801323514,\N,0909698314,Thai,Male,1999-10-17,chaichana.tha@hotmail.com,chi_ccn,Eieiza1234,Patient
+1,Piyawat,Amnuayphoncharoen,Buddhist,34/35 Ratchapruek Rd. Bangrang Muang,Nonthaburi,11000,1102234334567,\N,0847702836,Thai,Male,2000-11-28,piyawat.amn@gmail.com,ttrustt_,Trustza007,Admin
+2,Chaichana,Thavornthaveekul,Buddhist,586 Onnut Rd. Suanluang,Bangkok,10250,1100801323514,\N,0909698314,Thai,Male,1999-10-17,chaichana.tha@hotmail.com,chi_ccn,Eieiza1234,Admin
 3,Jirayu,Sumsanharn,Islamic,171 Somdej Rd. Tarnsum,Ubon Ratchathani,34330,1100865645994,\N,0846984164,Thai,Male,1988-05-12,jirayu.sum@yahoo.com,jjirayu_,Abc123456,Patient
 4,Pawat,Lilittrakul,Buddhist,559 Prawet Rd. Prawet,Bangkok,10240,1109854564568,\N,0964575154,Thai,Male,1966-09-18,pawat_lil@gmail.com,pawat_lil,Pawat09645,Doctor
 5,Muhammad,Latae,Islamic,49 Tanao Rd Bowornnivech Banglumpoo,Bangkok,10200,\N,M09933532,0845894948,Saudi Arabia,Male,1985-01-01,muhmuh@gmail.com,muhmuh_,Muh498416,Doctor

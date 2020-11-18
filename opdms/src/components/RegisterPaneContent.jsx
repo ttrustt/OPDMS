@@ -49,8 +49,8 @@ class RegisterPaneContent extends Component {
         })
             .then((response) => {
                 this.setState({ loading: false })
-                console.log(response.data);
-                this.setState({status:response.data})
+                console.log(response.data.status);
+                this.setState({status:response.data.status})
             }, (error) => {
                 console.log(error);
             });

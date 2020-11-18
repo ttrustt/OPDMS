@@ -87,7 +87,7 @@ def login(listOfSystem_user):
             # print(2)
             return(False,('Passwod Incorrect',None))
         # print(3)
-        return(True,('OK',usernamePassword[0][0],usernamePassword[0][2].strip()))
+        return(True,(usernamePassword[0][0],usernamePassword[0][2].strip()))
     except Error as e : 
          return(False,("Error while executing to MySQL "+str(e)))
     if (connection.is_connected()):

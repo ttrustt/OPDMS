@@ -6,7 +6,8 @@ class LoginPaneContent extends Component {
         username:'',
         password:'',
         loading:false,
-        status:''
+        status:'',
+        usertype:''
      }
 
      onRequest = () => {
@@ -16,9 +17,11 @@ class LoginPaneContent extends Component {
             password: this.state.password,
         })
             .then((response) => {
-                console.log(response.data);
-                this.setState({status:response.data})
+                // console.log(response.data.usertype);
+                this.setState({status:response.data.status})
                 this.setState({loading:false})
+                
+                this.props.onChangeUserType(response.data.usertype)
             }, (error) => {
                 console.log(error);
             });

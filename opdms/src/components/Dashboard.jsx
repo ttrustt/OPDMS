@@ -16,9 +16,7 @@ class DashBoard extends Component {
     this.props.onLayoutChange(layout);
     this.setState({ layout: layout });
   }
-  onClickToggleLogin=()=>{
-    this.setState({logged :!this.state.logged})
-  }
+
   
   
   render() {

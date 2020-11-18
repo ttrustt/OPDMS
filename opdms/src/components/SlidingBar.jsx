@@ -18,6 +18,7 @@ class SlidingBar extends Component {
           // triggered on "<" on left top click or on outside click
           this.props.onTogglePane
         }
+        // onChangeUserType={this.props.onChangeUserType}
         from="right"
         width="400px"
       >

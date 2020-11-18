@@ -37,7 +37,7 @@ def register_endpoint():
     dbfunc_status = register(params_list)
     print(dbfunc_status)
     if(not dbfunc_status[0]):return custom_error(dbfunc_status[1],200)
-    response = make_response(jsonify('OK'),200)
+    response = make_response(jsonify({'status':'OK'}),200)
     return response
 
 @app.route('/login', methods=['POST'])
@@ -53,7 +53,7 @@ def login_endpoint():
     dbfunc_status = login(params_list)
     print(dbfunc_status)
     if(not dbfunc_status[0]):return custom_error(dbfunc_status[1],200)
-    response = make_response(jsonify('OK'),200)
+    response = make_response(jsonify({'status':'OK','username':dbfunc_status[1][0],'usertype':dbfunc_status[1][1]}),200)
     return response
 
 

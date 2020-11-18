@@ -61,8 +61,8 @@ def register(listOfSystem_user):
 ####################################################
 
 def login(listOfSystem_user):
-    username = listOfSystem_user[0]
-    password = listOfSystem_user[1]
+    username0 = listOfSystem_user[0]
+    password0 = listOfSystem_user[1]
     
     try:
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -78,11 +78,11 @@ def login(listOfSystem_user):
     
     try: 
         cursor = connection.cursor()
-        cursor.execute("select username,password from SYSTEM_USER where username='"+username+"'")
+        cursor.execute("select username,password from SYSTEM_USER where username='"+username0+"'")
         usernamePassword = cursor.fetchall()
         if(usernamePassword ==[]) :
             return(False,('Username Incorrect',None))
-        if(password != usernamePassword[0][1]): 
+        if(password0 != usernamePassword[0][1]):
             return(False,('Passwod Incorrect',None))
         return(True,('OK',usernamePassword[0][0]))
     except Error as e : 

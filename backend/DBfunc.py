@@ -2,7 +2,7 @@ import os
 import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
-
+from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
 databasename='opdms'
 
 
@@ -10,7 +10,6 @@ databasename='opdms'
 
 def register(listOfSystem_user):
     load_dotenv()
-    password = os.getenv('PASSWORD')
     fname = listOfSystem_user[0]
     lname = listOfSystem_user[1]
     religion = listOfSystem_user[2]
@@ -40,7 +39,7 @@ def register(listOfSystem_user):
             cursor.execute("select * from SYSTEM_USER;")
             record = cursor.fetchall()
     except Error as e:
-        return("Error while connecting to MySQL", e)
+        return (False,("Error while connecting to MySQL", e))
     
     try:
         cursor.execute("insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
@@ -49,15 +48,14 @@ def register(listOfSystem_user):
             str(mobile_number)+"','"+str(nationlity)+"','"+str(sex)+"','"+str(birthdate)+ "','"+str(email)+"','"+str(username)+"','"+str(password)+ \
             "','"+str(user_type)+"');")
         connection.commit()
-        print("OKs")
-        return 'OK'
+        return (True,'OK')
     except Error as e:
-        return("Error while executing to MySQL", e)
+        return(False,("Error while executing to MySQL "+str(e)))
 
     if (connection.is_connected()):
         cursor.close()
         connection.close()
-        return("MySQL connection is closed")
+        return(False,("MySQL connection is closed"))
 
 # def login(username , password): 
 #      try:

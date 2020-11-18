@@ -71,21 +71,21 @@ def login(listOfSystem_user):
             print("Connected to MySQL Server version ", db_Info)  
 
     except Error as e:
-        print("Error while connecting to MySQL", e)
+        return (False,("Error while connecting to MySQL", e))
     
     try: 
         cursor = connection.cursor()
         cursor.execute("select username,password from SYSTEM_USER where username='"+username+"'")
         usernamePassword = cursor.fetchall()
         if(usernamePassword ==[]) :
-            return(0,'Username Incorrect',None)
+            return(False,('Username Incorrect',None))
         if(password != usernamePassword[0][1]): 
-            return(0,'Passwod Incorrect',None)
-        return(1,'OK',usernamePassword[0][0])
+            return(False,('Passwod Incorrect',None))
+        return(True,('OK',usernamePassword[0][0]))
     except Error as e : 
-        print('Error in MySQL' ,e)
+         return(False,("Error while executing to MySQL "+str(e)))
     finally:
         if (connection.is_connected()):
             cursor.close()
             connection.close()
-            print("MySQL connection is closed")
+            return(False,("MySQL connection is closed"))

@@ -4,26 +4,27 @@ import axios from 'axios'
 
 class RegisterPaneContent extends Component {
     state = {
-        fname: '',
-        lname: '',
-        religion: '',
-        address: '',
-        province: '',
-        postal_code: '',
-        identification_number: '',
-        passport_number: '',
-        mobile_number: '',
-        nationality: '',
-        sex: '',
-        birthdate: '',
-        email: '',
-        username: '',
-        password: '',
-        user_type: '',
+        fname: null,
+        lname: null,
+        religion: null,
+        address: null,
+        province: null,
+        postal_code: null,
+        identification_number: null,
+        passport_number: null,
+        mobile_number: null,
+        nationality: null,
+        sex: null,
+        birthdate: null,
+        email: null,
+        username: null,
+        password: null,
+        user_type: null,
 
 
         response: '',
-        loading: false
+        loading: false,
+        status:''
     }
 
     onRequest = () => {
@@ -49,6 +50,7 @@ class RegisterPaneContent extends Component {
             .then((response) => {
                 this.setState({ loading: false })
                 console.log(response.data);
+                this.setState({status:response.data})
             }, (error) => {
                 console.log(error);
             });
@@ -94,6 +96,9 @@ class RegisterPaneContent extends Component {
                     />:<div></div>}
                         Submit
                 </Button>
+                <Form.Text id="passwordHelpBlock" muted>
+                 {this.state.status}
+                </Form.Text>
             </Form>
         );
     }

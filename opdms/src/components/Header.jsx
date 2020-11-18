@@ -11,7 +11,7 @@ class Header extends Component {
   state = {
     toggleLoginPane:false,
     toggleRegisterPane:false,
-    userType:'user',
+    userType:'guest',
     
   }
   onClickLogin=()=>{
@@ -22,18 +22,19 @@ class Header extends Component {
   }
   onClickLogout=()=>{
   }
-  onChangeUserType=()=>{
-    this.setState({userType:"doctor"})
+  onChangeUserType=(e)=>{
+    this.setState({userType:e.target.value})
     this.props.onClickToggleLogin()
   }
-  
 
   render() {
     let headerContent = <div></div>
     if(this.state.userType==='user'){
         headerContent=<div>User</div>
     }else if(this.state.userType==='doctor'){
-       headerContent=<div>Docter</div>
+        headerContent=<div>Docter</div>
+    }else if(this.state.userType==='guest'){
+        headerContent=<div>Guest</div>
     }
 
     const paneContent_Login = <div><LoginPaneContent></LoginPaneContent></div>

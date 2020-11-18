@@ -81,14 +81,17 @@ def login(listOfSystem_user):
         cursor.execute("select username,password from SYSTEM_USER where username='"+username0+"'")
         usernamePassword = cursor.fetchall()
         if(usernamePassword ==[]) :
+            # print(1)
             return(False,('Username Incorrect',None))
         if(password0 != usernamePassword[0][1]):
+            # print(2)
             return(False,('Passwod Incorrect',None))
+        # print(3)
         return(True,('OK',usernamePassword[0][0]))
     except Error as e : 
          return(False,("Error while executing to MySQL "+str(e)))
-    finally:
-        if (connection.is_connected()):
-            cursor.close()
-            connection.close()
-            return(False,("MySQL connection is closed"))
+    if (connection.is_connected()):
+        cursor.close()
+        connection.close()
+        # print('finally')
+        # return(False,("MySQL connection is closed"))

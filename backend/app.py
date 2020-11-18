@@ -15,22 +15,22 @@ def index():
 def register_endpoint():
     params = request.get_json()
     params_list = [
-        params.get('fname',''),
-        params.get('lname',''),
-        params.get('religion',''),
-        params.get('address',''),
-        params.get('province',''),
-        params.get('postal_code',''),
-        params.get('identification_number',''),
-        params.get('passport_number',''),
-        params.get('mobile_number',''),
-        params.get('nationality',''),
-        params.get('sex',''),
-        params.get('birthdate',''),
-        params.get('email',''),
-        params.get('username',''),
-        params.get('password',''),
-        params.get('user_type','')
+        params.get('fname','null'),
+        params.get('lname','null'),
+        params.get('religion','null'),
+        params.get('address','null'),
+        params.get('province','null'),
+        params.get('postal_code','null'),
+        params.get('identification_number','null'),
+        params.get('passport_number','null'),
+        params.get('mobile_number','null'),
+        params.get('nationality','null'),
+        params.get('sex','null'),
+        params.get('birthdate','null'),
+        params.get('email','null'),
+        params.get('username','null'),
+        params.get('password','null'),
+        params.get('user_type','null')
     ]
     print(params_list)
     # k = ['1111','2112','3311','4114','1155','51144','61144','74114','11844','44119','1110','2011-11-11','1211','111344','111444','15441r']
@@ -45,8 +45,8 @@ def register_endpoint():
 def login_endpoint():
     params = request.get_json()
     params_list = [
-        params.get('username',''),
-        params.get('password','')
+        params.get('username','null'),
+        params.get('password','null')
     ]
 
     print(params_list)

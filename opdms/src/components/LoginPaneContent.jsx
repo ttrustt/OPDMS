@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Button, Form} from 'react-bootstrap'
+import { Navbar, Nav, Button, Form, Spinner} from 'react-bootstrap'
 import axios from 'axios'
 class LoginPaneContent extends Component {
     state = { 
         username:'',
-        password:''
+        password:'',
+        loading:false,
+        status:''
      }
 
      onRequest = () => {
@@ -15,20 +17,39 @@ class LoginPaneContent extends Component {
         })
             .then((response) => {
                 console.log(response.data);
+                this.setState({status:response.data})
+                this.setState({loading:false})
             }, (error) => {
                 console.log(error);
             });
+    }
+    handleSubmit=()=>{
+        this.setState({loading:true})
+        this.onRequest()
     }
     render() {
         return (
             <Form>
                 <Form.Group >
                     <Form.Control  placeholder="Username" onChange={(e)=>this.setState({username:e.target.value})} />
-                    <Form.Control  placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
+                    <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
                 </Form.Group>
-                <Button variant="primary" onClick={this.onRequest}>
-                    Submit
+                <Button variant="primary" onClick={this.handleSubmit}>
+                    {this.state.loading?
+                    <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />:<div></div>}
+                        Submit
+
                 </Button>
+                <Form.Text id="passwordHelpBlock" muted>
+                 {this.state.status}
+                </Form.Text>
+
             </Form>
         );
     }

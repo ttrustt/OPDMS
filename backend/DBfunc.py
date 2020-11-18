@@ -57,23 +57,35 @@ def register(listOfSystem_user):
         connection.close()
         return(False,("MySQL connection is closed"))
 
-# def login(username , password): 
-#      try:
-#         connection = mysql.connector.connect(host='35.185.182.63',
-#                                             database='opdms',
-#                                             user='root',
-#                                             password='!Opdmstrust69')
-#         if connection.is_connected():
-#             db_Info = connection.get_server_info()
-#             print("Connected to MySQL Server version ", db_Info)
-#             cursor = connection.cursor()
-#             cursor.execute("select * from SYSTEM_USER")
-#             tableOfsystem_user = cursor.fetchall() 
+def login(listOfSystem_user):
+    username = listOfSystem_user[0]
+    password = listOfSystem_user[1]
+    
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
 
-#     except Error as e:
-#         print("Error while connecting to MySQL", e)
-#     finally:
-#         if (connection.is_connected()):
-#             cursor.close()
-#             connection.close()
-#             print("MySQL connection is closed")
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    
+    try: 
+        cursor = connection.cursor()
+        cursor.execute("select username,password from SYSTEM_USER where username='"+username+"'")
+        usernamePassword = cursor.fetchall()
+        if(usernamePassword ==[]) :
+            return(0,'Username Incorrect',None)
+        if(password != usernamePassword[0][1]): 
+            return(0,'Passwod Incorrect',None)
+        return(1,'OK',usernamePassword[0][0])
+    except Error as e : 
+        print('Error in MySQL' ,e)
+    finally:
+        if (connection.is_connected()):
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed")

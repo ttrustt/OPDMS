@@ -33,27 +33,46 @@ class Header extends Component {
 
 
   render() {
-    let headerContent = <div></div>
+    let userContent = <div></div>
     if(this.state.usertype==='User'){
-        headerContent=<div>User</div>
-    }else if(this.state.usertype==='Doctor'){
-        headerContent=<div>Doctor</div>
-    }else if(this.state.usertype==='Guest'){
-        headerContent=<div>Guest</div>
-    }else if(this.state.usertype==='Patient'){
-    headerContent=<div>Patient</div>
+      userContent=<div>User</div>
+    } else if(this.state.usertype==='Doctor') {
+      userContent=<div>Doctor</div>
+    } else if(this.state.usertype==='Guest') {
+      userContent=<div>Guest</div>
+    } else if(this.state.usertype==='Patient') {
+      userContent=<div>Patient</div>
     }
+
+    let headerContent1 = <div></div>
+    let headerContent2 = <div></div>
+    let headerContent3 = <div></div>
+    if (this.state.usertype==='Patient') {
+      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Make Appointment</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
+    } else if (this.state.usertype==='Doctor') {
+      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
+    } else if (this.state.usertype==='Pharmacist') {
+      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Make Medicine Order</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Pharma Room Storage</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickRegister}>Update Bill</Nav.Link>
+    } 
 
     const paneContent_Login = <div><LoginPaneContent onChangeUserType={(e)=>this.onChangeUserType(e)}></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
     let logButton = !this.state.logged? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
-    let regButton = !this.state.logged?<Nav.Link onClick={this.onClickRegister}>Register</Nav.Link>:<div></div>
+    let regButton = !this.state.logged? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link>:<div></div>
     return (
       <Navbar bg='light'>
         <Navbar.Brand href="#">OPDMS</Navbar.Brand>
-        {headerContent}
+        {userContent}
         <Navbar.Collapse className="justify-content-end">
         <Nav>
+          {headerContent1}
+          {headerContent2}
+          {headerContent3}
           {logButton}
           {regButton}
           </Nav>

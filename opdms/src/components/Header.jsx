@@ -5,6 +5,7 @@ import SlidingBar from './SlidingBar'
 import RegisterPaneContent from './RegisterPaneContent'
 import LoginPaneContent from './LoginPaneContent'
 import AppointmentPaneContent from './AppointmentPaneContent'
+import TableComponent from './TableComponent'
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Header extends Component {
@@ -75,6 +76,7 @@ class Header extends Component {
     let regButton = !this.state.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>
 
     return (
+      <React.Fragment>
       <Navbar bg='light'>
         <Navbar.Brand href="#">OPDMS</Navbar.Brand>
         {userContent}
@@ -111,6 +113,10 @@ class Header extends Component {
           ></SlidingBar>
         </Nav>
       </Navbar>
+        <TableComponent></TableComponent>
+       </React.Fragment>
+
+      
     );
   }
   componentDidMount(){

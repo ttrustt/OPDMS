@@ -17,11 +17,10 @@ class LoginPaneContent extends Component {
             password: this.state.password,
         })
             .then((response) => {
-                // console.log(response.data.usertype);
+                console.log(response.data.status);
                 this.setState({status:response.data.status})
                 this.setState({loading:false})
-                
-                this.props.onChangeUserType(response.data.usertype)
+                if(this.state.status==='OK')this.props.onChangeUserType(response.data.usertype)
             }, (error) => {
                 console.log(error);
             });

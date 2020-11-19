@@ -131,7 +131,7 @@ def showMedicine(listOfinput):
                  medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
             listofColumn = [] 
             for i in range(len(medicine[0])):
-                listofColumn.append({'title':cursor.description[i][0],'datakey':cursor.description[i][0],'key':cursor.description[i][0]})
+                listofColumn.append({'title':cursor.description[i][0],'dataKey':cursor.description[i][0],'key':cursor.description[i][0]})
             message = (True,'Show Medicine Success',medicine,listofColumn)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))

@@ -4,18 +4,17 @@ import Header from './Header'
 import _ from "lodash";
 import TableComponent from './TableComponent'
 import DataTable from './DataTable'
-
+import ShowMedicineTable from './ShowMedicineTable'
 class DashBoard extends Component {
   //Wrap up component for Grid layout and header and all of the 'module' state being stored here from the react component map in docs
   constructor(props) {
     super(props);
   }
+  
 
 
-  
-  
   render() {
-    
+
     const data = [
       {
         name: 'Mike',
@@ -47,10 +46,12 @@ class DashBoard extends Component {
         key: 'fname',
       },
     ];    
+    
     return (
       <React.Fragment>
       <Header></Header>
-      <DataTable data={data} columns={columns} ></DataTable>
+      {/* <DataTable data={data} columns={columns} ></DataTable> */}
+      <ShowMedicineTable user_id="1"></ShowMedicineTable>
       </React.Fragment>
     );
   }

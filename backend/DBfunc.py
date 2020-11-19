@@ -390,7 +390,7 @@ def updateMedicineOrder(listofInput):
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("UPDATE MEDICINE_ORDER SET status = 'ORDERED' where order_id = '"+str(ID) +"';")
+            cursor.execute("UPDATE MEDICINE_ORDER SET status = 'RECEIVED' where order_id = '"+str(ID) +"';")
             connection.commit()              
             message = (True, "Success")
         except Error as e : 

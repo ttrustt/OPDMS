@@ -8,8 +8,10 @@ class UpdateStatusPaneContent extends Component {
         order_id: null,
 
         response: '',
-        loading: false,
-        status:''
+        loadingBill: false,
+        loadingOrder: false,
+        billStatus:'',
+        orderStatus:''
     }
 
     onRequestBill = () => {
@@ -18,9 +20,9 @@ class UpdateStatusPaneContent extends Component {
             receipt_number: this.state.receipt_number,
         })
         .then((response) => {
-            this.setState({ loading: false })
-            console.log(response.data.status);
-            this.setState({status:response.data.status})
+            this.setState({ loadingBill: false })
+            console.log(response.data.billStatus);
+            this.setState({billStatus:response.data.billStatus})
         }, (error) => {
             console.log(error);
         });
@@ -32,9 +34,9 @@ class UpdateStatusPaneContent extends Component {
             order_id: this.state.order_id,
         })
         .then((response) => {
-            this.setState({ loading: false })
-            console.log(response.data.status);
-            this.setState({status:response.data.status})
+            this.setState({ loadingOrder: false })
+            console.log(response.data.orderStatus);
+            this.setState({orderStatus:response.data.orderStatus})
         }, (error) => {
             console.log(error);
         });
@@ -45,12 +47,12 @@ class UpdateStatusPaneContent extends Component {
     }
 
     handleSubmitBill = () => {
-        this.setState({ loading: true })
+        this.setState({ loadingBill: true })
         this.onRequestBill()
     }
 
     handleSubmitOrder = () => {
-        this.setState({ loading: true })
+        this.setState({ loadingOrder: true })
         this.onRequestOrder()
     }
     
@@ -61,7 +63,7 @@ class UpdateStatusPaneContent extends Component {
                     <Form.Control placeholder="Receipt Number" onChange={(e) => this.setState({ receipt_number: e.target.value })} />
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmitBill}>
-                    {this.state.loading?<Spinner
+                    {this.state.loadingBill ? <Spinner
                         as="span"
                         animation="border"
                         size="sm"
@@ -71,14 +73,14 @@ class UpdateStatusPaneContent extends Component {
                         Mark as PAID
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
-                {this.state.status}
+                {this.state.billStatus}
                 </Form.Text>
                 {'\u00A0'}
                 <Form.Group >
                     <Form.Control placeholder="Order ID" onChange={(e) => this.setState({ order_id: e.target.value })} />
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmitOrder}>
-                    {this.state.loading?<Spinner
+                    {this.state.loadingOrder ? <Spinner
                         as="span"
                         animation="border"
                         size="sm"
@@ -88,7 +90,7 @@ class UpdateStatusPaneContent extends Component {
                         Mark as RECEIVED
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
-                {this.state.status}
+                {this.state.orderStatus}
                 </Form.Text>
             </Form>
         );

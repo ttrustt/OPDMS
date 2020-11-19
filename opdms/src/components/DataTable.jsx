@@ -11,7 +11,7 @@ class DataTable extends Component {
     constructor(props) {
         super(props);
         this.state = {data:this.props.data, sortBy:defaultSort};
-        console.log(this.props.data)
+        // console.log(this.props.data)
     }
     componentDidMount(){
         this.state.data=this.props.data.map((row,dataIndex) => {
@@ -38,7 +38,7 @@ class DataTable extends Component {
         // console.log(column)
         if (columnIndex < 0) frozen = Column.FrozenDirection.LEFT
         if (columnIndex > 100) frozen = Column.FrozenDirection.RIGHT
-        return { ...column, frozen }
+        return { ...column, frozen ,resizable: true}
       })
       fixedColumns.push( {
         title: 'id',

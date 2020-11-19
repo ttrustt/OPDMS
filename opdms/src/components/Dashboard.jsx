@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import BarChart from './BarChart'
+import { Jumbotron, Container } from 'react-bootstrap'
 import Header from './Header'
 import _ from "lodash";
-import TableComponent from './TableComponent'
+// import TableComponent from './TableComponent'
 // import DataTable from './DataTable'
 import ShowTable from './ShowTable'
 class DashBoard extends Component {
@@ -10,16 +11,29 @@ class DashBoard extends Component {
   constructor(props) {
     super(props);
   }
-  
 
 
-  render() {    
+
+  render() {
     return (
       <React.Fragment>
-      <Header></Header>
-      {/* <DataTable data={data} columns={columns} ></DataTable> */}
-      {/* <ShowTable APIendpoint="showmedicine" payload={{user_id:'1'}}></ShowTable> */}
-      <ShowTable APIendpoint="showuser" payload={{}}></ShowTable>
+        <Header></Header>
+        {/* <DataTable data={data} columns={columns} ></DataTable> */}
+        {/* <ShowTable APIendpoint="showmedicine" payload={{user_id:'1'}}></ShowTable> */}
+        <Jumbotron fluid>
+          <Container>
+            <h1>Welcome to OPDMS</h1>
+            <p>OPDMS stands for Out patient management system</p>
+          </Container>
+        </Jumbotron>
+        {/* <Container style={{marginLeft:30}}>
+           <p>Active Users in OPDMS</p>
+           </Container> */}
+          <ShowTable APIendpoint="showuser" payload={{}}></ShowTable>
+        {/* <br />
+        <div style={{ height: 300 }}>
+          <ShowTable APIendpoint="showmedicine" payload={{ user_id: 1 }}></ShowTable>
+        </div> */}
       </React.Fragment>
     );
   }

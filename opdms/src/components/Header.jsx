@@ -7,7 +7,7 @@ import LoginPaneContent from './LoginPaneContent'
 import AppointmentPaneContent from './AppointmentPaneContent'
 import OrderPaneContent from './OrderPaneContent'
 import UpdateStatusPaneContent from './UpdateStatusPaneContent'
-import TableComponent from './TableComponent'
+// import TableComponent from './TableComponent'
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Header extends Component {

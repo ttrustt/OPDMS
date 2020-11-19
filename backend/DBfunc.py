@@ -196,7 +196,7 @@ def showUser():
             cursor.execute("select username, fname, lname from SYSTEM_USER")
             usernameFnameLname = cursor.fetchall()           
             attribute = ["username", "fname", "lname"]
-            listOfColumn = [{"title":x, "datakey":x, "key":x} for x in attribute]
+            listOfColumn = [{"title":x, "dataKey":x, "key":x} for x in attribute]
             listOfData = [{} for i in range(len(usernameFnameLname))]
             for i in range(len(usernameFnameLname)):
                 for j in range(3):

@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import Header from './Header'
 import _ from "lodash";
 import TableComponent from './TableComponent'
-import DataTable from './DataTable'
-import ShowMedicineTable from './ShowMedicineTable'
+// import DataTable from './DataTable'
+import ShowTable from './ShowTable'
 class DashBoard extends Component {
   //Wrap up component for Grid layout and header and all of the 'module' state being stored here from the react component map in docs
   constructor(props) {
@@ -13,45 +13,13 @@ class DashBoard extends Component {
   
 
 
-  render() {
-
-    const data = [
-      {
-        name: 'Mike',
-        fname: 'Passawit'
-      },
-      {
-        name: 'Peem',
-        fname: 'Peerawit'
-      },
-      {
-        name: 'Mic',
-        fname: 'Parawout'
-      },
-      {
-        name: 'Piano',
-        fname: 'Pafft'
-    
-      },
-    ];
-    const columns = [
-      {
-        title: 'name',
-        dataKey: 'name',
-        key: 'name',
-      },
-      {
-        title: 'fname',
-        dataKey: 'fname',
-        key: 'fname',
-      },
-    ];    
-    
+  render() {    
     return (
       <React.Fragment>
       <Header></Header>
       {/* <DataTable data={data} columns={columns} ></DataTable> */}
-      <ShowMedicineTable user_id="1"></ShowMedicineTable>
+      {/* <ShowTable APIendpoint="showmedicine" payload={{user_id:'1'}}></ShowTable> */}
+      <ShowTable APIendpoint="showuser" payload={{}}></ShowTable>
       </React.Fragment>
     );
   }

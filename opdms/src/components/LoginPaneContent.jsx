@@ -25,31 +25,34 @@ class LoginPaneContent extends Component {
                 console.log(error);
             });
     }
-    handleSubmit=()=>{
+
+    handleSubmit = () => {
         this.setState({loading:true})
         this.onRequest()
     }
+    
     render() {
         return (
             <Form>
                 <Form.Group >
-                    <Form.Control  placeholder="Username" onChange={(e)=>this.setState({username:e.target.value})} />
+                    <Form.Control placeholder="Username" onChange={(e)=>this.setState({username:e.target.value})} />
+                    {'\u00A0'}
                     <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmit}>
-                    {this.state.loading?
+                    {this.state.loading ?
                     <Spinner
                         as="span"
                         animation="border"
                         size="sm"
                         role="status"
                         aria-hidden="true"
-                    />:<div></div>}
+                    /> : <div></div>}
                         Submit
 
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
-                 {this.state.status}
+                {this.state.status}
                 </Form.Text>
 
             </Form>

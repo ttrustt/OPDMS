@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, Button, Form, Spinner } from 'react-bootstrap'
 import axios from 'axios'
 
-class UpdateBillPaneContent extends Component {
+class UpdateStatusPaneContent extends Component {
     state = {
         receipt_number: null,
 
@@ -58,4 +58,4 @@ class UpdateBillPaneContent extends Component {
     }
 }
 
-export default UpdateBillPaneContent;
+export default UpdateStatusPaneContent;

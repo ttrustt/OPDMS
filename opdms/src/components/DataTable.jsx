@@ -35,7 +35,8 @@ class DataTable extends Component {
         fixedColumns.push( {
             title: 'id',
             dataKey: 'id',
-            key:'id'
+            key:'id',
+            width:150
           })
         const dataWithId = this.props.data.map((row,dataIndex) => {
             row.id=dataIndex
@@ -49,8 +50,8 @@ class DataTable extends Component {
                         height={height}
                         columns={fixedColumns}
                         data={dataWithId}
-                        sortBy={this.state.sortBy}
-                        onColumnSort={this.onColumnSort}
+                        // sortBy={this.state.sortBy}
+                        // onColumnSort={this.onColumnSort}
                     />
                 )}
             </AutoResizer>

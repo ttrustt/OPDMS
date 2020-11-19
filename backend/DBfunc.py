@@ -26,10 +26,6 @@ def register(listOfSystem_user):
     password = "'"+listOfSystem_user[14]+"'"
     user_type = "'"+listOfSystem_user[15]+"'"
     message = 'error'
-    if(identification_number==''):
-        identification_number = None
-    if(passport_number==''):
-        passport_number = None
     try:
         connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
@@ -46,7 +42,10 @@ def register(listOfSystem_user):
     
     if (connection.is_connected()):
         try:
-            cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
+            if (identification_number==''):
+                cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(fname,lname,religion,address_,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
+            elif (passport_number==''):
+                cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
             connection.commit()
             message =  (True,'Register success!')
         except Error as e:

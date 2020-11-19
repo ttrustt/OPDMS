@@ -36,8 +36,8 @@ def register_endpoint():
     # k = ['1111','2112','3311','4114','1155','51144','61144','74114','11844','44119','1110','2011-11-11','1211','111344','111444','15441r']
     dbfunc_status = register(params_list)
     print(dbfunc_status)
-    if(not dbfunc_status[0]):return custom_error(dbfunc_status[1],200)
-    response = make_response(jsonify({'status':'OK'}),200)
+    if(not dbfunc_status[0]):return make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
     return response
 
 @app.route('/login', methods=['POST'])
@@ -52,8 +52,8 @@ def login_endpoint():
     print(params_list)
     dbfunc_status = login(params_list)
     print(dbfunc_status)
-    if(not dbfunc_status[0]):response= make_response(jsonify({'status':dbfunc_status[1]}),200)
-    else: response = make_response(jsonify({'status':'OK','username':dbfunc_status[1],'usertype':dbfunc_status[2]}),200)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'username':dbfunc_status[2],'usertype':dbfunc_status[3]}),200)
     return response
 
 

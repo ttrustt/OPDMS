@@ -6,6 +6,7 @@ import RegisterPaneContent from './RegisterPaneContent'
 import LoginPaneContent from './LoginPaneContent'
 import AppointmentPaneContent from './AppointmentPaneContent'
 import OrderPaneContent from './OrderPaneContent'
+import UpdateBillPaneContent from './UpdateBillPaneContent'
 import TableComponent from './TableComponent'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -16,6 +17,7 @@ class Header extends Component {
     toggleRegisterPane:false,
     toggleAppointmentPane:false,
     toggleOrderPane:false,
+    toggleUpdateBillPane:false,
     usertype:'Guest',
     logged:false,
     logged_id:null,
@@ -32,6 +34,9 @@ class Header extends Component {
   }
   onClickOrder = () => {
     this.setState({toggleOrderPane:!this.state.toggleOrderPane})
+  }
+  onClickUpdateBill = () => {
+    this.setState({toggleUpdateBillPane:!this.state.toggleUpdateBillPane})
   }
   onClickLogout = () => {
    this.onLoggedOut()
@@ -71,13 +76,14 @@ class Header extends Component {
     } else if (this.state.usertype==='Pharmacist') {
       headerContent1 = <Nav.Link onClick={this.onClickOrder}>Make Medicine Order</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Pharma Room Storage</Nav.Link>
-      headerContent3 = <Nav.Link onClick={this.onClickRegister}>Update Bill</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickUpdateBill}>Update Bill</Nav.Link>
     } 
 
     const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.onLoggedIn(e)} onLoggedOut={this.onClickLogout}></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
     const paneContent_Appointment = <div><AppointmentPaneContent/></div>
     const paneContent_Order = <div><OrderPaneContent/></div>
+    const paneContent_UpdateBill = <div><UpdateBillPaneContent/></div>
     let logButton = !this.state.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
     let regButton = !this.state.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>
 
@@ -123,6 +129,13 @@ class Header extends Component {
             onTogglePane={this.onClickOrder} 
             paneContent={paneContent_Order}
             title={'Make Medicine Order'}
+          ></SlidingBar>
+          <SlidingBar 
+            onClickToggleUpdateBill={this.onClickToggleUpdateBill}
+            isPaneOpen={this.state.toggleUpdateBillPane} 
+            onTogglePane={this.onClickUpdateBill} 
+            paneContent={paneContent_UpdateBill}
+            title={'Update Bill'}
           ></SlidingBar>
         </Nav>
       </Navbar>

@@ -95,3 +95,43 @@ def login(listOfSystem_user):
         # print('finally')
         # return(False,("MySQL connection is closed"))
     return message 
+
+def showMedicine(listOfinput): 
+    userID = listOfinput[0] 
+    message = 'error'
+    try: 
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("SELECT dp.created_time, CONCAT( u.fname, ' ', u.lname ) AS doctor_name, general_name, quantity, description \
+                FROM diagnosis d, dispensation dp, medicine m, schedule s, doctor c, system_user u, patient p, system_user su \
+                WHERE dp.visit_number = d.visit_number \
+                AND dp.pharma_code = m.pharma_code \
+                AND d.schedule_number = s.schedule_number \
+                AND s.doctor_id = c.doctor_id \
+                AND s.patient_id = p.patient_id \
+                AND c.user_id = u.user_id \
+                AND p.user_id = su.user_id \
+                AND su.user_id = '"+ str(userID) +"';")
+            medicine = cursor.fetchall()
+            for i in range(len(medicine)): 
+                medicine[i] = {cursor.description[i][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[i][1]:medicine[i][1],cursor.description[i][2]:medicine[i][2],cursor.description[i][3]:medicine[i][3],cursor.description[i][4]:medicine[i][4].strip()}
+            message = json.dumps(medicine)
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+        # print('finally')
+        # return(False,("MySQL connection is closed"))
+    return message 

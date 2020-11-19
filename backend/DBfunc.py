@@ -2,6 +2,7 @@ import os
 import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
+import json
 from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
 databasename='opdms'
 
@@ -115,7 +116,7 @@ def showMedicine(listOfinput):
         try: 
             cursor = connection.cursor()
             cursor.execute("SELECT dp.created_time, CONCAT( u.fname, ' ', u.lname ) AS doctor_name, general_name, quantity, description \
-                FROM diagnosis d, dispensation dp, medicine m, schedule s, doctor c, system_user u, patient p, system_user su \
+                FROM DIAGNOSIS d, DISPENSATION dp, MEDICINE m, SCHEDULE s, DOCTOR c, SYSTEM_USER u, PATIENT p, SYSTEM_USER su \
                 WHERE dp.visit_number = d.visit_number \
                 AND dp.pharma_code = m.pharma_code \
                 AND d.schedule_number = s.schedule_number \
@@ -169,5 +170,5 @@ def createAppointment(listOfSystem):
         cursor.close()
         connection.close()
         # print(3)
-        # message = (False,("MySQL connection is closed"))
+        message = (False,("MySQL connection is closed"))
     return message

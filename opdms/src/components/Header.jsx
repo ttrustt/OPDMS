@@ -5,6 +5,7 @@ import SlidingBar from './SlidingBar'
 import RegisterPaneContent from './RegisterPaneContent'
 import LoginPaneContent from './LoginPaneContent'
 import AppointmentPaneContent from './AppointmentPaneContent'
+import OrderPaneContent from './OrderPaneContent'
 import TableComponent from './TableComponent'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -14,6 +15,7 @@ class Header extends Component {
     toggleLoginPane:false,
     toggleRegisterPane:false,
     toggleAppointmentPane:false,
+    toggleOrderPane:false,
     usertype:'Guest',
     logged:false,
     logged_id:null,
@@ -27,6 +29,9 @@ class Header extends Component {
   }
   onClickAppointment = () => {
     this.setState({toggleAppointmentPane:!this.state.toggleAppointmentPane})
+  }
+  onClickOrder = () => {
+    this.setState({toggleOrderPane:!this.state.toggleOrderPane})
   }
   onClickLogout = () => {
    this.onLoggedOut()
@@ -64,7 +69,7 @@ class Header extends Component {
       headerContent1 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
     } else if (this.state.usertype==='Pharmacist') {
-      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Make Medicine Order</Nav.Link>
+      headerContent1 = <Nav.Link onClick={this.onClickOrder}>Make Medicine Order</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Pharma Room Storage</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>Update Bill</Nav.Link>
     } 
@@ -72,6 +77,7 @@ class Header extends Component {
     const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.onLoggedIn(e)} onLoggedOut={this.onClickLogout}></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
     const paneContent_Appointment = <div><AppointmentPaneContent/></div>
+    const paneContent_Order = <div><OrderPaneContent/></div>
     let logButton = !this.state.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
     let regButton = !this.state.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>
 
@@ -110,6 +116,13 @@ class Header extends Component {
             onTogglePane={this.onClickAppointment} 
             paneContent={paneContent_Appointment}
             title={'Make Appointment'}
+          ></SlidingBar>
+          <SlidingBar 
+            onClickToggleOrder={this.onClickToggleOrder}
+            isPaneOpen={this.state.toggleOrderPane} 
+            onTogglePane={this.onClickOrder} 
+            paneContent={paneContent_Order}
+            title={'Make Medicine Order'}
           ></SlidingBar>
         </Nav>
       </Navbar>

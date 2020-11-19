@@ -135,3 +135,38 @@ def showMedicine(listOfinput):
         # print('finally')
         # return(False,("MySQL connection is closed"))
     return message 
+
+
+def createAppointment(listOfSystem):
+    patient_id = listOfSystem[0]
+    doctor_id = listOfSystem[1]
+    time_in = listOfSystem[2]
+    time_out = listOfSystem[3]
+    diagnosis_room_id = listOfSystem[4]
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+            cursor = connection.cursor()
+
+    except Error as e:
+        message = (False,("Error while connecting to MySQL", e))
+    
+    try:
+        cursor.execute("insert into SCHEDULE (patient_id, doctor_id, time_in, time_out, diagnosis_room_id) values (""'"+str(patient_id)+"','"+str(doctor_id)+"','"+str(time_in)+ \
+            "','"+str(time_out)+"','"+str(diagnosis_room_id)+"');")
+        connection.commit()
+        message = (True,'Create appointment success!')
+    except Error as e:
+        message = (False,("Error while executing to MySQL "+str(e)))
+
+    if (connection.is_connected()):
+        cursor.close()
+        connection.close()
+        message = (False,("MySQL connection is closed"))
+    return message

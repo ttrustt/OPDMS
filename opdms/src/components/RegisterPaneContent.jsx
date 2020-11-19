@@ -47,22 +47,24 @@ class RegisterPaneContent extends Component {
             password: this.state.password,
             user_type: this.state.user_type
         })
-            .then((response) => {
-                this.setState({ loading: false })
-                console.log(response.data.status);
-                this.setState({status:response.data.status})
-            }, (error) => {
-                console.log(error);
-            });
+        .then((response) => {
+            this.setState({ loading: false })
+            console.log(response.data.status);
+            this.setState({status:response.data.status})
+        }, (error) => {
+            console.log(error);
+        });
     }
+
     componentDidUpdate() {
         // console.log(this.state)
     }
+
     handleSubmit = () => {
         this.setState({ loading: true })
         this.onRequest()
-
     }
+    
     render() {
         return (
             <Form>
@@ -110,7 +112,7 @@ class RegisterPaneContent extends Component {
                         Submit
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
-                 {this.state.status}
+                {this.state.status}
                 </Form.Text>
             </Form>
         );

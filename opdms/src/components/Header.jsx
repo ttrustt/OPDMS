@@ -52,7 +52,7 @@ class Header extends Component {
     let headerContent1 = <div></div>
     let headerContent2 = <div></div>
     let headerContent3 = <div></div>
-    if (this.state.usertype==='Guest') {
+    if (this.state.usertype==='Patient') {
       headerContent1 = <Nav.Link onClick={this.onClickAppointment}>Make Appointment</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>

@@ -108,6 +108,35 @@ def showuser_endpoint():
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
     return response
 
+@app.route('/updatebill', methods=['POST'])
+@cross_origin()
+def updatebill_endpoint():
+    params = request.get_json()
+    params_list = [
+        params.get('receipt_number','null')
+    ]
+
+    print(params_list)
+    dbfunc_status = updateReceipt(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'billStatus':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'billStatus':dbfunc_status[1]}),200)
+    return response
+
+@app.route('/updateorder', methods=['POST'])
+@cross_origin()
+def updateorder_endpoint():
+    params = request.get_json()
+    params_list = [
+        params.get('order_id','null')
+    ]
+
+    print(params_list)
+    dbfunc_status = updateMedicineOrder(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'orderStatus':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'orderStatus':dbfunc_status[1]}),200)
+    return response
 
 def custom_error(message, status_code):
     response = make_response(jsonify(message), status_code)

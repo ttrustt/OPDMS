@@ -16,18 +16,23 @@ class DashBoard extends Component {
   
   render() {
     
-    const dataSource = [
+    const data = [
       {
         name: 'Mike',
-        age: 32,
-        address: '10 Downing Street',
-        id: 1
+        fname: 'Passawit'
       },
       {
-        name: 'John',
-        age: 42,
-        address: '10 Doning Street',
-        id: 2
+        name: 'Peem',
+        fname: 'Peerawit'
+      },
+      {
+        name: 'Mic',
+        fname: 'Parawout'
+      },
+      {
+        name: 'Piano',
+        fname: 'Pafft'
+    
       },
     ];
     const columns = [
@@ -35,25 +40,17 @@ class DashBoard extends Component {
         title: 'name',
         dataKey: 'name',
         key: 'name',
-        width:150
       },
       {
-        title: 'age',
-        dataKey: 'age',
-        key: 'age',
-        width:150
-      },
-      {
-        title: 'address',
-        dataKey: 'address',
-        key: 'address',
-        width:150
+        title: 'fname',
+        dataKey: 'fname',
+        key: 'fname',
       },
     ];    
     return (
       <React.Fragment>
       <Header></Header>
-      <DataTable data={dataSource} columns={columns}></DataTable>
+      <DataTable data={data} columns={columns} ></DataTable>
       </React.Fragment>
     );
   }

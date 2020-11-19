@@ -56,6 +56,25 @@ def login_endpoint():
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'username':dbfunc_status[2],'usertype':dbfunc_status[3]}),200)
     return response
 
+@app.route('/createappointment', methods=['POST'])
+@cross_origin()
+def createappointment_endpoint():
+    params = request.get_json()
+    params_list = [
+        params.get('patient_id','null'),
+        params.get('doctor_id','null'),
+        params.get('time_in','null'),
+        params.get('time_in','null'),
+        params.get('diagnosis_room_id','null'),
+    ]
+
+    print(params_list)
+    dbfunc_status = createAppointment(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    return response
+
 
 def custom_error(message, status_code):
     response = make_response(jsonify(message), status_code)

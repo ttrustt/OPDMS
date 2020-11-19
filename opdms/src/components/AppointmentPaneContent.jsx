@@ -17,7 +17,7 @@ class AppointmentPaneContent extends Component {
 
     onRequest = () => {
         console.log(this.state)
-        axios.post('http://127.0.0.1:5000/appointment', {
+        axios.post('http://127.0.0.1:5000/createappointment', {
             patient_id: this.state.patient_id,
             doctor_id: this.state.doctor_id,
             time_in: this.state.time_in,
@@ -46,6 +46,8 @@ class AppointmentPaneContent extends Component {
         return (
             <Form>
                 <Form.Group >
+                <Form.Control placeholder="Patient ID" onChange={(e) => this.setState({ patient_id: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Doctor ID" onChange={(e) => this.setState({ doctor_id: e.target.value })} />
                     {'\u00A0'}
                     <Form.Control placeholder="Time In" onChange={(e) => this.setState({ time_in: e.target.value })} />

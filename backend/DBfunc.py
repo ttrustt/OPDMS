@@ -42,9 +42,9 @@ def register(listOfSystem_user):
     
     if (connection.is_connected()):
         try:
-            if (identification_number==''):
+            if (identification_number=='null'):
                 cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(fname,lname,religion,address_,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
-            elif (passport_number==''):
+            elif (passport_number=='null'):
                 cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
             connection.commit()
             message =  (True,'Register success!')

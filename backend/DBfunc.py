@@ -9,23 +9,27 @@ databasename='opdms'
 ############## Function
 
 def register(listOfSystem_user):
-    fname = listOfSystem_user[0]
-    lname = listOfSystem_user[1]
-    religion = listOfSystem_user[2]
-    address = listOfSystem_user[3]
-    province = listOfSystem_user[4]
-    postal_code = listOfSystem_user[5]
+    fname = "'"+listOfSystem_user[0]+"'"
+    lname = "'"+listOfSystem_user[1]+"'"
+    religion = "'"+listOfSystem_user[2]+"'"
+    address = "'"+listOfSystem_user[3]+"'"
+    province = "'"+listOfSystem_user[4]+"'"
+    postal_code = "'"+listOfSystem_user[5]+"'"
     identification_number = listOfSystem_user[6]
     passport_number = listOfSystem_user[7]
-    mobile_number = listOfSystem_user[8]
-    nationality = listOfSystem_user[9]
-    sex = listOfSystem_user[10]
-    birthdate = listOfSystem_user[11]
-    email =listOfSystem_user[12]
-    username = listOfSystem_user[13]
-    password = listOfSystem_user[14]
-    user_type = listOfSystem_user[15]
+    mobile_number = "'"+listOfSystem_user[8]+"'"
+    nationality = "'"+listOfSystem_user[9]+"'"
+    sex = "'"+listOfSystem_user[10]+"'"
+    birthdate = "'"+listOfSystem_user[11]+"'"
+    email ="'"+listOfSystem_user[12]+"'"
+    username = "'"+listOfSystem_user[13]+"'"
+    password = "'"+listOfSystem_user[14]+"'"
+    user_type = "'"+listOfSystem_user[15]+"'"
     message = 'error'
+    if(identification_number==''):
+        identification_number = None
+    if(passport_number==''):
+        passport_number = None
     try:
         connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
@@ -42,7 +46,7 @@ def register(listOfSystem_user):
     
     if (connection.is_connected()):
         try:
-            cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s')''',(fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
+            cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
             connection.commit()
             message =  (True,'Register success!')
         except Error as e:

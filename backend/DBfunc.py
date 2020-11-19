@@ -346,3 +346,55 @@ def createMedicine(listOfInput):
         cursor.close()
         connection.close()
     return message
+
+def updateReceipt(listofInput): 
+    ID = listofInput[0]
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message =(False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("UPDATE RECEIPT SET status = 'PAID' where receipt_number = '"+str(ID) +"';")
+            connection.commit()              
+            message = (True, "Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+def updateMedicineOrder(listofInput): 
+    ID = listofInput[0]
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("UPDATE MEDICINE_ORDER SET status = 'ORDERED' where order_id = '"+str(ID) +"';")
+            connection.commit()              
+            message = (True, "Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message

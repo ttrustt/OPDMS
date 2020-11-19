@@ -52,7 +52,7 @@ class Header extends Component {
     let headerContent1 = <div></div>
     let headerContent2 = <div></div>
     let headerContent3 = <div></div>
-    if (this.state.usertype==='Guest') {
+    if (this.state.usertype==='Patient') {
       headerContent1 = <Nav.Link onClick={this.onClickAppointment}>Make Appointment</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
@@ -65,7 +65,7 @@ class Header extends Component {
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>Update Bill</Nav.Link>
     } 
 
-    const paneContent_Login = <div><LoginPaneContent onChangeUserType={(e)=>this.onChangeUserType(e)}></LoginPaneContent></div>
+    const paneContent_Login = <div><LoginPaneContent onChangeUserType={(e)=>this.onChangeUserType(e)} onClickLogout={this.onClickLogout}></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
     const paneContent_Appointment = <div><AppointmentPaneContent/></div>
     let logButton = !this.state.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>

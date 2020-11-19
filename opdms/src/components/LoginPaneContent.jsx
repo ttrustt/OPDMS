@@ -7,7 +7,6 @@ class LoginPaneContent extends Component {
         password:'',
         loading:false,
         status:'',
-        usertype:''
      }
 
      onRequest = () => {
@@ -17,19 +16,21 @@ class LoginPaneContent extends Component {
             password: this.state.password,
         })
             .then((response) => {
-                // console.log(response.data.usertype);
+                console.log(response.data.status);
                 this.setState({status:response.data.status})
                 this.setState({loading:false})
-                
-                this.props.onChangeUserType(response.data.usertype)
+                if(this.state.status==='OK')this.props.onChangeUserType(response.data.usertype)
+                else {this.props.onClickLogout()}
             }, (error) => {
                 console.log(error);
             });
     }
-    handleSubmit=()=>{
+
+    handleSubmit = () => {
         this.setState({loading:true})
         this.onRequest()
     }
+    
     render() {
         return (
             <Form>
@@ -39,19 +40,19 @@ class LoginPaneContent extends Component {
                     <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmit}>
-                    {this.state.loading?
+                    {this.state.loading ?
                     <Spinner
                         as="span"
                         animation="border"
                         size="sm"
                         role="status"
                         aria-hidden="true"
-                    />:<div></div>}
+                    /> : <div></div>}
                         Submit
 
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
-                 {this.state.status}
+                {this.state.status}
                 </Form.Text>
 
             </Form>

@@ -32,13 +32,16 @@ class AppointmentPaneContent extends Component {
             console.log(error);
         });
     }
+
     componentDidUpdate() {
         // console.log(this.state)
     }
+
     handleSubmit = () => {
         this.setState({ loading: true })
         this.onRequest()
     }
+    
     render() {
         return (
             <Form>

@@ -52,8 +52,8 @@ def login_endpoint():
     print(params_list)
     dbfunc_status = login(params_list)
     print(dbfunc_status)
-    if(not dbfunc_status[0]):return custom_error(dbfunc_status[1],200)
-    response = make_response(jsonify({'status':'OK','username':dbfunc_status[1][0],'usertype':dbfunc_status[1][1]}),200)
+    if(not dbfunc_status[0]):response= make_response(jsonify({'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'status':'OK','username':dbfunc_status[1],'usertype':dbfunc_status[2]}),200)
     return response
 
 

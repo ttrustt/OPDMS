@@ -113,7 +113,7 @@ class Header extends Component {
           ></SlidingBar>
         </Nav>
       </Navbar>
-        <TableComponent></TableComponent>
+        {/* <TableComponent></TableComponent> */}
        </React.Fragment>
 
       

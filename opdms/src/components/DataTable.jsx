@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import Table from "rc-table";
-import BaseTable, { AutoResizer, Column, SortOrder } from 'react-base-table'
-import MUIDataTable from "mui-datatables";
 // import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import React, { Component } from 'react';
+import BaseTable, { AutoResizer, Column, SortOrder } from 'react-base-table'
 import 'react-base-table/styles.css'
+// import BootstrapTable from 'react-bootstrap-table-next';
+
 const defaultSort = { key: 'id', order: SortOrder.DSC }
-class TableComponent extends Component {
-      //structure for DataTableComponent
-      constructor(props) {
+
+class DataTable extends Component {
+  //structure for DataTableComponent
+    constructor(props) {
         super(props);
         this.state = {data:this.props.data, sortBy:defaultSort};
     }
@@ -27,7 +28,7 @@ class TableComponent extends Component {
         // console.log(column)
         column.width = 150
         column.sortable=true
-        console.log(column)
+        // console.log(column)
         if (columnIndex < 0) frozen = Column.FrozenDirection.LEFT
         if (columnIndex > 100) frozen = Column.FrozenDirection.RIGHT
         return { ...column, frozen }
@@ -73,5 +74,4 @@ class TableComponent extends Component {
         }
       }
 }
-
-export default TableComponent;
+export default DataTable;

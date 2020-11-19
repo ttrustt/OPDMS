@@ -359,7 +359,7 @@ def updateReceipt(listofInput):
             message = ("Connected to MySQL Server version ", db_Info)  
 
     except Error as e:
-        return (False,"Error while connecting to MySQL", e)
+        message =(False,"Error while connecting to MySQL", e)
 
     if (connection.is_connected()):
         try: 
@@ -385,7 +385,7 @@ def updateMedicineOrder(listofInput):
             message = ("Connected to MySQL Server version ", db_Info)  
 
     except Error as e:
-        return (False,"Error while connecting to MySQL", e)
+        message = (False,"Error while connecting to MySQL", e)
 
     if (connection.is_connected()):
         try: 

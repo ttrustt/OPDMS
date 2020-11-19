@@ -172,7 +172,7 @@ def createAppointment(listOfSystem):
     return message
 
 
-def getUser():
+def showUser():
     message = 'error'
     try:
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -196,12 +196,12 @@ def getUser():
             for i in range(len(usernameFnameLname)):
                 for j in range(3):
                     listOfData[i][attribute[j]] = usernameFnameLname[i][j].strip()
-            print(listOfData)
+            # print(listOfData)
             message = (True, "Success", listOfData, attribute)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
         # print(3)
-        message = (False,("MySQL connection is closed"))
+        # message = (False,("MySQL connection is closed"))
     return message

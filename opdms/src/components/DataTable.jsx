@@ -10,14 +10,14 @@ class DataTable extends Component {
     //structure for DataTableComponent
     constructor(props) {
         super(props);
-        this.state = {sortBy: defaultSort };
+        this.state = {data:this.props.data,sortBy: defaultSort };
         // console.log(this.props.data,'from datatable')
     }
     componentDidMount(){}
     onColumnSort = sortBy => {
         //sort column
         const order = sortBy.order === SortOrder.ASC ? 1 : -1
-        const data = [...this.props.data]
+        const data = [...this.state.data]
         data.sort((a, b) => (a[sortBy.key] > b[sortBy.key] ? order : -order))
         this.setState({
             sortBy,
@@ -39,7 +39,7 @@ class DataTable extends Component {
             key:'id',
             width:150
           })
-        const dataWithId = this.props.data.map((row,dataIndex) => {
+        const dataWithId = this.state.data.map((row,dataIndex) => {
             row.id=dataIndex
             return {...row}
         })
@@ -50,8 +50,10 @@ class DataTable extends Component {
                     <BaseTable
                         width={width}
                         height={height}
-                        columns={this.props.columns}
-                        data={this.props.data}
+                        columns={fixedColumns}
+                        data={dataWithId}
+                        sortBy={this.state.sortBy}
+                        onColumnSort={this.onColumnSort}
                     />
                 )}
             </AutoResizer>

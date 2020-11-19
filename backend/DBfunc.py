@@ -157,16 +157,48 @@ def createAppointment(listOfSystem):
     except Error as e:
         message = (False,("Error while connecting to MySQL", e))
     
-    try:
-        cursor.execute("insert into SCHEDULE (patient_id, doctor_id, time_in, time_out, diagnosis_room_id) values (""'"+str(patient_id)+"','"+str(doctor_id)+"','"+str(time_in)+ \
-            "','"+str(time_out)+"','"+str(diagnosis_room_id)+"');")
-        connection.commit()
-        message = (True,'Create appointment success!')
-    except Error as e:
-        message = (False,("Error while executing to MySQL "+str(e)))
-
     if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("insert into SCHEDULE (patient_id, doctor_id, time_in, time_out, diagnosis_room_id) values (""'"+str(patient_id)+"','"+str(doctor_id)+"','"+str(time_in)+ \
+                "','"+str(time_out)+"','"+str(diagnosis_room_id)+"');")
+            connection.commit()
+            message = (True,'Create appointment success!')
+        except Error as e:
+            message = (False,("Error while executing to MySQL "+str(e)))
         cursor.close()
         connection.close()
-        message = (False,("MySQL connection is closed"))
+    return message
+
+
+def getUser():
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        return (False,"Error while connecting to MySQL", e)
+    
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select username, fname, lname from SYSTEM_USER")
+            usernameFnameLname = cursor.fetchall()           
+            attribute = ["username", "fname", "lname"]
+            listOfData = [{} for i in range(len(usernameFnameLname))]
+            for i in range(len(usernameFnameLname)):
+                for j in range(3):
+                    listOfData[i][attribute[j]] = usernameFnameLname[i][j].strip()
+            print(listOfData)
+            message = (True, "Success", listOfData, attribute)
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
     return message

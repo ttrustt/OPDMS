@@ -35,7 +35,7 @@ class Header extends Component {
     this.setState({usertype:e.usertype,username:e.username,logged:true})
   }
   onLoggedOut =()=>{
-    console.log('Logging out')
+    // console.log('Logging out')
     this.setState({logged:false,usertype:'Guest',username:null})
   }
 

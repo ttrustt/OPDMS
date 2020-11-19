@@ -48,9 +48,9 @@ def register(listOfSystem_user):
                 str(mobile_number)+"','"+str(nationality)+"','"+str(sex)+"','"+str(birthdate)+ "','"+str(email)+"','"+str(username)+"','"+str(password)+ \
                 "','"+str(user_type)+"');")
             connection.commit()
-            message =  (True,'OK')
+            message =  (True,'Register success!')
         except Error as e:
-            message = (False,"Error while executing to MySQL "+str(e))
+            message = (False,str(e).split(':')[1])
         cursor.close()
         connection.close()
     return message 

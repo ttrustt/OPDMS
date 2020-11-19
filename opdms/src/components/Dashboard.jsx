@@ -19,15 +19,19 @@ class DashBoard extends Component {
     const data = [
       {
         name: 'Mike',
+        fname: 'Passawit'
       },
       {
         name: 'Peem',
+        fname: 'Peerawit'
       },
       {
         name: 'Mic',
+        fname: 'Parawout'
       },
       {
         name: 'Piano',
+        fname: 'Pafft'
     
       },
     ];
@@ -38,10 +42,10 @@ class DashBoard extends Component {
         key: 'name',
       },
       {
-        title: 'id',
-        dataKey: 'id',
-        key:'id'
-      }
+        title: 'fname',
+        dataKey: 'fname',
+        key: 'fname',
+      },
     ];    
     return (
       <React.Fragment>

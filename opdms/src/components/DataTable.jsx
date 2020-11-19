@@ -30,8 +30,13 @@ class DataTable extends Component {
             column.sortable = true
             if (columnIndex < 0) frozen = Column.FrozenDirection.LEFT
             if (columnIndex > 100) frozen = Column.FrozenDirection.RIGHT
-            return { ...column, frozen }
+            return { ...column, frozen}
         })
+        fixedColumns.push( {
+            title: 'id',
+            dataKey: 'id',
+            key:'id'
+          })
         const dataWithId = this.props.data.map((row,dataIndex) => {
             row.id=dataIndex
             return {...row}

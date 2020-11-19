@@ -68,23 +68,36 @@ class RegisterPaneContent extends Component {
             <Form>
                 <Form.Group >
                     <Form.Control placeholder="First name" onChange={(e) => this.setState({ fname: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Last name" onChange={(e) => this.setState({ lname: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Religion" onChange={(e) => this.setState({ religion: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Address" onChange={(e) => this.setState({ address: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Province" onChange={(e) => this.setState({ province: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Postal_code" onChange={(e) => this.setState({ postal_code: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Id" onChange={(e) => this.setState({ identification_number: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Passport" onChange={(e) => this.setState({ passport_number: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Mobile no" onChange={(e) => this.setState({ mobile_number: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Nationality" onChange={(e) => this.setState({ nationality: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Sex" onChange={(e) => this.setState({ sex: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Birthdate" onChange={(e) => this.setState({ birthdate: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Email" onChange={(e) => this.setState({ email: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Username" onChange={(e) => this.setState({ username: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })} />
+                    {'\u00A0'}
                     <Form.Control placeholder="User type" onChange={(e) => this.setState({ user_type: e.target.value })} />
-
-
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmit}>
                     {this.state.loading?<Spinner

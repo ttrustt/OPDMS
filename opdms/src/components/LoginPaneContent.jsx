@@ -35,6 +35,7 @@ class LoginPaneContent extends Component {
             <Form>
                 <Form.Group >
                     <Form.Control placeholder="Username" onChange={(e)=>this.setState({username:e.target.value})} />
+                    {'\u00A0'}
                     <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmit}>

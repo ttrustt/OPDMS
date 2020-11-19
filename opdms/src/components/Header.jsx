@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Navbar ,  Nav, Button,Form} from 'react-bootstrap'
+import { Navbar ,  Nav, Button, Form} from 'react-bootstrap'
 import axios from 'axios'
 import SlidingBar from './SlidingBar'
 import RegisterPaneContent from './RegisterPaneContent'
 import LoginPaneContent from './LoginPaneContent'
+import AppointmentPaneContent from './AppointmentPaneContent'
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Header extends Component {
@@ -11,28 +12,32 @@ class Header extends Component {
   state = {
     toggleLoginPane:false,
     toggleRegisterPane:false,
+    toggleAppointmentPane:false,
     usertype:'Guest',
     logged:false,
     
   }
-  onClickLogin=()=>{
+  onClickLogin = () => {
     this.setState({toggleLoginPane:!this.state.toggleLoginPane})
   }
-  onClickRegister=()=>{
+  onClickRegister = () => {
     this.setState({toggleRegisterPane:!this.state.toggleRegisterPane})
   }
-  onClickLogout=()=>{
+  onClickAppointment = () => {
+    this.setState({toggleAppointmentPane:!this.state.toggleAppointmentPane})
+  }
+  onClickLogout = () => {
     this.setState({logged:false,usertype:'Guest'})
   }
-  onChangeUserType=(e)=>{
+  onChangeUserType = (e) => {
     this.setState({usertype:e})
-    if(this.state.usertype != 'Guest'){
+    if (this.state.usertype != 'Guest') {
       this.setState({logged:true})
     }
   }
 
-
   render() {
+
     let userContent = <div></div>
     if(this.state.usertype==='User'){
       userContent=<div>User</div>
@@ -47,8 +52,8 @@ class Header extends Component {
     let headerContent1 = <div></div>
     let headerContent2 = <div></div>
     let headerContent3 = <div></div>
-    if (this.state.usertype==='Patient') {
-      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Make Appointment</Nav.Link>
+    if (this.state.usertype==='Guest') {
+      headerContent1 = <Nav.Link onClick={this.onClickAppointment}>Make Appointment</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
     } else if (this.state.usertype==='Doctor') {
@@ -62,8 +67,10 @@ class Header extends Component {
 
     const paneContent_Login = <div><LoginPaneContent onChangeUserType={(e)=>this.onChangeUserType(e)}></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
-    let logButton = !this.state.logged? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
-    let regButton = !this.state.logged? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link>:<div></div>
+    const paneContent_Appointment = <div><AppointmentPaneContent/></div>
+    let logButton = !this.state.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
+    let regButton = !this.state.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>
+
     return (
       <Navbar bg='light'>
         <Navbar.Brand href="#">OPDMS</Navbar.Brand>
@@ -75,24 +82,30 @@ class Header extends Component {
           {headerContent3}
           {logButton}
           {regButton}
-          </Nav>
-          </Navbar.Collapse>
+        </Nav>
+        </Navbar.Collapse>
         <Nav className="mr-auto">
-
-      <SlidingBar 
-        onClickToggleLogin={this.onClickToggleLogin}
-        isPaneOpen={this.state.toggleLoginPane} 
-        onTogglePane={this.onClickLogin} 
-        paneContent={paneContent_Login}
-        title={'Login'}
-        ></SlidingBar>
-        <SlidingBar 
-        onClickToggleLogin={this.onClickToggleRegister}
-        isPaneOpen={this.state.toggleRegisterPane} 
-        onTogglePane={this.onClickRegister} 
-        paneContent={paneContent_Register}
-        title={'Register'}
-        ></SlidingBar>
+          <SlidingBar 
+            onClickToggleLogin={this.onClickToggleLogin}
+            isPaneOpen={this.state.toggleLoginPane} 
+            onTogglePane={this.onClickLogin} 
+            paneContent={paneContent_Login}
+            title={'Login'}
+          ></SlidingBar>
+          <SlidingBar 
+            onClickToggleLogin={this.onClickToggleRegister}
+            isPaneOpen={this.state.toggleRegisterPane} 
+            onTogglePane={this.onClickRegister} 
+            paneContent={paneContent_Register}
+            title={'Register'}
+          ></SlidingBar>
+          <SlidingBar 
+            onClickToggleAppointment={this.onClickToggleAppointment}
+            isPaneOpen={this.state.toggleAppointmentPane} 
+            onTogglePane={this.onClickAppointment} 
+            paneContent={paneContent_Appointment}
+            title={'Make Appointment'}
+          ></SlidingBar>
         </Nav>
       </Navbar>
     );

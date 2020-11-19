@@ -32,6 +32,10 @@ class DataTable extends Component {
             if (columnIndex > 100) frozen = Column.FrozenDirection.RIGHT
             return { ...column, frozen }
         })
+        const dataWithId = this.props.data.map((row,dataIndex) => {
+            row.id=dataIndex
+            return {...row}
+        })
         return (
             <AutoResizer>
                 {({ width, height }) => (
@@ -39,7 +43,7 @@ class DataTable extends Component {
                         width={width}
                         height={height}
                         columns={fixedColumns}
-                        data={this.state.data}
+                        data={dataWithId}
                         sortBy={this.state.sortBy}
                         onColumnSort={this.onColumnSort}
                     />

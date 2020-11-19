@@ -19,7 +19,16 @@ class DashBoard extends Component {
     const data = [
       {
         name: 'Mike',
-        id: 0
+      },
+      {
+        name: 'Peem',
+      },
+      {
+        name: 'Mic',
+      },
+      {
+        name: 'Piano',
+    
       },
     ];
     const columns = [

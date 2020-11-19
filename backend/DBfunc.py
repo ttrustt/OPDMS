@@ -188,7 +188,7 @@ def showUser():
             message = ("Connected to MySQL Server version ", db_Info)  
 
     except Error as e:
-        return (False,"Error while connecting to MySQL", e)
+        message = (False,"Error while connecting to MySQL", e)
     
     if (connection.is_connected()):
         try: 
@@ -230,7 +230,7 @@ def showAppointment(listOfinput) :
         try: 
             cursor = connection.cursor()
             cursor.execute("SELECT CONCAT(u.fname, ' ', u.lname) AS doctor_name, clinic_name, location_ AS location, SUBSTRING(dr.diagnosis_room_id, 7,4) AS room, time_in, time_out \
-                            FROM schedule s, doctor d, system_user u, diagnosis_room dr, clinic c, patient p, system_user su \
+                            FROM SCHEDULE s, DOCTOR d, SYSTEM_USER u, DIAGNOSIS_ROOM dr, CLINIC c, PATIENT p, SYSTEM_USER su \
                             WHERE s.doctor_id = d.doctor_id \
                             AND s.patient_id = p.patient_id \
                             AND d.user_id = u.user_id \
@@ -239,8 +239,9 @@ def showAppointment(listOfinput) :
                             AND dr.clinic_id = c.clinic_id \
                             AND su.user_id = '"+ str(userID) +"' \
                             ORDER BY time_in DESC;")
-            message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
-            print('OK')
+            listOfData = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
+            message = (True, "Success", listOfData)
+            # print('OK')
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -267,7 +268,7 @@ def getMedicineSQ(listOfinput):
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT pharma_room_id, quantity FROM stored_medicine WHERE pharma_code='"+str(PC)+"';")
+            cursor.execute("SELECT pharma_room_id, quantity FROM STORED_MEDICINE WHERE pharma_code='"+str(PC)+"';")
             message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
             print('OK')
         except Error as e : 
@@ -296,7 +297,7 @@ def getPharmaRoomSQ(listOfinput):
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT pharma_code, quantity FROM stored_medicine WHERE pharma_room_id='"+str(PR)+"';")
+            cursor.execute("SELECT pharma_code, quantity FROM STORED_MEDICINE WHERE pharma_room_id='"+str(PR)+"';")
             message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
             print('OK')
         except Error as e : 
@@ -329,7 +330,7 @@ def createMedicine(listOfInput):
             message = ("Connected to MySQL Server version ", db_Info)  
 
     except Error as e:
-        return (False,"Error while connecting to MySQL", e)
+        message =  (False,"Error while connecting to MySQL", e)
     
     if (connection.is_connected()):
         try: 

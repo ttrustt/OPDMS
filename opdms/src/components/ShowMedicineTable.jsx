@@ -9,17 +9,19 @@ class ShowMedicineTable extends Component {
             user_id: this.props.user_id,
         })
         .then((response) => {
-            console.log(response.data);
+            // console.log(response.data.data, response.data.columns);
             this.setState({status:response.data.status, data:response.data.data, columns:response.data.columns})
-            this.setState({table:<DataTable data={response.data.data} columns={response.data.columns}></DataTable>})
+            // console.log(this.state.data,this.state.columns)
         }, (error) => {
             console.log(error);
         });
     }
     render() {
+        
         return (
             <React.Fragment>
-            {this.state.table}
+            {/* {this.state.table} */}
+            <DataTable data={this.state.data} columns={this.state.columns}></DataTable>
             </React.Fragment>
         );
     }

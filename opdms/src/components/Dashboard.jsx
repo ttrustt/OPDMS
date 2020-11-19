@@ -46,6 +46,7 @@ class DashBoard extends Component {
         key: 'fname',
       },
     ];    
+    
     return (
       <React.Fragment>
       <Header></Header>

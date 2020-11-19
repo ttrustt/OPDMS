@@ -130,6 +130,6 @@ def createAppointment(listOfSystem):
     if (connection.is_connected()):
         cursor.close()
         connection.close()
-        print(3)
-        message = (False,("MySQL connection is closed"))
+        # print(3)
+        # message = (False,("MySQL connection is closed"))
     return message

@@ -120,6 +120,7 @@ CREATE TABLE DISPENSATION(
     visit_number int,
     pharma_code varchar(8),
     receipt_number int,
+    description text,
     PRIMARY KEY (dispensation_number),
     FOREIGN KEY (visit_number) REFERENCES DIAGNOSIS (visit_number) ON DELETE CASCADE,
     FOREIGN KEY (pharma_code) REFERENCES MEDICINE (pharma_code),

@@ -128,7 +128,7 @@ def showMedicine(listOfinput):
             medicine = cursor.fetchall()
             for i in range(len(medicine)): 
                  medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
-            message = json.dumps(medicine)
+            message = (True,'Show Medicine Success',medicine)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -204,4 +204,100 @@ def getUser():
         connection.close()
         # print(3)
         message = (False,("MySQL connection is closed"))
+    return message
+
+def showAppointment(listOfinput) :
+    userID = listOfinput[0] 
+    message = 'error'
+    try: 
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("SELECT CONCAT(u.fname, ' ', u.lname) AS doctor_name, clinic_name, location_ AS location, SUBSTRING(dr.diagnosis_room_id, 7,4) AS room, time_in, time_out \
+                            FROM schedule s, doctor d, system_user u, diagnosis_room dr, clinic c, patient p, system_user su \
+                            WHERE s.doctor_id = d.doctor_id \
+                            AND s.patient_id = p.patient_id \
+                            AND d.user_id = u.user_id \
+                            AND p.user_id = su.user_id \
+                            AND s.diagnosis_room_id = dr.diagnosis_room_id \
+                            AND dr.clinic_id = c.clinic_id \
+                            AND su.user_id = '"+ str(userID) +"' \
+                            ORDER BY time_in DESC;")
+            message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
+            print('OK')
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+        # print('finally')
+        # return(False,("MySQL connection is closed"))
+    return message
+
+def getMedicineSQ(listOfinput): 
+    PC = listOfinput[0] 
+    message = 'error'
+    try: 
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("SELECT pharma_room_id, quantity FROM stored_medicine WHERE pharma_code='"+str(PC)+"';")
+            message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
+            print('OK')
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+        # print('finally')
+        # return(False,("MySQL connection is closed"))
+    return message
+
+def getPharmaRoomSQ(listOfinput): 
+    PR = listOfinput[0] 
+    message = 'error'
+    try: 
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("SELECT pharma_code, quantity FROM stored_medicine WHERE pharma_room_id='"+str(PR)+"';")
+            message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
+            print('OK')
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+        # print('finally')
+        # return(False,("MySQL connection is closed"))
     return message

@@ -347,7 +347,7 @@ def createMedicine(listOfInput):
         connection.close()
     return message
 
-def updateRecipt(listofInput): 
+def updateReceipt(listofInput): 
     ID = listofInput[0]
     try:
         connection = mysql.connector.connect(host='35.185.182.63',

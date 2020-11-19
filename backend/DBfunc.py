@@ -195,12 +195,13 @@ def showUser():
             cursor.execute("select username, fname, lname from SYSTEM_USER")
             usernameFnameLname = cursor.fetchall()           
             attribute = ["username", "fname", "lname"]
+            listOfColumn = [{"title":x, "datakey":x, "key":x} for x in attribute]
             listOfData = [{} for i in range(len(usernameFnameLname))]
             for i in range(len(usernameFnameLname)):
                 for j in range(3):
                     listOfData[i][attribute[j]] = usernameFnameLname[i][j].strip()
             # print(listOfData)
-            message = (True, "Success", listOfData, attribute)
+            message = (True, "Success", listOfData, listOfColumn)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -303,4 +304,43 @@ def getPharmaRoomSQ(listOfinput):
         connection.close()
         # print('finally')
         # return(False,("MySQL connection is closed"))
+    return message
+
+def createMedicine(listOfInput):
+    order_time = datetime.now()
+    print(order_time)
+    pharma_room_id = listOfInput[0]
+    supplier_id = listOfInput[1]
+    manufacturing_date = listOfInput[2]
+    expired_date = listOfInput[3]
+    quantity = listOfInput[4]
+    price = listOfInput[5]
+    pharma_code = listOfInput[6]
+    status = "ORDERED"
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        return (False,"Error while connecting to MySQL", e)
+    
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("insert into MEDICINE_ORDER (order_time, pharma_room_id, supplier_id, manufacturing_date, \
+                expired_date, quantity, price, pharma_code, status) values (""'"+str(order_time)+"','"+str(pharma_room_id)+ \
+                "','"+str(supplier_id)+"','"+str(manufacturing_date)+"','"+str(expired_date)+"','"+str(quantity)+ \
+                "','"+str(price)+"','"+str(pharma_code)+"','"+str(status)+"');")
+            connection.commit()              
+            message = (True, "Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
     return message

@@ -19,8 +19,8 @@ class LoginPaneContent extends Component {
                 console.log(response.data.status);
                 this.setState({status:response.data.status})
                 this.setState({loading:false})
-                if(this.state.status==='OK')this.props.onChangeUserType(response.data.usertype)
-                else {this.props.onClickLogout()}
+                if(this.state.status==='OK')this.props.onLoggedIn(response.data)
+                else {this.props.onLoggedOut()}
             }, (error) => {
                 console.log(error);
             });

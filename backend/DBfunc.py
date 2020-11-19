@@ -42,11 +42,7 @@ def register(listOfSystem_user):
     
     if (connection.is_connected()):
         try:
-            cursor.execute("insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
-                mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (""'"+str(fname)+"','"+str(lname)+"','"+str(religion)+ \
-                "','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+ \
-                str(mobile_number)+"','"+str(nationality)+"','"+str(sex)+"','"+str(birthdate)+ "','"+str(email)+"','"+str(username)+"','"+str(password)+ \
-                "','"+str(user_type)+"');")
+            cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s')''',(fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type,))
             connection.commit()
             message =  (True,'Register success!')
         except Error as e:

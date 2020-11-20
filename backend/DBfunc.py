@@ -204,8 +204,9 @@ def showUser():
         # message = (False,("MySQL connection is closed"))
     return message
 
-def showAppointment(listOfinput) :
-    username = listOfinput[0] 
+
+def showSchedule(listOfinput): 
+    username = listOfinput[0]
     message = 'error'
     try: 
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -222,26 +223,26 @@ def showAppointment(listOfinput) :
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT CONCAT(u.fname, ' ', u.lname) AS doctor_name, clinic_name, location_ AS location, SUBSTRING(dr.diagnosis_room_id, 7,4) AS room, time_in, time_out \
-                            FROM SCHEDULE s, DOCTOR d, SYSTEM_USER u, DIAGNOSIS_ROOM dr, CLINIC c, PATIENT p, SYSTEM_USER su \
-                            WHERE s.doctor_id = d.doctor_id \
-                            AND s.patient_id = p.patient_id \
-                            AND d.user_id = u.user_id \
-                            AND p.user_id = su.user_id \
-                            AND s.diagnosis_room_id = dr.diagnosis_room_id \
-                            AND dr.clinic_id = c.clinic_id \
-                            AND su.username = '"+ str(username) +"' \
-                            ORDER BY time_in DESC;")
-            listOfData = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
-            message = (True, "Success", listOfData)
-            # print('OK')
+            cursor.callproc('getSchedule',[username,])
+            for i in cursor.stored_results() : 
+                schedule = i.fetchall()
+            listofColumn = ['doctor_name','clinic_name','location','room','time_in','time_out'] 
+            column = [] 
+            for i in listofColumn:
+                column.append({'title':i,'dataKey':i,'key':i})
+            print(schedule)
+            if(schedule == []) : 
+                 message = (True,'No Schedule',schedule,column)
+            else : 
+                for i in range(len(schedule)): 
+                    schedule[i] = {'doctor_name':schedule[i][0],'clinic_name':schedule[i][1],'location':schedule[i][2],'room':schedule[i][3],'time_in':schedule[i][4].strftime('%y-%m-%d %H:%M:%S'),'time_out':schedule[i][5].strftime('%y-%m-%d %H:%M:%S')}
+                message = (True,'Show Schedule Success',schedule,column)
         except Error as e : 
-            message = (False,"Error while executing to MySQL "+str(e))
+            message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
-    return message
+        return message
+
 
 def getMedicineSQ(listOfinput): 
     PC = listOfinput[0] 

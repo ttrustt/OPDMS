@@ -368,3 +368,75 @@ def updateMedicineOrder(listofInput):
         cursor.close()
         connection.close()
     return message
+
+
+def addShow_icd(listofInput):
+    visit_number = listofInput[0]
+    icd = []    
+    for i in range(1,len(listofInput)):
+        icd.append(listofInput[i])
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+    except Error as e:
+        message =(False,"Error while connecting to MySQL", e)
+    if (connection.is_connected()):
+        try:
+            cursor = connection.cursor()
+            for i in icd :
+                cursor.execute("insert into SHOW_ICD values('"+str(visit_number)+"','"+i+"');")
+                connection.commit()     
+            message = (True,'Added to Show_icd')     
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+
+def createDiagnosis(listOfInput):
+    visit_number = listOfInput[0]
+    schedule_number = listOfInput[1]
+    doctors_recommendation = listOfInput[2]
+    created_time = datetime.now()
+    clinic_id = listOfInput[3]
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+            cursor = connection.cursor()
+    except Error as e:
+        message = (False,("Error while connecting to MySQL", e))
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("insert into DIAGNOSIS (visit_number, schedule_number, doctors_recommendation, created_time, clinic_id) \
+                values (""'"+str(visit_number)+"','"+str(schedule_number)+"','"+str(doctors_recommendation)+ \
+                "','"+str(created_time)+"','"+str(clinic_id)+"');")
+            connection.commit()
+            diagnosisMessage = (True,'Create diagnosis success')
+            if (len(listOfInput) > 4):
+                show_icdMessage = addShow_icd([visit_number]+listOfInput[4:])
+                if (diagnosisMessage[0] and show_icdMessage[0]):
+                    message = (True, diagnosisMessage[1] + " and " + show_icdMessage[1])
+                elif (diagnosisMessage[0] and not show_icdMessage[0]):
+                    message = (False, "Create diagnosis success but cannot add to Show_icd")
+                elif (not diagnosisMessage[0] and not show_icdMessage[0]):
+                    message = (False, "Cannot create diagnosis success and cannot add to Show_icd")
+            else:
+                message = diagnosisMessage
+        except Error as e:
+            message = (False,("Error while executing to MySQL "+str(e)))
+        cursor.close()
+        connection.close()
+    return message

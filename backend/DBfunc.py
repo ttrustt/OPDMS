@@ -447,3 +447,40 @@ def createDiagnosis(listOfInput):
         cursor.close()
         connection.close()
     return message
+
+
+def showScheduleForDoctor(listOfInput):
+    username = listOfInput[0]
+    message = 'error'
+    try: 
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)  
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.callproc('getScheduleForDoctor',[username,])
+            for i in cursor.stored_results() : 
+                schedule = i.fetchall()
+            listofColumn = ['schedule_number','patient_name','clinic_name','location','room','time_in','time_out'] 
+            column = [] 
+            for i in listofColumn:
+                column.append({'title':i,'dataKey':i,'key':i})
+            print(schedule)
+            if(schedule == []) : 
+                message = (True,'No Schedule',schedule,column)
+            else : 
+                for i in range(len(schedule)): 
+                    schedule[i] = {'schedule_number':schedule[i][0],'doctor_name':schedule[i][1],'clinic_name':schedule[i][2],'location':schedule[i][3],'room':schedule[i][4],'time_in':schedule[i][5].strftime('%Y-%m-%d %H:%M:%S'),'time_out':schedule[i][6].strftime('%Y-%m-%d %H:%M:%S')}
+                message = (True,'Show Schedule Success',schedule,column)
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))   
+        cursor.close()
+        connection.close()
+        return message

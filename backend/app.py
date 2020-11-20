@@ -176,6 +176,24 @@ def showschedule_endpoint():
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
     return response
 
+
+@app.route('/showschedulefordoctor', methods=['POST'])
+@cross_origin()
+def showschedulefordoctor_endpoint():
+    params = request.get_json()
+
+    params_list = [
+        params.get('username','null')
+    ]
+
+    print(params_list)
+    dbfunc_status = showScheduleForDoctor(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
+    return response
+
+
 def custom_error(message, status_code):
     response = make_response(jsonify(message), status_code)
     return response

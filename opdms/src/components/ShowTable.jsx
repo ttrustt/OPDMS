@@ -7,6 +7,7 @@ class ShowTable extends Component {
     componentDidMount(){
         axios.post('http://127.0.0.1:5000/'+this.props.APIendpoint, this.props.payload)
         .then((response) => {
+            console.log(response)
             this.setState({status:response.data.status, data:response.data.data, columns:response.data.columns})
             this.setState({table:<DataTable data={this.state.data} columns={this.state.columns}></DataTable>})
         }, (error) => {

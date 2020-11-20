@@ -9,7 +9,7 @@ import ShowTable from './ShowTable'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
 class UserDashboard extends Component { //Wrap up component for Grid layout and header and all of the 'module' state being stored here from the react component map in docs
-    state = { toggleActiveUserTable: false, redirect:<div></div>}
+    state = { toggleActiveUserTable: false}
     constructor(props) {
         super(props);
         
@@ -17,6 +17,7 @@ class UserDashboard extends Component { //Wrap up component for Grid layout and 
     }
     componentDidUpdate(){
         // console.log(this.props.username)
+        console.log(this.props.username)
     }
 
 
@@ -24,11 +25,9 @@ class UserDashboard extends Component { //Wrap up component for Grid layout and 
         this.setState({ toggleActiveUserTable: !this.state.toggleActiveUserTable })
     }
     render() {
-
         const fillH = { width: '100%', height: '55%' }
         return (
             <Router>
-                {this.state.redirect}
                 <Navbar style={{backgroundColor:"#eeeeee" ,height:35}}>
                     {/* <Navbar.Brand href="#">Menu</Navbar.Brand> */}
                     <Nav className="mr-auto">
@@ -44,10 +43,10 @@ class UserDashboard extends Component { //Wrap up component for Grid layout and 
                         Hello
                     </Route>
                     <Route path="/dispensation">
-                    <div ><ShowTable APIendpoint="showmedicine" payload={{ user_id:this.props.user_id}}></ShowTable></div>
+                    <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div>
                     </Route>
                     <Route path="/schedule">
-                    <div ><ShowTable APIendpoint="showmedicine" payload={{ user_id:this.props.user_id}}></ShowTable></div>
+                    <div style={{width: '100%', height: '55%'}}><ShowTable APIendpoint="showmedicine" payload={{ username:this.props.username}}></ShowTable></div>
                     </Route>
                 </Switch>
             </Router>

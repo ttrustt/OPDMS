@@ -29,7 +29,9 @@ class DashBoard extends Component {
     return (
       <React.Fragment>
         <Header onLoggedIn={(e)=>this.onLoggedIn(e)}/>
+        
         <UserDashboard usertype={this.state.usertype} username={this.state.username}/>
+        
         
         {/* <Jumbotron fluid>
           <Container>

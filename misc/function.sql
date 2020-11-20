@@ -28,4 +28,20 @@ AND p.user_id = su.user_id
 AND su.username = UN;
 END $$
 
+
+CREATE PROCEDURE getScheduleForDoctor(IN UN varchar(32))
+BEGIN
+SELECT s.schedule_number, CONCAT(su.fname, " ", su.lname) AS patient_name, clinic_name, location_ AS location, SUBSTRING(dr.diagnosis_room_id, 7,4) AS room, time_in, time_out
+FROM SCHEDULE s, DOCTOR d, SYSTEM_USER u, DIAGNOSIS_ROOM dr, CLINIC c, PATIENT p, SYSTEM_USER su
+WHERE s.doctor_id = d.doctor_id
+AND s.patient_id = p.patient_id
+AND d.user_id = u.user_id
+AND p.user_id = su.user_id
+AND s.diagnosis_room_id = dr.diagnosis_room_id
+AND dr.clinic_id = c.clinic_id
+AND u.username = UN
+ORDER BY time_in DESC;
+END $$
+
+
 DELIMITER ;

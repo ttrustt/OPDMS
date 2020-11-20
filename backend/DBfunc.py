@@ -127,12 +127,16 @@ def showMedicine(listOfinput):
                 AND p.user_id = su.user_id \
                 AND su.username = '"+ str(username) +"';")
             medicine = cursor.fetchall()
-            for i in range(len(medicine)): 
-                 medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
-            listofColumn = [] 
-            for i in range(len(medicine[0])):
-                listofColumn.append({'title':cursor.description[i][0],'dataKey':cursor.description[i][0],'key':cursor.description[i][0]})
-            message = (True,'Show Medicine Success',medicine,listofColumn)
+            listofColumn = ['created_time','doctor_name','general_name','quantity','description'] 
+            column = [] 
+            for i in listofColumn:
+                column.append({'title':i,'dataKey':i,'key':i})
+            if medicine == [] : 
+                message = (True,'No medicine',[],column)
+            else: 
+                for i in range(len(medicine)): 
+                    medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
+                message = (True,'Show Medicine Success',medicine,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -140,7 +144,6 @@ def showMedicine(listOfinput):
         # print('finally')
         # return(False,("MySQL connection is closed"))
     return message 
-
 
 def createAppointment(listOfSystem):
     patient_id = listOfSystem[0]

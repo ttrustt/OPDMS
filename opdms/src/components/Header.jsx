@@ -64,7 +64,7 @@ class Header extends Component {
 
     let userContent = <div></div>
     if(this.props.usertype==='Pharmacist'){////
-      userContent=<div>Pharmacist</div>
+      userContent=<div>Pharmacist: {this.props.fname} {this.props.lname}</div>
     } else if(this.props.usertype==='Doctor') {////
     userContent=<div>Doctor: {this.props.fname} {this.props.lname}</div>
     } else if(this.props.usertype==='Guest') {////

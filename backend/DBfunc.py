@@ -5,10 +5,7 @@ from dotenv import load_dotenv
 import json
 from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
 from datetime import datetime
-databasename='opdms'
 
-
-############## Function
 
 def register(listOfSystem_user):
     fname = listOfSystem_user[0]
@@ -41,7 +38,6 @@ def register(listOfSystem_user):
             record = cursor.fetchall()
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-    
     if (connection.is_connected()):
         try:
             cursor.execute("insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
@@ -58,8 +54,6 @@ def register(listOfSystem_user):
     return message 
 
 
-####################################################
-
 def login(listOfSystem_user):
     username0 = listOfSystem_user[0]
     password0 = listOfSystem_user[1]
@@ -75,31 +69,26 @@ def login(listOfSystem_user):
 
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-    
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
             cursor.execute("select username,password,user_type from SYSTEM_USER where username='"+username0+"'")
             usernamePassword = cursor.fetchall()
             if(usernamePassword ==[]) :
-                # print(1)
                 message = (False,'Username Incorrect',None)
             elif(password0 != usernamePassword[0][1]):
-                # print(2)
                 message = (False,'Passwod Incorrect',None)
-            # print(3)
             else :
                 message = (True,'Login Success!',usernamePassword[0][0],usernamePassword[0][2].strip())
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
     return message 
 
+
 def showMedicine(listOfinput): 
-    username = listOfinput[0] 
+    username = listOfinput[0]
     message = 'error'
     try: 
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -112,38 +101,28 @@ def showMedicine(listOfinput):
 
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT dp.created_time, CONCAT( u.fname, ' ', u.lname ) AS doctor_name, general_name, quantity, description \
-                FROM DIAGNOSIS d, DISPENSATION dp, MEDICINE m, SCHEDULE s, DOCTOR c, SYSTEM_USER u, PATIENT p, SYSTEM_USER su \
-                WHERE dp.visit_number = d.visit_number \
-                AND dp.pharma_code = m.pharma_code \
-                AND d.schedule_number = s.schedule_number \
-                AND s.doctor_id = c.doctor_id \
-                AND s.patient_id = p.patient_id \
-                AND c.user_id = u.user_id \
-                AND p.user_id = su.user_id \
-                AND su.username = '"+ str(username) +"';")
-            medicine = cursor.fetchall()
+            cursor.callproc('getDispensation',[username,])
+            for i in cursor.stored_results() : 
+                medicine = i.fetchall()
             listofColumn = ['created_time','doctor_name','general_name','quantity','description'] 
             column = [] 
             for i in listofColumn:
                 column.append({'title':i,'dataKey':i,'key':i})
-            if medicine == [] : 
-                message = (True,'No medicine',[],column)
-            else: 
+            if(medicine == []) : 
+                 message = (True,'No Medicine',medicine,column)
+            else : 
                 for i in range(len(medicine)): 
-                    medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
+                    medicine[i] = {'created_time':medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),'doctor_name':medicine[i][1],'general_name':medicine[i][2],'quantity':medicine[i][3],'description':medicine[i][4].strip()}
                 message = (True,'Show Medicine Success',medicine,column)
         except Error as e : 
-            message = (False,"Error while executing to MySQL "+str(e))
+            message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
-    return message 
+        return message 
+
 
 def createAppointment(listOfSystem):
     patient_id = listOfSystem[0]
@@ -164,7 +143,6 @@ def createAppointment(listOfSystem):
 
     except Error as e:
         message = (False,("Error while connecting to MySQL", e))
-    
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
@@ -192,30 +170,30 @@ def showUser():
 
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-    
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
             cursor.execute("select username, fname, lname from SYSTEM_USER")
-            usernameFnameLname = cursor.fetchall()           
+            user = cursor.fetchall()           
             attribute = ["username", "fname", "lname"]
-            listOfColumn = [{"title":x, "dataKey":x, "key":x} for x in attribute]
-            listOfData = [{} for i in range(len(usernameFnameLname))]
-            for i in range(len(usernameFnameLname)):
-                for j in range(3):
-                    listOfData[i][attribute[j]] = usernameFnameLname[i][j].strip()
-            # print(listOfData)
-            message = (True, "Success", listOfData, listOfColumn)
+            column = [{"title":x, "dataKey":x, "key":x} for x in attribute]
+            if (user == []):
+                message = (True, "No User", user, column)
+            else :
+                listOfUser = [{} for i in range(len(user))]
+                for i in range(len(user)):
+                    for j in range(3):
+                        listOfUser[i][attribute[j]] = user[i][j].strip()
+                message = (True, "Success", listOfUser, column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-        # print(3)
-        # message = (False,("MySQL connection is closed"))
     return message
 
-def showAppointment(listOfinput) :
-    username = listOfinput[0] 
+
+def showSchedule(listOfinput): 
+    username = listOfinput[0]
     message = 'error'
     try: 
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -225,33 +203,31 @@ def showAppointment(listOfinput) :
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)  
-
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT CONCAT(u.fname, ' ', u.lname) AS doctor_name, clinic_name, location_ AS location, SUBSTRING(dr.diagnosis_room_id, 7,4) AS room, time_in, time_out \
-                            FROM SCHEDULE s, DOCTOR d, SYSTEM_USER u, DIAGNOSIS_ROOM dr, CLINIC c, PATIENT p, SYSTEM_USER su \
-                            WHERE s.doctor_id = d.doctor_id \
-                            AND s.patient_id = p.patient_id \
-                            AND d.user_id = u.user_id \
-                            AND p.user_id = su.user_id \
-                            AND s.diagnosis_room_id = dr.diagnosis_room_id \
-                            AND dr.clinic_id = c.clinic_id \
-                            AND su.username = '"+ str(username) +"' \
-                            ORDER BY time_in DESC;")
-            listOfData = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
-            message = (True, "Success", listOfData)
-            # print('OK')
+            cursor.callproc('getSchedule',[username,])
+            for i in cursor.stored_results() : 
+                schedule = i.fetchall()
+            listofColumn = ['doctor_name','clinic_name','location','room','time_in','time_out'] 
+            column = [] 
+            for i in listofColumn:
+                column.append({'title':i,'dataKey':i,'key':i})
+            print(schedule)
+            if(schedule == []) : 
+                message = (True,'No Schedule',schedule,column)
+            else : 
+                for i in range(len(schedule)): 
+                    schedule[i] = {'doctor_name':schedule[i][0],'clinic_name':schedule[i][1],'location':schedule[i][2],'room':schedule[i][3],'time_in':schedule[i][4].strftime('%y-%m-%d %H:%M:%S'),'time_out':schedule[i][5].strftime('%y-%m-%d %H:%M:%S')}
+                message = (True,'Show Schedule Success',schedule,column)
         except Error as e : 
-            message = (False,"Error while executing to MySQL "+str(e))
+            message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
-    return message
+        return message
+
 
 def getMedicineSQ(listOfinput): 
     PC = listOfinput[0] 
@@ -267,7 +243,6 @@ def getMedicineSQ(listOfinput):
 
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
@@ -278,9 +253,8 @@ def getMedicineSQ(listOfinput):
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
     return message
+
 
 def getPharmaRoomSQ(listOfinput): 
     PR = listOfinput[0] 
@@ -293,10 +267,8 @@ def getPharmaRoomSQ(listOfinput):
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)  
-
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
@@ -307,9 +279,8 @@ def getPharmaRoomSQ(listOfinput):
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
     return message
+
 
 def createMedicine(listOfInput):
     order_time = datetime.now()
@@ -331,10 +302,8 @@ def createMedicine(listOfInput):
         if connection.is_connected():
             db_Info = connection.get_server_info()
             message = ("Connected to MySQL Server version ", db_Info)  
-
     except Error as e:
         message =  (False,"Error while connecting to MySQL", e)
-    
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
@@ -350,6 +319,7 @@ def createMedicine(listOfInput):
         connection.close()
     return message
 
+
 def updateReceipt(listofInput): 
     ID = listofInput[0]
     try:
@@ -360,10 +330,8 @@ def updateReceipt(listofInput):
         if connection.is_connected():
             db_Info = connection.get_server_info()
             message = ("Connected to MySQL Server version ", db_Info)  
-
     except Error as e:
         message =(False,"Error while connecting to MySQL", e)
-
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
@@ -376,6 +344,7 @@ def updateReceipt(listofInput):
         connection.close()
     return message
 
+
 def updateMedicineOrder(listofInput): 
     ID = listofInput[0]
     try:
@@ -386,10 +355,8 @@ def updateMedicineOrder(listofInput):
         if connection.is_connected():
             db_Info = connection.get_server_info()
             message = ("Connected to MySQL Server version ", db_Info)  
-
     except Error as e:
         message = (False,"Error while connecting to MySQL", e)
-
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()

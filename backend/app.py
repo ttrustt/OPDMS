@@ -198,11 +198,10 @@ def showschedulefordoctor_endpoint():
 def showmedicine_sq():
     params = request.get_json()
     params_list = [
-        params.get('pharma_room_id','null'),
-        params.get('quantity','null')
+        params.get('PC','null')
     ]
     print(params_list)
-    dbfunc_status = getmedicine_sq(params_list)
+    dbfunc_status = getMedicineSQ(params_list)
     print(dbfunc_status)
     if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)

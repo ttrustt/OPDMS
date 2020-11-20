@@ -28,7 +28,7 @@ class PatientDashboard extends Component { //Wrap up component for Grid layout a
         const fillH = { width: '100%', height: '55%' }
         return (
             <Router>
-            <Navbar style={{backgroundColor:"#eeeeee" ,height:35}}>
+            <Navbar style={{backgroundColor:"#eeeeee" ,height:40}}>
                 {/* <Navbar.Brand as={Link} to=''>Menu</Navbar.Brand> */}
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to='/dispensation'>View Dispensation</Nav.Link>
@@ -40,7 +40,7 @@ class PatientDashboard extends Component { //Wrap up component for Grid layout a
                 {/* {this.state.toggleActiveUserTable ? <div style={fillH}><ShowTable APIendpoint="showmedicine" payload={{ user_id: 1 }}></ShowTable></div> : <div></div>} */}
             <Switch>
                 <Route exact path="/">
-                    Hello
+                    {/* Hello */}
                 </Route>
                 <Route exact path="/dispensation">
                 <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicine" payload={{username:this.props.username}}></ShowTable></div>

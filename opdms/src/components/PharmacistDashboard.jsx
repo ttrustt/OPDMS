@@ -59,10 +59,10 @@ render() {
             {/* <Navbar.Brand as={Link} to='/home'>Menu</Navbar.Brand> */}
             <Nav className="mr-auto">
                 {/* <Nav.Link as={Link} to='/dispensation'>View Dispensation</Nav.Link> */}
-                <Nav.Link as={Link} to='/storage' >Search Storage</Nav.Link>
+                <Nav.Link onClick={this.refreshTable} >Search Storage</Nav.Link>
                 <Form inline>
       <FormControl type="text" placeholder="Medicine ID" className="mr-sm-2"  size='sm' onChange={this.changeMedicine}/>
-      <Button variant="outline-success" size='sm' onClick={this.refreshTable}>Search</Button>
+      {/* <Button variant="outline-success" size='sm' onClick={this.refreshTable}>Search</Button> */}
     </Form>
             </Nav>
         </Navbar>

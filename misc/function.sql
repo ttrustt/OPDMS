@@ -1,54 +1,31 @@
 DELIMITER $$
 
-CREATE PROCEDURE getPassword(IN USN varchar(32))
+CREATE PROCEDURE getSchedule(IN UI int)
 BEGIN
-    SELECT password FROM system_user WHERE username = USN;
-END $$
-
-CREATE PROCEDURE getDispensation(IN RN varchar(32))
-BEGIN
-    SELECT general_name, quantity, d.price, created_time FROM dispensation d, medicine m 
-    WHERE d.pharma_code = m.pharma_code AND receipt_number = RN;
-END $$
-
-CREATE PROCEDURE getTotalPrice(IN RN varchar(32))
-BEGIN
-    SELECT receipt_number, sum(d.price) as total_price FROM dispensation d, medicine m 
-    WHERE d.pharma_code = m.pharma_code and receipt_number = RN;
-END $$
-
-CREATE PROCEDURE getMedicineSQ(IN PC varchar(32))
-BEGIN
-    SELECT pharma_room_id, quantity FROM stored_medicine WHERE pharma_code=PC;
-END $$
-
-CREATE PROCEDURE getPharmaRoomSQ(IN PR varchar(32))
-BEGIN
-    SELECT pharma_code, quantity FROM stored_medicine WHERE pharma_room_id=PR;
-END $$
-
-CREATE PROCEDURE getDiagnosis(IN UI int)
-BEGIN
-    SELECT g.created_time, fname AS doctor_name, disease_name, doctors_recommendation 
-    FROM show_icd i, disease d, schedule s, diagnosis g, doctor c, system_user u
-    WHERE i.icd_code = d.icd_code 
-    AND i.visit_number = g.visit_number 
-    AND g.schedule_number = s.schedule_number
-    AND s.doctor_id = c.doctor_id
-    AND c.user_id = u.user_id
-    AND u.user_id = UI;
+    SELECT CONCAT(u.fname, " ", u.lname) AS doctor_name, clinic_name, location_ AS location, SUBSTRING(dr.diagnosis_room_id, 7,4) AS room, time_in, time_out
+    FROM schedule s, doctor d, system_user u, diagnosis_room dr, clinic c, patient p, system_user su
+    WHERE s.doctor_id = d.doctor_id
+    AND s.patient_id = p.patient_id
+    AND d.user_id = u.user_id
+    AND p.user_id = su.user_id
+    AND s.diagnosis_room_id = dr.diagnosis_room_id
+    AND dr.clinic_id = c.clinic_id
+    AND su.user_id = USER_ID
+    ORDER BY time_in DESC;
 END $$
 
 CREATE PROCEDURE getDispensation(IN UI int)
 BEGIN
-    SELECT p.created_time, fname AS doctor_name, general_name, quantity, p.price
-    FROM diagnosis d, dispensation p, medicine m, schedule s, doctor c, system_user u
-    WHERE p.visit_number = d.visit_number
-    AND p.pharma_code = m.pharma_code
+    SELECT dp.created_time, CONCAT( u.fname, " ", u.lname ) AS doctor_name, general_name, quantity, description
+    FROM diagnosis d, dispensation dp, medicine m, schedule s, doctor c, system_user u, patient p, system_user su
+    WHERE dp.visit_number = d.visit_number
+    AND dp.pharma_code = m.pharma_code
     AND d.schedule_number = s.schedule_number
     AND s.doctor_id = c.doctor_id
+    AND s.patient_id = p.patient_id
     AND c.user_id = u.user_id
-    AND u.user_id = UI;
+    AND p.user_id = su.user_id
+    AND su.user_id = USERID;
 END $$
 
 DELIMITER ;

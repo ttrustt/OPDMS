@@ -421,7 +421,6 @@ def createDiagnosis(listOfInput):
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)  
-            cursor = connection.cursor()
     except Error as e:
         message = (False,("Error while connecting to MySQL", e))
     if (connection.is_connected()):

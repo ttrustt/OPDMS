@@ -9,6 +9,7 @@ import ShowTable from './ShowTable'
 import PatientDashboard from './PatientDashboard'
 import GuestDashboard from './GuestDashboard'
 import DoctorDashboard from './DoctorDashboard'
+import PharmacistDashboard from './PharmacistDashboard'
 // import ReactSpinner from 'react-bootstrap-spinner'
 import { withRouter } from 'react-router-dom'
 let dashboard = <div></div>
@@ -38,6 +39,8 @@ class DashBoard extends Component {
       this.setState({dashboard:<PatientDashboard usertype={this.state.usertype} username={this.state.username}/>})
     }else if(this.state.usertype==='Doctor'){
       this.setState({dashboard:<DoctorDashboard usertype={this.state.usertype} username={this.state.username}></DoctorDashboard>})
+    }else if(this.state.usertype==='Pharmacist'){
+      this.setState({dashboard:<PharmacistDashboard usertype={this.state.usertype} username={this.state.username}></PharmacistDashboard>})
     }else{
       this.setState({dashboard:<GuestDashboard></GuestDashboard>})
     }

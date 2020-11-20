@@ -233,10 +233,10 @@ def getMedicineSQ(listOfinput):
     PC = listOfinput[0] 
     message = 'error'
     try: 
-        connection = mysql.connector.connect(host='35.185.182.63',
+        connection = mysql.connector.connect(host='localhost',
                                             database='opdms',
                                             user='root',
-                                            password='!Opdmstrust69')
+                                            password='kin184492318')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)  
@@ -247,8 +247,15 @@ def getMedicineSQ(listOfinput):
         try: 
             cursor = connection.cursor()
             cursor.execute("SELECT pharma_room_id, quantity FROM STORED_MEDICINE WHERE pharma_code='"+str(PC)+"';")
-            message = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
-            print('OK')
+            medicine = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
+            listOfcolumn = ['pharma_room_id','quantity']
+            column=[]
+            for i in listOfcolumn: 
+                column.append({'title':i,'dataKey':i,'key':i})
+            if(medicine ==[]):
+                message = (True,'Not Medicine',medicine,column)
+            else : 
+                message = (True,'OK',medicine,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

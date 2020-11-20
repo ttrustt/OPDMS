@@ -66,11 +66,11 @@ class Header extends Component {
     if(this.props.usertype==='Pharmacist'){////
       userContent=<div>Pharmacist</div>
     } else if(this.props.usertype==='Doctor') {////
-      userContent=<div>Doctor: {this.props.username}</div>
+    userContent=<div>Doctor: {this.props.fname} {this.props.lname}</div>
     } else if(this.props.usertype==='Guest') {////
       userContent=<div>Guest</div>
     } else if(this.props.usertype==='Patient') {////
-      userContent=<div>Patient:  {this.props.username}</div>
+      userContent=<div>Patient: {this.props.fname} {this.props.lname}</div>
     }
 
     let headerContent1 = <div></div>
@@ -90,7 +90,7 @@ class Header extends Component {
       headerContent3 = <Nav.Link onClick={this.onClickReceipt}>Manage Receipt</Nav.Link>
     } 
 
-    const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.props.onLoggedIn(e)} onLoggedOut={this.handleOnClickLogout}></LoginPaneContent></div>////
+    const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.props.onLoggedIn(e)} onClickLogin={this.onClickLogin} onLoggedOut={this.props.onClickLogout} logged={this.props.logged}></LoginPaneContent></div>////
     const paneContent_Register = <div><RegisterPaneContent/></div>
     const paneContent_Appointment = <div><AppointmentPaneContent/></div>
     const paneContent_Order = <div><OrderPaneContent/></div>

@@ -19,6 +19,7 @@ class LoginPaneContent extends Component {
                 console.log(response.data.status);
                 this.setState({status:response.data.status})
                 this.setState({loading:false})
+                if(response.data.success)this.props.onClickLogin()
                 if(response.data.success)this.props.onLoggedIn(response.data)
                 else {this.props.onLoggedOut()}
             }, (error) => {
@@ -39,7 +40,7 @@ class LoginPaneContent extends Component {
                     {'\u00A0'}
                     <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
                 </Form.Group>
-                <Button variant="primary" onClick={this.handleSubmit}>
+                <Button variant="primary" disabled={this.props.logged} onClick={this.handleSubmit}>
                     {this.state.loading ?
                     <Spinner
                         as="span"

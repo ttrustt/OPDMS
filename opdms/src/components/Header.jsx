@@ -71,8 +71,9 @@ class Header extends Component {
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
     } else if (this.state.usertype==='Doctor') {
-      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
-      headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
+      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Manage Schedule</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
     } else if (this.state.usertype==='Pharmacist') {
       headerContent1 = <Nav.Link onClick={this.onClickOrder}>Manage Medicine Order</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Storage</Nav.Link>

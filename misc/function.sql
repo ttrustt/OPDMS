@@ -10,7 +10,7 @@ BEGIN
     AND p.user_id = su.user_id
     AND s.diagnosis_room_id = dr.diagnosis_room_id
     AND dr.clinic_id = c.clinic_id
-    AND su.user_id = USER_ID
+    AND su.user_id = UI
     ORDER BY time_in DESC;
 END $$
 
@@ -25,7 +25,7 @@ BEGIN
     AND s.patient_id = p.patient_id
     AND c.user_id = u.user_id
     AND p.user_id = su.user_id
-    AND su.user_id = USERID;
+    AND su.user_id = UI;
 END $$
 
 DELIMITER ;

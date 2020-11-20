@@ -99,7 +99,7 @@ def login(listOfSystem_user):
     return message 
 
 def showMedicine(listOfinput): 
-    username = listOfinput[0] 
+    username = listOfinput[0]
     message = 'error'
     try: 
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -116,34 +116,24 @@ def showMedicine(listOfinput):
     if (connection.is_connected()):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT dp.created_time, CONCAT( u.fname, ' ', u.lname ) AS doctor_name, general_name, quantity, description \
-                FROM DIAGNOSIS d, DISPENSATION dp, MEDICINE m, SCHEDULE s, DOCTOR c, SYSTEM_USER u, PATIENT p, SYSTEM_USER su \
-                WHERE dp.visit_number = d.visit_number \
-                AND dp.pharma_code = m.pharma_code \
-                AND d.schedule_number = s.schedule_number \
-                AND s.doctor_id = c.doctor_id \
-                AND s.patient_id = p.patient_id \
-                AND c.user_id = u.user_id \
-                AND p.user_id = su.user_id \
-                AND su.username = '"+ str(username) +"';")
-            medicine = cursor.fetchall()
+            cursor.callproc('getDispensation',[username,])
+            for i in cursor.stored_results() : 
+                medicine = i.fetchall()
             listofColumn = ['created_time','doctor_name','general_name','quantity','description'] 
             column = [] 
             for i in listofColumn:
                 column.append({'title':i,'dataKey':i,'key':i})
-            if medicine == [] : 
-                message = (True,'No medicine',[],column)
-            else: 
+            if(medicine == []) : 
+                 message = (True,'No Medicine',medicine,column)
+            else : 
                 for i in range(len(medicine)): 
-                    medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
+                    medicine[i] = {'created_time':medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),'doctor_name':medicine[i][1],'general_name':medicine[i][2],'quantity':medicine[i][3],'description':medicine[i][4].strip()}
                 message = (True,'Show Medicine Success',medicine,column)
         except Error as e : 
-            message = (False,"Error while executing to MySQL "+str(e))
+            message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
         connection.close()
-        # print('finally')
-        # return(False,("MySQL connection is closed"))
-    return message 
+        return message 
 
 def createAppointment(listOfSystem):
     patient_id = listOfSystem[0]

@@ -6,7 +6,7 @@ import RegisterPaneContent from './RegisterPaneContent'
 import LoginPaneContent from './LoginPaneContent'
 import AppointmentPaneContent from './AppointmentPaneContent'
 import OrderPaneContent from './OrderPaneContent'
-import UpdateStatusPaneContent from './UpdateStatusPaneContent'
+import ReceiptPaneContent from './ReceiptPaneContent'
 // import TableComponent from './TableComponent'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -17,7 +17,7 @@ class Header extends Component {
     toggleRegisterPane:false,
     toggleAppointmentPane:false,
     toggleOrderPane:false,
-    toggleUpdateStatusPane:false,
+    toggleReceiptPane:false,
     usertype:'Guest',
     logged:false,
     logged_id:null,
@@ -35,8 +35,8 @@ class Header extends Component {
   onClickOrder = () => {
     this.setState({toggleOrderPane:!this.state.toggleOrderPane})
   }
-  onClickUpdateStatus = () => {
-    this.setState({toggleUpdateStatusPane:!this.state.toggleUpdateStatusPane})
+  onClickReceipt = () => {
+    this.setState({toggleReceiptPane:!this.state.toggleReceiptPane})
   }
   onClickLogout = () => {
    this.onLoggedOut()
@@ -53,8 +53,8 @@ class Header extends Component {
   render() {
 
     let userContent = <div></div>
-    if(this.state.usertype==='User'){
-      userContent=<div>User</div>
+    if(this.state.usertype==='Pharmacist'){
+      userContent=<div>Pharmacist</div>
     } else if(this.state.usertype==='Doctor') {
       userContent=<div>Doctor</div>
     } else if(this.state.usertype==='Guest') {
@@ -71,19 +71,20 @@ class Header extends Component {
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
     } else if (this.state.usertype==='Doctor') {
-      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
-      headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
+      headerContent1 = <Nav.Link onClick={this.onClickRegister}>Manage Schedule</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
     } else if (this.state.usertype==='Pharmacist') {
-      headerContent1 = <Nav.Link onClick={this.onClickOrder}>Make Medicine Order</Nav.Link>
-      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Pharma Room Storage</Nav.Link>
-      headerContent3 = <Nav.Link onClick={this.onClickUpdateStatus}>Update Status</Nav.Link>
+      headerContent1 = <Nav.Link onClick={this.onClickOrder}>Manage Medicine Order</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Storage</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickReceipt}>Manage Receipt</Nav.Link>
     } 
 
     const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.onLoggedIn(e)} onLoggedOut={this.onClickLogout}></LoginPaneContent></div>
     const paneContent_Register = <div><RegisterPaneContent/></div>
     const paneContent_Appointment = <div><AppointmentPaneContent/></div>
     const paneContent_Order = <div><OrderPaneContent/></div>
-    const paneContent_UpdateStatus = <div><UpdateStatusPaneContent/></div>
+    const paneContent_Receipt = <div><ReceiptPaneContent/></div>
     let logButton = !this.state.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
     let regButton = !this.state.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>
 
@@ -128,14 +129,14 @@ class Header extends Component {
             isPaneOpen={this.state.toggleOrderPane} 
             onTogglePane={this.onClickOrder} 
             paneContent={paneContent_Order}
-            title={'Make Medicine Order'}
+            title={'Manage Medicine Order'}
           ></SlidingBar>
           <SlidingBar 
-            onClickToggleUpdateStatus={this.onClickToggleUpdateStatus}
-            isPaneOpen={this.state.toggleUpdateStatusPane} 
-            onTogglePane={this.onClickUpdateStatus} 
-            paneContent={paneContent_UpdateStatus}
-            title={'Update Status'}
+            onClickToggleReceipt={this.onClickToggleReceipt}
+            isPaneOpen={this.state.toggleReceiptPane} 
+            onTogglePane={this.onClickReceipt} 
+            paneContent={paneContent_Receipt}
+            title={'Manage Receipt'}
           ></SlidingBar>
         </Nav>
       </Navbar>

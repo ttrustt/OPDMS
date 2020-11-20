@@ -476,7 +476,7 @@ def showScheduleForDoctor(listOfInput):
                 message = (True,'No Schedule',schedule,column)
             else : 
                 for i in range(len(schedule)): 
-                    schedule[i] = {'schedule_number':schedule[i][0],'doctor_name':schedule[i][1],'clinic_name':schedule[i][2],'location':schedule[i][3],'room':schedule[i][4],'time_in':schedule[i][5].strftime('%Y-%m-%d %H:%M:%S'),'time_out':schedule[i][6].strftime('%Y-%m-%d %H:%M:%S')}
+                    schedule[i] = {'schedule_number':schedule[i][0],'patient_name':schedule[i][1],'clinic_name':schedule[i][2],'location':schedule[i][3],'room':schedule[i][4],'time_in':schedule[i][5].strftime('%Y-%m-%d %H:%M:%S'),'time_out':schedule[i][6].strftime('%Y-%m-%d %H:%M:%S')}
                 message = (True,'Show Schedule Success',schedule,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))   

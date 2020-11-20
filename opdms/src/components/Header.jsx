@@ -74,9 +74,9 @@ class Header extends Component {
       headerContent1 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
     } else if (this.state.usertype==='Pharmacist') {
-      headerContent1 = <Nav.Link onClick={this.onClickOrder}>Make Medicine Order</Nav.Link>
-      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Pharma Room Storage</Nav.Link>
-      headerContent3 = <Nav.Link onClick={this.onClickUpdateStatus}>Update Status</Nav.Link>
+      headerContent1 = <Nav.Link onClick={this.onClickOrder}>Manage Medicine Order</Nav.Link>
+      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Storage</Nav.Link>
+      headerContent3 = <Nav.Link onClick={this.onClickUpdateStatus}>Manage Receipt</Nav.Link>
     } 
 
     const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.onLoggedIn(e)} onLoggedOut={this.onClickLogout}></LoginPaneContent></div>
@@ -128,7 +128,7 @@ class Header extends Component {
             isPaneOpen={this.state.toggleOrderPane} 
             onTogglePane={this.onClickOrder} 
             paneContent={paneContent_Order}
-            title={'Make Medicine Order'}
+            title={'Manage Medicine Order'}
           ></SlidingBar>
           <SlidingBar 
             onClickToggleUpdateStatus={this.onClickToggleUpdateStatus}

@@ -123,6 +123,27 @@ def updatebill_endpoint():
     else: response = make_response(jsonify({'success':dbfunc_status[0],'billStatus':dbfunc_status[1]}),200)
     return response
 
+@app.route('/createorder', methods=['POST'])
+@cross_origin()
+def createorder_endpoint():
+    params = request.get_json()
+    params_list = [
+        params.get('pharma_room_id','null'),
+        params.get('supplier_id','null'),
+        params.get('manufacturing_date','null'),
+        params.get('expired_date','null'),
+        params.get('quantity','null'),
+        params.get('price','null'),
+        params.get('pharma_code','null'),
+    ]
+
+    print(params_list)
+    dbfunc_status = createMedicine(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'createStatus':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'createStatus':dbfunc_status[1]}),200)
+    return response
+
 @app.route('/updateorder', methods=['POST'])
 @cross_origin()
 def updateorder_endpoint():

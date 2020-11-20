@@ -187,21 +187,21 @@ def showUser():
         try: 
             cursor = connection.cursor()
             cursor.execute("select username, fname, lname from SYSTEM_USER")
-            usernameFnameLname = cursor.fetchall()           
+            user = cursor.fetchall()           
             attribute = ["username", "fname", "lname"]
-            listOfColumn = [{"title":x, "dataKey":x, "key":x} for x in attribute]
-            listOfData = [{} for i in range(len(usernameFnameLname))]
-            for i in range(len(usernameFnameLname)):
-                for j in range(3):
-                    listOfData[i][attribute[j]] = usernameFnameLname[i][j].strip()
-            # print(listOfData)
-            message = (True, "Success", listOfData, listOfColumn)
+            column = [{"title":x, "dataKey":x, "key":x} for x in attribute]
+            if (user == []):
+                message = (True, "No User", user, column)
+            else :
+                listOfUser = [{} for i in range(len(user))]
+                for i in range(len(user)):
+                    for j in range(3):
+                        listOfUser[i][attribute[j]] = user[i][j].strip()
+                message = (True, "Success", listOfUser, column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-        # print(3)
-        # message = (False,("MySQL connection is closed"))
     return message
 
 
@@ -232,7 +232,7 @@ def showSchedule(listOfinput):
                 column.append({'title':i,'dataKey':i,'key':i})
             print(schedule)
             if(schedule == []) : 
-                 message = (True,'No Schedule',schedule,column)
+                message = (True,'No Schedule',schedule,column)
             else : 
                 for i in range(len(schedule)): 
                     schedule[i] = {'doctor_name':schedule[i][0],'clinic_name':schedule[i][1],'location':schedule[i][2],'room':schedule[i][3],'time_in':schedule[i][4].strftime('%y-%m-%d %H:%M:%S'),'time_out':schedule[i][5].strftime('%y-%m-%d %H:%M:%S')}

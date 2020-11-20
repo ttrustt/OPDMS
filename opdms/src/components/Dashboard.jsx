@@ -16,7 +16,7 @@ class DashBoard extends Component {
   state = { toggleActiveUserTable:false,
             username:null,
             usertype:'Guest',
-            dashboard:<div><GuestDashboard></GuestDashboard></div>,
+            dashboard:<GuestDashboard></GuestDashboard>,
             logged:false,
             logged_id:null}
             
@@ -32,18 +32,18 @@ class DashBoard extends Component {
    }
   onLoggedIn=(e)=>{
     console.log(e.usertype)
-    this.setState({usertype:e.usertype,username:e.username,logged:true})
+    this.setState({usertype:e.usertype,username:e.username,logged:true,fname:e.fname,lname:e.lname})
     if(this.state.usertype==='Patient'){
       this.setState({dashboard:<PatientDashboard usertype={this.state.usertype} username={this.state.username}/>})
     }else if(this.state.usertype==='Doctor'){
       this.setState({dashboard:<div>dashboard for doctor</div>})
     }else{
-      this.setState({dashboard:<div><GuestDashboard></GuestDashboard></div>})
+      this.setState({dashboard:<GuestDashboard></GuestDashboard>})
     }
    
   }
   onLoggedOut=()=>{
-    this.setState({logged:false,usertype:'Guest',username:null,dashboard:<div><GuestDashboard></GuestDashboard></div>})
+    this.setState({logged:false,usertype:'Guest',username:null,dashboard:<GuestDashboard></GuestDashboard>})
     this.props.history.push('')
     // history.push("/");
   }
@@ -59,13 +59,16 @@ class DashBoard extends Component {
     
     return (
       <React.Fragment>
-        <Header username={this.state.username} 
+        <Header username={this.state.username}
+                fname={this.state.fname}
+                lname={this.state.lname}
                 logged={this.state.logged} 
                 onLoggedIn={(e)=>this.onLoggedIn(e)} 
                 usertype={this.state.usertype}
                 onLoggedOut={this.onLoggedOut}
                 onClickLogout={this.onClickLogout}
                 />
+                {/* <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div> */}
         {this.state.dashboard}
         
         

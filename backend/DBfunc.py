@@ -79,7 +79,7 @@ def login(listOfSystem_user):
             elif(password0 != usernamePassword[0][1]):
                 message = (False,'Passwod Incorrect',None)
             else :
-                message = (True,'Login Success!',usernamePassword[0][0],usernamePassword[0][2].strip())
+                message = (True,'Login Success!',usernamePassword[0][0],usernamePassword[0][2].strip(),usernamePassword[0][1],usernamePassword[0][2])
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

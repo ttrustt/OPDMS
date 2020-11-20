@@ -50,3 +50,5 @@
   height: 100%;
   width: 100%;
 }
+
+.fill-height { flex-grow: 1; width: 100%; }

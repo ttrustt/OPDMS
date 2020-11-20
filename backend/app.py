@@ -67,7 +67,7 @@ def createappointment_endpoint():
         params.get('patient_id','null'),
         params.get('doctor_id','null'),
         params.get('time_in','null'),
-        params.get('time_in','null'),
+        params.get('time_out','null'),
         params.get('diagnosis_room_id','null'),
     ]
 

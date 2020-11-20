@@ -179,7 +179,7 @@ def showschedule_endpoint():
 
 @app.route('/showschedulefordoctor', methods=['POST'])
 @cross_origin()
-def showschedule_endpoint():
+def showschedulefordoctor_endpoint():
     params = request.get_json()
 
     params_list = [

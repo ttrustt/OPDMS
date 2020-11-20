@@ -115,7 +115,7 @@ def showMedicine(listOfinput):
                  message = (True,'No Medicine',medicine,column)
             else : 
                 for i in range(len(medicine)): 
-                    medicine[i] = {'created_time':medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),'doctor_name':medicine[i][1],'general_name':medicine[i][2],'quantity':medicine[i][3],'description':medicine[i][4].strip()}
+                    medicine[i] = {'created_time':medicine[i][0].strftime('%Y-%m-%d %H:%M:%S'),'doctor_name':medicine[i][1],'general_name':medicine[i][2],'quantity':medicine[i][3],'description':medicine[i][4].strip()}
                 message = (True,'Show Medicine Success',medicine,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))   
@@ -220,7 +220,7 @@ def showSchedule(listOfinput):
                 message = (True,'No Schedule',schedule,column)
             else : 
                 for i in range(len(schedule)): 
-                    schedule[i] = {'doctor_name':schedule[i][0],'clinic_name':schedule[i][1],'location':schedule[i][2],'room':schedule[i][3],'time_in':schedule[i][4].strftime('%y-%m-%d %H:%M:%S'),'time_out':schedule[i][5].strftime('%y-%m-%d %H:%M:%S')}
+                    schedule[i] = {'doctor_name':schedule[i][0],'clinic_name':schedule[i][1],'location':schedule[i][2],'room':schedule[i][3],'time_in':schedule[i][4].strftime('%Y-%m-%d %H:%M:%S'),'time_out':schedule[i][5].strftime('%Y-%m-%d %H:%M:%S')}
                 message = (True,'Show Schedule Success',schedule,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))   

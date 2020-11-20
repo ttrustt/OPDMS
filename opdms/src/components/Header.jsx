@@ -25,6 +25,7 @@ class Header extends Component {
   }
   onClickLogin = () => {
     this.setState({toggleLoginPane:!this.state.toggleLoginPane})
+
   }
   onClickRegister = () => {
     this.setState({toggleRegisterPane:!this.state.toggleRegisterPane})
@@ -44,6 +45,7 @@ class Header extends Component {
   onLoggedIn = (e) => {
     console.log(e.username)
     this.setState({usertype:e.usertype,username:e.username,logged:true})
+    this.props.onLoggedIn(e)
   }
   onLoggedOut =()=>{
     // console.log('Logging out')

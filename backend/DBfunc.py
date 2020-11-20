@@ -99,7 +99,7 @@ def login(listOfSystem_user):
     return message 
 
 def showMedicine(listOfinput): 
-    userID = listOfinput[0] 
+    username = listOfinput[0] 
     message = 'error'
     try: 
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -125,7 +125,7 @@ def showMedicine(listOfinput):
                 AND s.patient_id = p.patient_id \
                 AND c.user_id = u.user_id \
                 AND p.user_id = su.user_id \
-                AND su.user_id = '"+ str(userID) +"';")
+                AND su.username = '"+ str(username) +"';")
             medicine = cursor.fetchall()
             for i in range(len(medicine)): 
                  medicine[i] = {cursor.description[0][0]:medicine[i][0].strftime('%y-%m-%d %H:%M:%S'),cursor.description[1][0]:medicine[i][1],cursor.description[2][0]:medicine[i][2],cursor.description[3][0]:medicine[i][3],cursor.description[4][0]:medicine[i][4].strip()}
@@ -212,7 +212,7 @@ def showUser():
     return message
 
 def showAppointment(listOfinput) :
-    userID = listOfinput[0] 
+    username = listOfinput[0] 
     message = 'error'
     try: 
         connection = mysql.connector.connect(host='35.185.182.63',
@@ -237,7 +237,7 @@ def showAppointment(listOfinput) :
                             AND p.user_id = su.user_id \
                             AND s.diagnosis_room_id = dr.diagnosis_room_id \
                             AND dr.clinic_id = c.clinic_id \
-                            AND su.user_id = '"+ str(userID) +"' \
+                            AND su.username = '"+ str(username) +"' \
                             ORDER BY time_in DESC;")
             listOfData = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
             message = (True, "Success", listOfData)

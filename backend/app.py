@@ -83,7 +83,7 @@ def createappointment_endpoint():
 def showmedicine_endpoint():
     params = request.get_json()
     params_list = [
-        params.get('user_id','null'),
+        params.get('username','null'),
     ]
 
     print(params_list)

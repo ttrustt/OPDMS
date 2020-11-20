@@ -7,6 +7,7 @@ import LoginPaneContent from './LoginPaneContent'
 import AppointmentPaneContent from './AppointmentPaneContent'
 import OrderPaneContent from './OrderPaneContent'
 import ReceiptPaneContent from './ReceiptPaneContent'
+import { withRouter } from 'react-router-dom'
 // import TableComponent from './TableComponent'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -18,11 +19,11 @@ class Header extends Component {
     toggleAppointmentPane:false,
     toggleOrderPane:false,
     toggleReceiptPane:false,
-    usertype:'Guest',
-    logged:false,
-    logged_id:null,
-    
+    // usertype:'Guest',
+    // logged:false,
+    // logged_id:null,
   }
+  
   onClickLogin = () => {
     this.setState({toggleLoginPane:!this.state.toggleLoginPane})
 
@@ -39,59 +40,67 @@ class Header extends Component {
   onClickReceipt = () => {
     this.setState({toggleReceiptPane:!this.state.toggleReceiptPane})
   }
-  onClickLogout = () => {
-   this.onLoggedOut()
+  // onClickLogout = () => {
+  //  this.onLoggedOut()
+  // }
+  // onLoggedIn = (e) => {/////
+    // console.log(e.username)
+    // this.setState({usertype:e.usertype,username:e.username,logged:true})
+    // this.props.onLoggedIn(e)
+  // }
+  // onLoggedOut =()=>{////////
+    // this.setState({logged:false,usertype:'Guest',username:null})
+  // }
+  handleOnClickLogout(){
+    // this.routerChange()
+    // this.props.history.push('/')
+    this.props.onClickLogout()
   }
-  onLoggedIn = (e) => {
-    console.log(e.username)
-    this.setState({usertype:e.usertype,username:e.username,logged:true})
-    this.props.onLoggedIn(e)
+  routerChange=()=>{
+    this.props.history.push('/')
   }
-  onLoggedOut =()=>{
-    // console.log('Logging out')
-    this.setState({logged:false,usertype:'Guest',username:null})
-  }
-
   render() {
+    
 
     let userContent = <div></div>
-    if(this.state.usertype==='Pharmacist'){
+    if(this.props.usertype==='Pharmacist'){////
       userContent=<div>Pharmacist</div>
-    } else if(this.state.usertype==='Doctor') {
+    } else if(this.props.usertype==='Doctor') {////
       userContent=<div>Doctor</div>
-    } else if(this.state.usertype==='Guest') {
+    } else if(this.props.usertype==='Guest') {////
       userContent=<div>Guest</div>
-    } else if(this.state.usertype==='Patient') {
+    } else if(this.props.usertype==='Patient') {////
       userContent=<div>Patient</div>
     }
 
     let headerContent1 = <div></div>
     let headerContent2 = <div></div>
     let headerContent3 = <div></div>
-    if (this.state.usertype==='Patient') {
+    if (this.props.usertype==='Patient') {
       headerContent1 = <Nav.Link onClick={this.onClickAppointment}>Make Appointment</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
-    } else if (this.state.usertype==='Doctor') {
+    } else if (this.props.usertype==='Doctor') {
       headerContent1 = <Nav.Link onClick={this.onClickRegister}>Manage Schedule</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickRegister}>Create Dispensation</Nav.Link>
-    } else if (this.state.usertype==='Pharmacist') {
+    } else if (this.props.usertype==='Pharmacist') {
       headerContent1 = <Nav.Link onClick={this.onClickOrder}>Manage Medicine Order</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Storage</Nav.Link>
       headerContent3 = <Nav.Link onClick={this.onClickReceipt}>Manage Receipt</Nav.Link>
     } 
 
-    const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.onLoggedIn(e)} onLoggedOut={this.onClickLogout}></LoginPaneContent></div>
+    const paneContent_Login = <div><LoginPaneContent onLoggedIn={(e)=>this.props.onLoggedIn(e)} onLoggedOut={this.handleOnClickLogout}></LoginPaneContent></div>////
     const paneContent_Register = <div><RegisterPaneContent/></div>
     const paneContent_Appointment = <div><AppointmentPaneContent/></div>
     const paneContent_Order = <div><OrderPaneContent/></div>
     const paneContent_Receipt = <div><ReceiptPaneContent/></div>
-    let logButton = !this.state.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.onClickLogout}>Logout</Nav.Link>
-    let regButton = !this.state.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>
-
+    let logButton = !this.props.logged ? <Nav.Link onClick={this.onClickLogin}>Login</Nav.Link> : <Nav.Link onClick={this.props.onClickLogout}>Logout</Nav.Link>///
+    let regButton = !this.props.logged ? <Nav.Link onClick={this.onClickRegister}>Register</Nav.Link> : <div></div>////
+    
     return (
       <React.Fragment>
+        {/* <Button onClick={this.routerChange}>Change link</Button> */}
       <Navbar bg='light'>
         <Navbar.Brand href="#">OPDMS</Navbar.Brand>
         {userContent}
@@ -108,7 +117,7 @@ class Header extends Component {
           <SlidingBar 
             onClickToggleLogin={this.onClickToggleLogin}
             isPaneOpen={this.state.toggleLoginPane} 
-            onTogglePane={this.onClickLogin} 
+            onTogglePane={this.onClickLogin} ///
             paneContent={paneContent_Login}
             title={'Login'}
           ></SlidingBar>
@@ -156,4 +165,4 @@ class Header extends Component {
 
 
 
-export default Header;
+export default withRouter(Header);

@@ -7,11 +7,19 @@ import _ from "lodash";
 // import DataTable from './DataTable'
 import ShowTable from './ShowTable'
 import PatientDashboard from './PatientDashboard'
+import GuestDashboard from './GuestDashboard'
+
 import { withRouter } from 'react-router-dom'
 let dashboard = <div></div>
 class DashBoard extends Component {
   //Wrap up component for Grid layout and header and all of the 'module' state being stored here from the react component map in docs
-  state = { toggleActiveUserTable:false,username:null,usertype:null,dashboard:<div></div>,logged:false,logged_id:null}
+  state = { toggleActiveUserTable:false,
+            username:null,
+            usertype:'Guest',
+            dashboard:<div><GuestDashboard></GuestDashboard></div>,
+            logged:false,
+            logged_id:null}
+            
   constructor(props) {
     super(props);
   }
@@ -30,12 +38,12 @@ class DashBoard extends Component {
     }else if(this.state.usertype==='Doctor'){
       this.setState({dashboard:<div>dashboard for doctor</div>})
     }else{
-      this.setState({dashboard:<div>dashboard for else</div>})
+      this.setState({dashboard:<div><GuestDashboard></GuestDashboard></div>})
     }
    
   }
   onLoggedOut=()=>{
-    this.setState({logged:false,usertype:'Guest',username:null,dashboard:<div> guest dashboard</div>})
+    this.setState({logged:false,usertype:'Guest',username:null,dashboard:<div><GuestDashboard></GuestDashboard></div>})
     this.props.history.push('')
     // history.push("/");
   }

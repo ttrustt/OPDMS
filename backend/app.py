@@ -56,7 +56,7 @@ def login_endpoint():
     dbfunc_status = login(params_list)
     print(dbfunc_status)
     if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
-    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'username':dbfunc_status[2],'usertype':dbfunc_status[3]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'username':dbfunc_status[2],'usertype':dbfunc_status[3],'fname':dbfunc_status[4],'lname':dbfunc_status[5]}),200)
     return response
 
 @app.route('/createappointment', methods=['POST'])
@@ -155,8 +155,25 @@ def updateorder_endpoint():
     print(params_list)
     dbfunc_status = updateMedicineOrder(params_list)
     print(dbfunc_status)
-    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'orderStatus':dbfunc_status[1]}),200)
-    else: response = make_response(jsonify({'success':dbfunc_status[0],'orderStatus':dbfunc_status[1]}),200)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    return response
+
+
+@app.route('/showschedule', methods=['POST'])
+@cross_origin()
+def showschedule_endpoint():
+    params = request.get_json()
+
+    params_list = [
+        params.get('username','null')
+    ]
+
+    print(params_list)
+    dbfunc_status = showSchedule(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
     return response
 
 def custom_error(message, status_code):

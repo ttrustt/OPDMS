@@ -8,6 +8,7 @@ import _ from "lodash";
 import ShowTable from './ShowTable'
 import PatientDashboard from './PatientDashboard'
 import { withRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 class GuestDashboard extends Component {
     state = { toggleActiveUserTable:false}
 
@@ -17,15 +18,15 @@ class GuestDashboard extends Component {
     render() {
         return (
             <React.Fragment>
-                <Jumbotron fluid>
+<Jumbotron fluid style={{marginBottom:0}}>
           <Container>
             <h1>Welcome to OPDMS</h1>
             <p>OPDMS stands for Out Patient Management System</p>
     <Button onClick={this.toggleShowActiveUser}>{this.state.toggleActiveUserTable?<div>Hide Active User</div>:<div>Active User</div>}</Button>
           </Container>
         </Jumbotron>
-          {this.state.toggleActiveUserTable?<div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div>:<div></div>}
-          </React.Fragment>
+          {this.state.toggleActiveUserTable?<div  style={{width: '100%', height: '55%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div>:<div></div>}
+            </React.Fragment>
         );
     }
 }

@@ -66,11 +66,11 @@ class Header extends Component {
     if(this.props.usertype==='Pharmacist'){////
       userContent=<div>Pharmacist</div>
     } else if(this.props.usertype==='Doctor') {////
-      userContent=<div>Doctor</div>
+      userContent=<div>Doctor: {this.props.username}</div>
     } else if(this.props.usertype==='Guest') {////
       userContent=<div>Guest</div>
     } else if(this.props.usertype==='Patient') {////
-      userContent=<div>Patient</div>
+      userContent=<div>Patient:  {this.props.username}</div>
     }
 
     let headerContent1 = <div></div>
@@ -78,8 +78,8 @@ class Header extends Component {
     let headerContent3 = <div></div>
     if (this.props.usertype==='Patient') {
       headerContent1 = <Nav.Link onClick={this.onClickAppointment}>Make Appointment</Nav.Link>
-      headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
-      headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
+      // headerContent2 = <Nav.Link onClick={this.onClickRegister}>View Schedule</Nav.Link>
+      // headerContent3 = <Nav.Link onClick={this.onClickRegister}>View Dispensation</Nav.Link>
     } else if (this.props.usertype==='Doctor') {
       headerContent1 = <Nav.Link onClick={this.onClickRegister}>Manage Schedule</Nav.Link>
       headerContent2 = <Nav.Link onClick={this.onClickRegister}>Create Diagnosis</Nav.Link>

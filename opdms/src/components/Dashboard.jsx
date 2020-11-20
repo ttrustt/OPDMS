@@ -8,7 +8,8 @@ import _ from "lodash";
 import ShowTable from './ShowTable'
 import PatientDashboard from './PatientDashboard'
 import GuestDashboard from './GuestDashboard'
-
+import DoctorDashboard from './DoctorDashboard'
+// import ReactSpinner from 'react-bootstrap-spinner'
 import { withRouter } from 'react-router-dom'
 let dashboard = <div></div>
 class DashBoard extends Component {
@@ -36,7 +37,7 @@ class DashBoard extends Component {
     if(this.state.usertype==='Patient'){
       this.setState({dashboard:<PatientDashboard usertype={this.state.usertype} username={this.state.username}/>})
     }else if(this.state.usertype==='Doctor'){
-      this.setState({dashboard:<div>dashboard for doctor</div>})
+      this.setState({dashboard:<DoctorDashboard usertype={this.state.usertype} username={this.state.username}></DoctorDashboard>})
     }else{
       this.setState({dashboard:<GuestDashboard></GuestDashboard>})
     }
@@ -69,7 +70,10 @@ class DashBoard extends Component {
                 onClickLogout={this.onClickLogout}
                 />
                 {/* <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div> */}
+        
         {this.state.dashboard}
+
+        
         
         
         {/* <Jumbotron fluid>

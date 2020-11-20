@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-    <div style={{height:'100vh'}}>
+    <div style={{height:'100vh',alignItems:"center" ,alignSelf:"center", alignContent:"center"}}>
     <Dashboard></Dashboard>
     </div>
     </BrowserRouter>

@@ -69,9 +69,9 @@ class RegisterPaneContent extends Component {
         return (
             <Form>
                 <Form.Group >
-                    <Form.Control placeholder="First name" onChange={(e) => this.setState({ fname: e.target.value })} />
+                    <Form.Control placeholder="First Name" onChange={(e) => this.setState({ fname: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="Last name" onChange={(e) => this.setState({ lname: e.target.value })} />
+                    <Form.Control placeholder="Last Name" onChange={(e) => this.setState({ lname: e.target.value })} />
                     {'\u00A0'}
                     <Form.Control placeholder="Religion" onChange={(e) => this.setState({ religion: e.target.value })} />
                     {'\u00A0'}
@@ -79,19 +79,19 @@ class RegisterPaneContent extends Component {
                     {'\u00A0'}
                     <Form.Control placeholder="Province" onChange={(e) => this.setState({ province: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="Postal_code" onChange={(e) => this.setState({ postal_code: e.target.value })} />
+                    <Form.Control placeholder="Postal Code" onChange={(e) => this.setState({ postal_code: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="Id" onChange={(e) => this.setState({ identification_number: e.target.value })} />
+                    <Form.Control placeholder="Identification Number or" onChange={(e) => this.setState({ identification_number: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="Passport" onChange={(e) => this.setState({ passport_number: e.target.value })} />
+                    <Form.Control placeholder="Passport Number" onChange={(e) => this.setState({ passport_number: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="Mobile no" onChange={(e) => this.setState({ mobile_number: e.target.value })} />
+                    <Form.Control placeholder="Mobile Number" onChange={(e) => this.setState({ mobile_number: e.target.value })} />
                     {'\u00A0'}
                     <Form.Control placeholder="Nationality" onChange={(e) => this.setState({ nationality: e.target.value })} />
                     {'\u00A0'}
                     <Form.Control placeholder="Sex" onChange={(e) => this.setState({ sex: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="Birthdate" onChange={(e) => this.setState({ birthdate: e.target.value })} />
+                    <Form.Control placeholder="Birthdate (YYYY-MM-DD)" onChange={(e) => this.setState({ birthdate: e.target.value })} />
                     {'\u00A0'}
                     <Form.Control placeholder="Email" onChange={(e) => this.setState({ email: e.target.value })} />
                     {'\u00A0'}
@@ -99,17 +99,17 @@ class RegisterPaneContent extends Component {
                     {'\u00A0'}
                     <Form.Control placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })} />
                     {'\u00A0'}
-                    <Form.Control placeholder="User type" onChange={(e) => this.setState({ user_type: e.target.value })} />
+                    <Form.Control placeholder="User Type (Patient/Doctor/Pharmacist)" onChange={(e) => this.setState({ user_type: e.target.value })} />
                 </Form.Group>
                 <Button variant="primary" onClick={this.handleSubmit}>
-                    {this.state.loading?<Spinner
+                    {this.state.loading ? <Spinner
                         as="span"
                         animation="border"
                         size="sm"
                         role="status"
                         aria-hidden="true"
                     />:<div></div>}
-                        Submit
+                        Register
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
                 {this.state.status}

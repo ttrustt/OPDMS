@@ -624,8 +624,8 @@ def deleteSchedule(listOfInput):
         except Error as e : 
             message = (False,"Error while executing First to MySQL "+str(e))
         try:
-            if selected_schedule_number in schedule_number:
-                cursor.execute("delete from SCHEDULE where schedule_number = "+str(selected_schedule_number)+";")
+            if selected_schedule_number in schedule_number :
+                cursor.execute("delete from SCHEDULE where schedule_number = '"+str(selected_schedule_number)+"';")
                 connection.commit()
                 message = (True, "Delete schedule success")
             else : message = (True, "Selected schedule not exist")

@@ -544,10 +544,10 @@ def createDispensation(listOfinput):
     message = 'error'
     
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
                                             user='root',
-                                            password='kin184492318')
+                                            password='!Opdmstrust69')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -557,9 +557,12 @@ def createDispensation(listOfinput):
     if (connection.is_connected()):
         try:
             cursor = connection.cursor()
-            cursor.execute("select * from MEDICINE where pharma_code='"+pharmaCode+"';")
+            cursor.execute("select price from MEDICINE where pharma_code='"+pharmaCode+"';")
             record = cursor.fetchall()
-            price = record[0][3]
+            if (record == []) : 
+                price= 0 
+            else : 
+                price = record[0][3]
             cursor.execute("insert into DISPENSATION (quantity,price,created_time,visit_number,pharma_code,receipt_number,description) values('"+
                 str(quantity)+"','"+str(price*quantity)+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
                 str(receiptNumber)+"','"+str(description)+"');")

@@ -9,10 +9,10 @@ from datetime import datetime
 
 def connect():
     try:
-        connection = mysql.connector.connect(host='localhost',
+        connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
                                             user='root',
-                                            password='1234567890')
+                                            password='!Opdmstrust69')
         if connection.is_connected():
             db_Info = connection.get_server_info()
             message = (True, "Connected to MySQL Server version ", db_Info)  

@@ -66,7 +66,11 @@ class DataTable extends Component {
       const fixedColumns = this.props.columns.map((column, columnIndex) => {
         let frozen
         // console.log(column)
-        column.width = this.state.width/columnNo
+        if(typeof(this.props.width)!=='undefined' && this.props.width!=null){
+          column.width = this.state.width/(columnNo*2)
+          console.log(this.props.width)
+        }
+        else column.width = this.state.width/columnNo
         column.sortable=true
         // console.log(column)
         if (columnIndex < 0) frozen = Column.FrozenDirection.LEFT

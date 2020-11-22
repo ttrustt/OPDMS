@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
 from flask_cors import CORS, cross_origin
 from DBfunc import *
+from PyMongoTest import * 
 import json
 app = Flask(__name__)
 cors = CORS(app)
@@ -290,6 +291,51 @@ def deleteschedule_endpoint():
     print(dbfunc_status)
     if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    return response
+
+@app.route('/findexpertise', methods=['POST'])
+@cross_origin()
+def findexpertise_endpoint():
+    params = request.get_json()
+
+    params_list = [
+        params.get('doctor_id','null')
+    ]
+
+    dbfunc_status = findExbyDID(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    return response
+
+@app.route('/findunderlyingdisease', methods=['POST'])
+@cross_origin()
+def findunderlyingdisease_endpoint():
+    params = request.get_json()
+
+    params_list = [
+        params.get('patient_id','null')
+    ]
+
+    dbfunc_status = findUDbyPID(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
+    return response
+
+@app.route('/findlimitation', methods=['POST'])
+@cross_origin()
+def findlimitation():
+    params = request.get_json()
+
+    params_list = [
+        params.get('patient_id','null')
+    ]
+
+    dbfunc_status = findFMbyPID(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
     return response
 
 def custom_error(message, status_code):

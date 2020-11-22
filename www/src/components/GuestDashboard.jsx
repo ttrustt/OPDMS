@@ -21,7 +21,7 @@ class GuestDashboard extends Component {
 <Jumbotron fluid style={{marginBottom:0}}>
           <Container>
             <h1>Welcome to OPDMS</h1>
-            <p>OPDMS stands for Out Patient Management System</p>
+            <p>OPDMS - OutPatient Department Management System</p>
     <Button onClick={this.toggleShowActiveUser}>{this.state.toggleActiveUserTable?<div>Hide Active User</div>:<div>Active User</div>}</Button>
           </Container>
         </Jumbotron>

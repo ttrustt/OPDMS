@@ -308,13 +308,13 @@ def updateMedicineOrder(listofInput):
     return message
 
 
-def addShow_icd(listofInput, cursor):
+def addShow_icd(listofInput, connection, message, cursor):
     visit_number = listofInput[0]
     icd = []    
     for i in range(1,len(listofInput)):
         if listofInput[i] != '':
             icd.append(listofInput[i])
-    
+    print("In show ICD")
     # (connection, message) = connect()
     if (message[0]):
         try:
@@ -340,7 +340,7 @@ def createDiagnosis(listOfInput):
     (connection, message) = connect()
     if (message[0]):
         try: 
-            connection.autocommit = false
+            connection.autocommit = False
             cursor = connection.cursor()
             cursor.execute("insert into DIAGNOSIS (visit_number, schedule_number, doctors_recommendation, created_time, clinic_id) \
                 values (""'"+str(visit_number)+"','"+str(schedule_number)+"','"+str(doctors_recommendation)+ \
@@ -348,7 +348,7 @@ def createDiagnosis(listOfInput):
             
             diagnosisMessage = (True,'Create diagnosis success')
             if (len(listOfInput) > 4):
-                show_icdMessage, cursor = addShow_icd([visit_number]+listOfInput[4:], cursor)
+                show_icdMessage, cursor = addShow_icd([visit_number]+listOfInput[4:], connection, diagnosisMessage, cursor)
                 if (diagnosisMessage[0] and show_icdMessage[0]):
                     # message = (True, diagnosisMessage[1] + " and " + show_icdMessage[1])
                     message = (True, "Success")

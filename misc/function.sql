@@ -57,3 +57,5 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+CREATE INDEX password ON SYSTEM_USER(password);

@@ -74,8 +74,6 @@ CREATE TRIGGER updateStorage
 BEFORE UPDATE ON MEDICINE_ORDER
 FOR EACH ROW
 BEGIN
-	DECLARE checker boolean;
-    SET checker = false;
 	IF (OLD.status = "ORDERED") THEN
 		UPDATE STORED_MEDICINE 
         SET quantity = (select quantity from (select quantity from STORED_MEDICINE 

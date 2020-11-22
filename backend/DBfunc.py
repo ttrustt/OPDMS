@@ -313,7 +313,6 @@ def getPharmaRoomSQ(listOfinput):
 
 def createMedicine(listOfInput):
     order_time = datetime.now()
-    print(order_time)
     pharma_room_id = listOfInput[0]
     supplier_id = listOfInput[1]
     manufacturing_date = listOfInput[2]
@@ -496,7 +495,6 @@ def showScheduleForDoctor(listOfInput):
             column = [] 
             for i in listofColumn:
                 column.append({'title':i,'dataKey':i,'key':i})
-            print(schedule)
             if(schedule == []) : 
                 message = (True,'No Schedule',schedule,column)
             else : 
@@ -650,7 +648,7 @@ def deleteSchedule(listOfInput):
         except Error as e : 
             message = (False,"Error while executing First to MySQL "+str(e))
         try:
-            if selected_schedule_number in schedule_number :
+            if int(selected_schedule_number) in schedule_number :
                 cursor.execute("delete from SCHEDULE where schedule_number = '"+str(selected_schedule_number)+"';")
                 connection.commit()
                 message = (True, "Delete schedule success")

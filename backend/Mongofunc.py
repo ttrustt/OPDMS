@@ -8,7 +8,7 @@ def findUDbyPID(listOfInput):
         pid = 1e9 
     message = 'error'
     try : 
-        client = MongoClient('35.185.182.63', 27017)
+        client = MongoClient('35.185.182.63', 27018)
         db = client.opdms
         collection = db.underlying_disease
         cursor = list(collection.find({"patient_id":pid}))
@@ -32,7 +32,7 @@ def findExbyDID(listOfInput):
         did = 1e9 
     message = 'error'
     try : 
-        client = MongoClient('35.185.182.63', 27017)
+        client = MongoClient('35.185.182.63', 27018)
         db = client.opdms
         collection = db.expertise
         cursor = list(collection.find({"doctor_id":did}))
@@ -56,7 +56,7 @@ def findFMbyPID(listOfInput):
         pid = 1e9 
     message = 'error'
     try : 
-        client = MongoClient('35.185.182.63', 27017)
+        client = MongoClient('35.185.182.63', 27018)
         db = client.opdms
         collection = db.food_medicine_limitation
         cursor = list(collection.find({"patient_id":pid}))

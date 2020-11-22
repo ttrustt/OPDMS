@@ -246,7 +246,6 @@ def getPharmaRoomSQ(listOfinput):
 
 def createMedicine(listOfInput):
     order_time = datetime.now()
-    print(order_time)
     pharma_room_id = listOfInput[0]
     supplier_id = listOfInput[1]
     manufacturing_date = listOfInput[2]
@@ -378,7 +377,6 @@ def showScheduleForDoctor(listOfInput):
             column = [] 
             for i in listofColumn:
                 column.append({'title':i,'dataKey':i,'key':i})
-            print(schedule)
             if(schedule == []) : 
                 message = (True,'No Schedule',schedule,column)
             else : 

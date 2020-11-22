@@ -572,4 +572,30 @@ def createDispensation(listOfinput):
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
+    return message
+
+def getReceipt_number():
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select max(receipt_number) from RECEIPT")
+            visit_number = cursor.fetchall()           
+            message = (True, "Success", visit_number[0][0])
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
     return message 

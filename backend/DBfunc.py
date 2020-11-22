@@ -599,3 +599,38 @@ def getReceipt_number():
         cursor.close()
         connection.close()
     return message 
+
+
+def deleteSchedule(listOfInput):
+    selected_schedule_number = listOfInput[0]
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select schedule_number from SCHEDULE")
+            temp = cursor.fetchall()
+            schedule_number = [x[0] for x in temp]
+        except Error as e : 
+            message = (False,"Error while executing First to MySQL "+str(e))
+        try:
+            if selected_schedule_number in schedule_number:
+                cursor.execute("delete from SCHEDULE where schedule_number = "+str(selected_schedule_number)+";")
+                connection.commit()
+                message = (True, "Delete schedule success")
+            else : message = (True, "Selected schedule not exist")
+        except Error as e : 
+            message = (False,"Error while executing Second to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message

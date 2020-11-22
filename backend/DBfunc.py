@@ -282,9 +282,32 @@ def updateReceipt(listofInput):
     if (message[0]):
         try: 
             cursor = connection.cursor()
-            cursor.execute("UPDATE RECEIPT SET status = 'PAID' where receipt_number = '"+str(ID) +"';")
-            connection.commit()              
-            message = (True, "Success")
+            message = checkUpdateReceipt(listofInput) 
+            if(len(message)==3 and message[0]) : 
+                if(message[2].strip()=='PAID'):
+                    message = (True,"Already Paid")
+                else:
+                    cursor.execute("UPDATE RECEIPT SET status = 'PAID' where receipt_number = '"+str(ID) +"';")
+                    connection.commit()              
+                    message = (True, "Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+def checkUpdateReceipt(listofInput):
+    ID = listofInput[0]
+    (connection, message) = connect()
+    if (message[0]):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select status from RECEIPT where receipt_number='"+str(ID)+"';")
+            record = cursor.fetchall()
+            if(record==[]):
+                message = (True,"No have Receipt")
+            else : 
+                message = (True,"Success",record[0][0].strip())
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -299,12 +322,9 @@ def updateMedicineOrder(listofInput):
     if (message[0]):
         try: 
             cursor = connection.cursor()
-            record = checkUpdateMedicineOrder(listofInput) 
-            print(record)
-            if(len(record)==2) : 
-                message=record
-            elif(len(record)==3 and record[0]) :
-                if(record[2].strip()=="RECEIVED"):
+            message = checkUpdateMedicineOrder(listofInput) 
+            if(len(message)==3 and message[0]) :
+                if(message[2].strip()=="RECEIVED"):
                     message = (True,"Already Received")
                 else : 
                     cursor.execute("UPDATE MEDICINE_ORDER SET status = 'RECEIVED' where order_id = '"+str(ID) +"';")

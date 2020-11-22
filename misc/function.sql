@@ -102,10 +102,10 @@ CREATE FUNCTION CreditReceivable (price int)
     DETERMINISTIC
 BEGIN
 	DECLARE level varchar(4);
-    IF price < 300 THEN
-		SET level = 'NO';
-	ELSE
+    IF price >= 300 THEN
 		SET level = 'YES';
+	ELSE
+		SET level = 'NO';
 	END IF;
     RETURN (level);
 END $$

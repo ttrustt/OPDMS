@@ -368,6 +368,7 @@ def createDiagnosis(listOfInput):
         connection.close()
     return message
 
+
 def showScheduleForDoctor(listOfInput):
     username = listOfInput[0]
     
@@ -394,6 +395,7 @@ def showScheduleForDoctor(listOfInput):
         connection.close()
         return message
 
+
 def getVisitNumber():
     (connection, message) = connect()
     if (message[0]):
@@ -407,6 +409,7 @@ def getVisitNumber():
         cursor.close()
         connection.close()
     return message
+
 
 def createDispensation(listOfinput):
     visitNumber = listOfinput[0] 
@@ -437,6 +440,7 @@ def createDispensation(listOfinput):
         connection.close()
     return message
 
+
 def getReceipt_number():
     (connection, message) = connect()
     if (message[0]):
@@ -450,6 +454,7 @@ def getReceipt_number():
         cursor.close()
         connection.close()
     return message
+
 
 def createReceipt(): 
     receipt_number = getReceipt_number()[2]+1
@@ -465,6 +470,7 @@ def createReceipt():
         cursor.close()
         connection.close()
     return message
+
 
 def deleteSchedule(listOfInput):
     selected_schedule_number = listOfInput[0]
@@ -486,6 +492,34 @@ def deleteSchedule(listOfInput):
             else : message = (True, "Selected schedule not exist")
         except Error as e : 
             message = (False,"Error while executing Second to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+
+def showReceipt():
+    (connection, message) = connect()
+    if (message[0]):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select r.receipt_number, SUM(price) as total_price, MAX(created_time) as created_time, r.status \
+                            from DISPENSATION d, RECEIPT r \
+                            where d.receipt_number = r.receipt_number \
+                            group by r.receipt_number \
+                            order by created_time DESC;")
+            receipt = cursor.fetchall()
+            attribute = ["receipt_number", "total_price", "created_time", "status"]
+            column = [{"title":x, "dataKey":x, "key":x} for x in attribute]
+            if (receipt == []) :
+                message = (True, "No Receipt", receipt, column)
+            else :
+                data = [{} for i in range(len(receipt))]
+                for i in range(len(receipt)):
+                    for j in range(4):
+                        data[i][attribute[j]] =  receipt[i][j]
+                message = (True, "Show Receipt Success", data, column)
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
     return message

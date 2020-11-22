@@ -70,6 +70,20 @@ BEGIN
 	INSERT INTO ORDER_LOG VALUES (OLD.order_id, NOW());
 END $$
 
+CREATE TRIGGER updateStorage
+BEFORE UPDATE ON MEDICINE_ORDER
+FOR EACH ROW
+BEGIN
+	DECLARE checker boolean;
+    SET checker = false;
+	IF (OLD.status = "ORDERED") THEN
+		UPDATE STORED_MEDICINE 
+        SET quantity = (select quantity from (select quantity from STORED_MEDICINE 
+        where pharma_room_id = OLD.pharma_room_id and pharma_code = OLD.pharma_code) as SM) + OLD.quantity
+        WHERE pharma_room_id = OLD.pharma_room_id and pharma_code = OLD.pharma_code;
+    END IF;
+END $$
+
 CREATE FUNCTION StorageLevel (storage int, max_storage int)
 	RETURNS varchar(10)
     DETERMINISTIC

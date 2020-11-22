@@ -81,8 +81,9 @@ class DataTable extends Component {
         title: 'id',
         dataKey: 'id',
         key:'id',
-        width:150,
+        width:0,
         hidden:true,
+        resizable: false
         // visible:false
       })
     // const dataWithId = this.props.data.map((row,dataIndex) => {

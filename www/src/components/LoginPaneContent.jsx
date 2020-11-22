@@ -31,6 +31,12 @@ class LoginPaneContent extends Component {
         this.setState({loading:true})
         this.onRequest()
     }
+    onKeyDown=(e)=>{
+        if (e.keyCode === 13) {
+            e.preventDefault()
+            this.handleSubmit()
+        }
+    }
     
     render() {
         return (
@@ -38,7 +44,7 @@ class LoginPaneContent extends Component {
                 <Form.Group >
                     <Form.Control placeholder="Username" onChange={(e)=>this.setState({username:e.target.value})} />
                     {'\u00A0'}
-                    <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})} />
+                    <Form.Control type = "password" placeholder="Password" onChange={(e)=>this.setState({password:e.target.value})}onKeyDown={(e)=> this.onKeyDown(e)} />
                 </Form.Group>
                 <Button variant="primary" disabled={this.props.logged} onClick={this.handleSubmit}>
                     {this.state.loading ?

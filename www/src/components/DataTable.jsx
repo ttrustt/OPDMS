@@ -10,14 +10,24 @@ class DataTable extends Component {
   //structure for DataTableComponent
     constructor(props) {
         super(props);
-        this.state = {data:this.props.data, sortBy:defaultSort};
+        this.state = {data:this.props.data, sortBy:defaultSort, width: 0, height: 0}
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        };
+
         // console.log(this.props.data)
-    }
     componentDidMount(){
         this.state.data=this.props.data.map((row,dataIndex) => {
             row.id=dataIndex
             return {...row}
         })
+        this.updateWindowDimensions();
+  window.addEventListener('resize', this.updateWindowDimensions);
+    }
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+    updateWindowDimensions() {
+      this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
     onColumnSort = sortBy => {
       //sort column
@@ -29,11 +39,34 @@ class DataTable extends Component {
         data,
       })
     }
+    componentDidUpdate(){
+      // const columnsNum = 
+      // this.setState({fixedColumns:this.props.columns.map((column, columnIndex) => {
+      //   let frozen
+      //   // console.log(column)
+      //   column.width = this.state.width/this.props.columns.size
+      //   column.sortable=true
+      //   // console.log(column)
+      //   if (columnIndex < 0) frozen = Column.FrozenDirection.LEFT
+      //   if (columnIndex > 100) frozen = Column.FrozenDirection.RIGHT
+      //   return { ...column, frozen ,resizable: true}
+      // })
+      // })
+      // this.state.fixedColumns.push( {
+      //   title: 'id',
+      //   dataKey: 'id',
+      //   key:'id',
+      //   width:150,
+      //   hidden:true,
+      //   // visible:false
+      // })
+    }
     render() {
+      const columnNo = this.props.columns.length
       const fixedColumns = this.props.columns.map((column, columnIndex) => {
         let frozen
         // console.log(column)
-        column.width = 150
+        column.width = this.state.width/columnNo
         column.sortable=true
         // console.log(column)
         if (columnIndex < 0) frozen = Column.FrozenDirection.LEFT

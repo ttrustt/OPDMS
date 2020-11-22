@@ -1,6 +1,6 @@
 UI/__pycache__/
 backend/__pycache__/
-UI/configure.py
+configure.py
 venv
 .vscode/settings.json
 .DS_Store

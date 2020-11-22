@@ -299,9 +299,35 @@ def updateMedicineOrder(listofInput):
     if (message[0]):
         try: 
             cursor = connection.cursor()
-            cursor.execute("UPDATE MEDICINE_ORDER SET status = 'RECEIVED' where order_id = '"+str(ID) +"';")
-            connection.commit()              
-            message = (True, "Success")
+            record = checkUpdateMedicineOrder(listofInput) 
+            print(record)
+            if(len(record)==2) : 
+                message=record
+            elif(len(record)==3 and record[0]) :
+                if(record[2].strip()=="RECEIVED"):
+                    message = (True,"Already Received")
+                else : 
+                    cursor.execute("UPDATE MEDICINE_ORDER SET status = 'RECEIVED' where order_id = '"+str(ID) +"';")
+                    connection.commit()              
+                    message = (True, "Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+def checkUpdateMedicineOrder(listofInput):
+    ID = listofInput[0]
+    (connection, message) = connect()
+    if (message[0]):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select status from MEDICINE_ORDER where order_id='"+str(ID)+"';")
+            record = cursor.fetchall()
+            if(record==[]):
+                message = (True,"No have ID")
+            else : 
+                message = (True,"Success",record[0][0].strip())
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

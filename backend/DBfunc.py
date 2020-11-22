@@ -313,7 +313,6 @@ def getPharmaRoomSQ(listOfinput):
 
 def createMedicine(listOfInput):
     order_time = datetime.now()
-    print(order_time)
     pharma_room_id = listOfInput[0]
     supplier_id = listOfInput[1]
     manufacturing_date = listOfInput[2]
@@ -496,7 +495,6 @@ def showScheduleForDoctor(listOfInput):
             column = [] 
             for i in listofColumn:
                 column.append({'title':i,'dataKey':i,'key':i})
-            print(schedule)
             if(schedule == []) : 
                 message = (True,'No Schedule',schedule,column)
             else : 
@@ -572,4 +570,91 @@ def createDispensation(listOfinput):
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-    return message 
+    return message
+
+def getReceipt_number():
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select max(receipt_number) from RECEIPT")
+            visit_number = cursor.fetchall()           
+            message = (True, "Success", visit_number[0][0])
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+def createReceipt(): 
+    message = 'error'
+    receipt_number = getReceipt_number()[2]+1  
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("insert into RECEIPT values('"+str(receipt_number)+"','UNPAID');")
+            connection.commit()       
+            message = (True, "Create Receipt Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
+
+def deleteSchedule(listOfInput):
+    selected_schedule_number = listOfInput[0]
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select schedule_number from SCHEDULE")
+            temp = cursor.fetchall()
+            schedule_number = [x[0] for x in temp]
+        except Error as e : 
+            message = (False,"Error while executing First to MySQL "+str(e))
+        try:
+            if int(selected_schedule_number) in schedule_number :
+                cursor.execute("delete from SCHEDULE where schedule_number = '"+str(selected_schedule_number)+"';")
+                connection.commit()
+                message = (True, "Delete schedule success")
+            else : message = (True, "Selected schedule not exist")
+        except Error as e : 
+            message = (False,"Error while executing Second to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message

@@ -9,9 +9,7 @@ class ReceiptPaneContent extends Component {
 
         response: '',
         loadingBill: false,
-        loadingOrder: false,
-        billStatus:'',
-        orderStatus:''
+        billStatus:''
     }
 
     onRequestBill = () => {
@@ -28,20 +26,6 @@ class ReceiptPaneContent extends Component {
         });
     }
 
-    onRequestOrder = () => {
-        console.log(this.state)
-        axios.post('http://127.0.0.1:5000/updateorder', {
-            order_id: this.state.order_id,
-        })
-        .then((response) => {
-            this.setState({ loadingOrder: false })
-            console.log(response.data.orderStatus);
-            this.setState({orderStatus:response.data.orderStatus})
-        }, (error) => {
-            console.log(error);
-        });
-    }
-
     componentDidUpdate() {
         // console.log(this.state)
     }
@@ -49,11 +33,6 @@ class ReceiptPaneContent extends Component {
     handleSubmitBill = () => {
         this.setState({ loadingBill: true })
         this.onRequestBill()
-    }
-
-    handleSubmitOrder = () => {
-        this.setState({ loadingOrder: true })
-        this.onRequestOrder()
     }
     
     render() {
@@ -74,23 +53,6 @@ class ReceiptPaneContent extends Component {
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>
                 {this.state.billStatus}
-                </Form.Text>
-                {'\u00A0'}
-                <Form.Group >
-                    <Form.Control placeholder="Order ID" onChange={(e) => this.setState({ order_id: e.target.value })} />
-                </Form.Group>
-                <Button variant="primary" onClick={this.handleSubmitOrder}>
-                    {this.state.loadingOrder ? <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />:<div></div>}
-                        Mark as RECEIVED
-                </Button>
-                <Form.Text id="passwordHelpBlock" muted>
-                {this.state.orderStatus}
                 </Form.Text>
             </Form>
         );

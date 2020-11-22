@@ -13,7 +13,7 @@ class SchedulePaneContent extends Component {
 
     onRequest = () => {
         console.log(this.state)
-        axios.post('http://127.0.0.1:5000/manageschedule', {
+        axios.post('http://127.0.0.1:5000/deleteschedule', {
             schedule_number: this.state.schedule_number
         })
         .then((response) => {

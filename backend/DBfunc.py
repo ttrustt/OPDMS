@@ -44,6 +44,13 @@ def register(listOfSystem_user):
     if (message[0]):
         try:
             cursor = connection.cursor()
+            for i in range(len(listOfSystem_user)) :
+                if i != 6 and i != 7 :
+                    if listOfSystem_user[i] == "" :
+                        message = (False,'Please fill all information') 
+                        cursor.close()
+                        connection.close()
+                        return message
             if (identification_number == "" and passport_number == "") :
                 message = (False,'Must have either identification number or passport number')
             elif (sex not in ['Male', 'Female']) :
@@ -55,6 +62,9 @@ def register(listOfSystem_user):
                 message = (True,'Register success!')
             elif (passport_number == "") :
                 cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
+                message = (True,'Register success!')
+            elif (identification_number != "" and passport_number != "") :
+                cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
                 message = (True,'Register success!')
             connection.commit()
         except Error as e:

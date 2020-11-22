@@ -7,6 +7,21 @@ from flask import Flask, request, jsonify, make_response, flash, redirect, url_f
 from datetime import datetime
 
 
+def connect():
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = (True, "Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+    return (connection, message)
+
+
 def register(listOfSystem_user):
     fname = listOfSystem_user[0]
     lname = listOfSystem_user[1]
@@ -24,22 +39,11 @@ def register(listOfSystem_user):
     username = listOfSystem_user[13]
     password = listOfSystem_user[14]
     user_type = listOfSystem_user[15]
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)
-            cursor = connection.cursor()
-            cursor.execute("select * from SYSTEM_USER;")
-            record = cursor.fetchall()
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+
+    (connection, message) = connect()
+    if (message[0]):
         try:
+            cursor = connection.cursor()
             cursor.execute("insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
                 mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (""'"+str(fname)+"','"+str(lname)+"','"+str(religion)+ \
                 "','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+ \
@@ -57,19 +61,9 @@ def register(listOfSystem_user):
 def login(listOfSystem_user):
     username0 = listOfSystem_user[0]
     password0 = listOfSystem_user[1]
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
 
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("select username,password,user_type,fname,lname from SYSTEM_USER where username='"+username0+"'")
@@ -89,19 +83,9 @@ def login(listOfSystem_user):
 
 def showMedicine(listOfinput): 
     username = listOfinput[0]
-    message = 'error'
-    try: 
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
 
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.callproc('getDispensation',[username,])
@@ -130,20 +114,9 @@ def createAppointment(listOfSystem):
     time_in = listOfSystem[2]
     time_out = listOfSystem[3]
     diagnosis_room_id = listOfSystem[4]
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
-            cursor = connection.cursor()
-
-    except Error as e:
-        message = (False,("Error while connecting to MySQL", e))
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("insert into SCHEDULE (patient_id, doctor_id, time_in, time_out, diagnosis_room_id) values (""'"+str(patient_id)+"','"+str(doctor_id)+"','"+str(time_in)+ \
@@ -158,19 +131,8 @@ def createAppointment(listOfSystem):
 
 
 def showUser():
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("select username, fname, lname, password, user_type, user_id from SYSTEM_USER")
@@ -216,18 +178,9 @@ def showUser():
 
 def showSchedule(listOfinput): 
     username = listOfinput[0]
-    message = 'error'
-    try: 
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.callproc('getSchedule',[username,])
@@ -253,19 +206,9 @@ def showSchedule(listOfinput):
 
 def getMedicineSQ(listOfinput): 
     PC = listOfinput[0] 
-    message = 'error'
-    try: 
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
-
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("SELECT pharma_room_id, quantity FROM STORED_MEDICINE WHERE pharma_code='"+str(PC)+"';")
@@ -287,18 +230,9 @@ def getMedicineSQ(listOfinput):
 
 def getPharmaRoomSQ(listOfinput): 
     PR = listOfinput[0] 
-    message = 'error'
-    try: 
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("SELECT pharma_code, quantity FROM STORED_MEDICINE WHERE pharma_room_id='"+str(PR)+"';")
@@ -313,7 +247,6 @@ def getPharmaRoomSQ(listOfinput):
 
 def createMedicine(listOfInput):
     order_time = datetime.now()
-    print(order_time)
     pharma_room_id = listOfInput[0]
     supplier_id = listOfInput[1]
     manufacturing_date = listOfInput[2]
@@ -322,18 +255,9 @@ def createMedicine(listOfInput):
     price = listOfInput[5]
     pharma_code = listOfInput[6]
     status = "ORDERED"
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message =  (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("insert into MEDICINE_ORDER (order_time, pharma_room_id, supplier_id, manufacturing_date, \
@@ -351,17 +275,9 @@ def createMedicine(listOfInput):
 
 def updateReceipt(listofInput): 
     ID = listofInput[0]
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message =(False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("UPDATE RECEIPT SET status = 'PAID' where receipt_number = '"+str(ID) +"';")
@@ -376,17 +292,9 @@ def updateReceipt(listofInput):
 
 def updateMedicineOrder(listofInput): 
     ID = listofInput[0]
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("UPDATE MEDICINE_ORDER SET status = 'RECEIVED' where order_id = '"+str(ID) +"';")
@@ -405,17 +313,9 @@ def addShow_icd(listofInput):
     for i in range(1,len(listofInput)):
         if listofInput[i] != '':
             icd.append(listofInput[i])
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message =(False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try:
             cursor = connection.cursor()
             for i in icd :
@@ -435,18 +335,9 @@ def createDiagnosis(listOfInput):
     doctors_recommendation = listOfInput[2]
     created_time = datetime.now()
     clinic_id = listOfInput[3]
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message = (False,("Error while connecting to MySQL", e))
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("insert into DIAGNOSIS (visit_number, schedule_number, doctors_recommendation, created_time, clinic_id) \
@@ -475,18 +366,9 @@ def createDiagnosis(listOfInput):
 
 def showScheduleForDoctor(listOfInput):
     username = listOfInput[0]
-    message = 'error'
-    try: 
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)  
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.callproc('getScheduleForDoctor',[username,])
@@ -496,7 +378,6 @@ def showScheduleForDoctor(listOfInput):
             column = [] 
             for i in listofColumn:
                 column.append({'title':i,'dataKey':i,'key':i})
-            print(schedule)
             if(schedule == []) : 
                 message = (True,'No Schedule',schedule,column)
             else : 
@@ -510,20 +391,8 @@ def showScheduleForDoctor(listOfInput):
         return message
 
 def getVisitNumber():
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-
-    if (connection.is_connected()):
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("select max(visit_number) from DIAGNOSIS")
@@ -541,20 +410,9 @@ def createDispensation(listOfinput):
     pharmaCode = listOfinput[2]
     quantity = listOfinput[3]
     description = listOfinput[4] 
-    message = 'error'
     
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            print("Connected to MySQL Server version ", db_Info)
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-
-    if (connection.is_connected()):
+    (connection, message) = connect()
+    if (message[0]):
         try:
             cursor = connection.cursor()
             cursor.execute("select price from MEDICINE where pharma_code='"+pharmaCode+"';")
@@ -575,20 +433,8 @@ def createDispensation(listOfinput):
     return message
 
 def getReceipt_number():
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-
-    if (connection.is_connected()):
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("select max(receipt_number) from RECEIPT")
@@ -598,24 +444,28 @@ def getReceipt_number():
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-    return message 
+    return message
 
+def createReceipt(): 
+    receipt_number = getReceipt_number()[2]+1
+    (connection, message) = connect()
+    if (message[0]):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("insert into RECEIPT values('"+str(receipt_number)+"','UNPAID');")
+            connection.commit()       
+            message = (True, "Create Receipt Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
 
 def deleteSchedule(listOfInput):
     selected_schedule_number = listOfInput[0]
-    message = 'error'
-    try:
-        connection = mysql.connector.connect(host='35.185.182.63',
-                                            database='opdms',
-                                            user='root',
-                                            password='!Opdmstrust69')
-        if connection.is_connected():
-            db_Info = connection.get_server_info()
-            message = ("Connected to MySQL Server version ", db_Info)  
-
-    except Error as e:
-        message = (False,"Error while connecting to MySQL", e)
-    if (connection.is_connected()):
+    
+    (connection, message) = connect()
+    if (message[0]):
         try: 
             cursor = connection.cursor()
             cursor.execute("select schedule_number from SCHEDULE")
@@ -624,7 +474,7 @@ def deleteSchedule(listOfInput):
         except Error as e : 
             message = (False,"Error while executing First to MySQL "+str(e))
         try:
-            if selected_schedule_number in schedule_number :
+            if int(selected_schedule_number) in schedule_number :
                 cursor.execute("delete from SCHEDULE where schedule_number = '"+str(selected_schedule_number)+"';")
                 connection.commit()
                 message = (True, "Delete schedule success")

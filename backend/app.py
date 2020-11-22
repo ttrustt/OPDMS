@@ -245,19 +245,19 @@ def generatevisitnumber_endpoint():
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2]+1}),200)
     return response
 
-@app.route('/generatereceiptnumber', methods=['POST'])
+@app.route('/generatereceipt', methods=['POST'])
 @cross_origin()
-def generatereceiptnumber_endpoint():
+def generatereceipt_endpoint():
     params = request.get_json()
 
     params_list = [
         # params.get('username','null')
     ]
 
-    dbfunc_status = getReceipt_number()
+    dbfunc_status = createReceipt()
     print(dbfunc_status)
     if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
-    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2]+1}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
     return response
 
 @app.route('/deleteschedule', methods=['POST'])

@@ -314,7 +314,6 @@ def addShow_icd(listofInput, connection, message, cursor):
     for i in range(1,len(listofInput)):
         if listofInput[i] != '':
             icd.append(listofInput[i])
-    print("In show ICD")
     # (connection, message) = connect()
     if (message[0]):
         try:
@@ -422,12 +421,13 @@ def createDispensation(listOfinput):
             cursor = connection.cursor()
             cursor.execute("select price from MEDICINE where pharma_code='"+pharmaCode+"';")
             record = cursor.fetchall()
+            print(record)
             if (record == []) : 
                 price= 0 
             else : 
-                price = record[0][3]
+                price = record[0][0]
             cursor.execute("insert into DISPENSATION (quantity,price,created_time,visit_number,pharma_code,receipt_number,description) values('"+
-                str(quantity)+"','"+str(price*quantity)+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
+                str(quantity)+"','"+str(round(price*float(quantity),2))+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
                 str(receiptNumber)+"','"+str(description)+"');")
             connection.commit()
             message = (True,"createDispensation Success")

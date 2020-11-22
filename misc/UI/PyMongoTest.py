@@ -1,7 +1,11 @@
 from pymongo import MongoClient
-client = MongoClient('localhost', 27017)
-db = client.opdms
-collection = db.underlying_disease_
-x = collection.find({"underlying_disease":"N185"})
-for i in x:
-    print(i)
+
+def findUDbyPID(pid):
+    client = MongoClient('35.185.182.63', 27018)
+    db = client.opdms
+    collection = db.underlying_disease
+    result = []
+    x = collection.find({"patient_id":"PT9yhi2zh4"})
+    return x[0]['undertlying_disease']
+
+print(findUDbyPID('PT9yhi2zh4'))

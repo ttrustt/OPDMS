@@ -503,20 +503,21 @@ def showReceipt():
     if (message[0]):
         try: 
             cursor = connection.cursor()
-            cursor.execute("select r.receipt_number, SUM(price) as total_price, MAX(created_time) as created_time, r.status \
+            cursor.execute("select r.receipt_number, SUM(price) as total_price, CreditReceivable(SUM(price)) as credit_receivable, \
+                            MAX(created_time) as created_time, r.status \
                             from DISPENSATION d, RECEIPT r \
                             where d.receipt_number = r.receipt_number \
                             group by r.receipt_number \
                             order by created_time DESC;")
             receipt = cursor.fetchall()
-            attribute = ["receipt_number", "total_price", "created_time", "status"]
+            attribute = ["receipt_number", "total_price", "credit_receivable", "created_time", "status"]
             column = [{"title":x, "dataKey":x, "key":x} for x in attribute]
             if (receipt == []) :
                 message = (True, "No Receipt", receipt, column)
             else :
                 data = [{} for i in range(len(receipt))]
                 for i in range(len(receipt)):
-                    for j in range(4):
+                    for j in range(5):
                         data[i][attribute[j]] =  receipt[i][j]
                 message = (True, "Show Receipt Success", data, column)
         except Error as e : 

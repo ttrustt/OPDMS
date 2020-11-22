@@ -15,7 +15,7 @@ class ShowTable extends Component {
             console.log(response)
             if(response.data.success){
             this.setState({status:response.data.status, data:response.data.data, columns:response.data.columns,loading:false,failed_indicator:false})
-            this.setState({table:<DataTable data={this.state.data} columns={this.state.columns}></DataTable>})
+            this.setState({table:<DataTable data={this.state.data} columns={this.state.columns} width={this.props.width}></DataTable>})
             }else{
                 this.setState({loading:false,table:null,failed_indicator:true})
             }

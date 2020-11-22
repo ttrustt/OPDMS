@@ -10,8 +10,8 @@ class RegisterPaneContent extends Component {
         address: '',
         province: '',
         postal_code: '',
-        identification_number: '',
-        passport_number: '',
+        identification_number: "''",
+        passport_number: "''",
         mobile_number: '',
         nationality: '',
         sex: '',
@@ -20,8 +20,6 @@ class RegisterPaneContent extends Component {
         username: '',
         password: '',
         user_type: '',
-
-
         response: '',
         loading: false,
         status:''

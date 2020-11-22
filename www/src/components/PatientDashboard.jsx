@@ -116,10 +116,10 @@ class PatientDashboard extends Component { //Wrap up component for Grid layout a
                 </Route>
                 <Route exact path="/expertise">
                     <div></div>
-                    <div>expertise1</div>
+                    <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
                 </Route>
                 <Route exact path="/expertise ">
-                    <div>expertise2</div>
+                <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
                 </Route>
             </Switch>
         </Router>

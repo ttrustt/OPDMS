@@ -81,6 +81,7 @@ CREATE TABLE DIAGNOSIS(
     clinic_id char(4),
     PRIMARY KEY (visit_number),
     FOREIGN KEY (schedule_number) REFERENCES SCHEDULE(schedule_number)
+    FOREIGN KEY (clinic_id) REFERENCES CLINIC(clinic_id)
 );
 
 CREATE TABLE DISEASE(

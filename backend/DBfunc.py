@@ -459,7 +459,7 @@ def createReceipt():
             cursor = connection.cursor()
             cursor.execute("insert into RECEIPT values('"+str(receipt_number)+"','UNPAID');")
             connection.commit()       
-            message = (True, "Create Receipt Success")
+            message = (True, "Create Receipt Success", receipt_number)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

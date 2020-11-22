@@ -49,7 +49,7 @@ class LoginPaneContent extends Component {
                         role="status"
                         aria-hidden="true"
                     /> : <div></div>}
-                        Submit
+                        Login
 
                 </Button>
                 <Form.Text id="passwordHelpBlock" muted>

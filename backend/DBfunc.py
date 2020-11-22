@@ -212,7 +212,8 @@ def getMedicineSQ(listOfinput):
     if (message[0]):
         try: 
             cursor = connection.cursor()
-            cursor.execute("SELECT pharma_room_id, quantity FROM STORED_MEDICINE WHERE pharma_code='"+str(PC)+"';")
+            cursor.execute("SELECT pharma_room_id, quantity, StorageLevel(SM.quantity, (SELECT SUM(quantity) FROM STORED_MEDICINE WHERE pharma_code='"+str(PC)+"')) \
+                AS storage_level FROM STORED_MEDICINE SM WHERE pharma_code='"+str(PC)+"';")
             medicine = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
             listOfcolumn = ['pharma_room_id','quantity']
             column=[]

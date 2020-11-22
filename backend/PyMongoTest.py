@@ -5,7 +5,14 @@ def findUDbyPID(pid):
     db = client.opdms
     collection = db.underlying_disease
     result = []
-    x = collection.find({"patient_id":"PT9yhi2zh4"})
+    x = collection.find({"patient_id":pid})
     return x[0]['undertlying_disease']
 
-print(findUDbyPID('PT9yhi2zh4'))
+def findExbyDID(did):
+    client = MongoClient('35.185.182.63', 27018)
+    db = client.opdms
+    collection = db.expertise
+    x = collection.find({"doctor_id":did})
+    return x[0]['expertise']
+
+print(findExbyDID('DTsfdujy'))

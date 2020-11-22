@@ -48,8 +48,8 @@ class OrderPaneContent extends Component {
         })
         .then((response) => {
             this.setState({ loadingOrder: false })
-            console.log(response.data.orderStatus);
-            this.setState({orderStatus:response.data.orderStatus})
+            console.log(response.data);
+            this.setState({orderStatus:response.data.status})
         }, (error) => {
             console.log(error);
         });

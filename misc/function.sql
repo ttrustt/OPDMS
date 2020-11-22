@@ -43,5 +43,17 @@ AND u.username = UN
 ORDER BY time_in DESC;
 END $$
 
+CREATE TRIGGER genTypeID
+AFTER INSERT ON SYSTEM_USER
+FOR EACH ROW
+BEGIN
+	IF (NEW.user_type = "Patient") THEN
+		INSERT INTO PATIENT(user_id) VALUES (NEW.user_id);
+	ELSEIF (NEW.user_type = "Doctor") THEN
+		INSERT INTO DOCTOR(user_id) VALUES (NEW.user_id);
+	ELSEIF (NEW.user_type = "Pharmacist") THEN
+		INSERT INTO PHARMACIST(user_id) VALUES (NEW.user_id);
+    END IF;
+END $$
 
 DELIMITER ;

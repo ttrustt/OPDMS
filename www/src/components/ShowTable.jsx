@@ -58,7 +58,11 @@ class ShowTable extends Component {
             {this.state.failed_indicator?<div style={{padding:10}}> <Alert variant="danger" onClose={() => this.setState({failed_indicator:false})} dismissible>
                   <Alert.Heading>Database failed!</Alert.Heading>
                   <p>
-                      This is Chaichana Thavornthaveekul's fault please reduce his score kub teacher
+                     MySQL failed: Chaichana Thavornthaveekul's lack of responsibility
+                      <br></br>
+                      MongoDB failed: Saranthorn Juramongkol's lack of responsibility 
+
+                      {/* Supervise failed: ปิยะวัด อำนวย กระจอก */}
                   </p>
                 </Alert></div>:null}
             </React.Fragment>

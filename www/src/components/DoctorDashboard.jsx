@@ -150,11 +150,11 @@ render() {
                 <Row>
                 {/* <div>underlyingdisesae and limitation</div> */}
                 <Col lg={true} style={styles.col}>
-                <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}} width='1'></ShowTable>
+                <ShowTable APIendpoint="findlimitation" payload={{  patient_id:this.state.patient_id}}width='1'></ShowTable>
                 </Col>
                 <Col lg={true} style={styles.col}>
                 <div style={{height:'70vh'}}>
-                <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}width='1'></ShowTable>
+                <ShowTable APIendpoint="findunderlyingdisease" payload={{ patient_id:this.state.patient_id}} width='1'></ShowTable>
                 </div>
                 
                 </Col>
@@ -167,13 +167,13 @@ render() {
                     <Col lg={true} style={styles.col}>
                 <div></div>
                 <div></div>
-               <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}width='1'></ShowTable>
+               <ShowTable APIendpoint="findlimitation" payload={{  patient_id:this.state.patient_id}}width='1'></ShowTable>
                 <div></div>
                 </Col>
                 <Col lg={true} style={styles.col}>
                 <div style={{height:'70vh'}}>
                     <div></div>
-                <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}width='1'></ShowTable>
+                    <ShowTable APIendpoint="findunderlyingdisease" payload={{ patient_id:this.state.patient_id}} width='1'></ShowTable>
                 </div>
                 <div></div>
                 </Col>

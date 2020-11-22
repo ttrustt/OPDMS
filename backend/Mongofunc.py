@@ -2,7 +2,10 @@ from pymongo import MongoClient
 import pymongo
 
 def findUDbyPID(listOfInput):
-    pid = int(listOfInput[0])
+    try:  
+        pid = int(listOfInput[0])
+    except Exception as e : 
+        pid = 1e9 
     message = 'error'
     try : 
         client = MongoClient('35.185.182.63', 27018)
@@ -23,7 +26,10 @@ def findUDbyPID(listOfInput):
     return message
 
 def findExbyDID(listOfInput):
-    did = int(listOfInput[0])
+    try:  
+        did = int(listOfInput[0])
+    except Exception as e : 
+        did = 1e9 
     message = 'error'
     try : 
         client = MongoClient('35.185.182.63', 27018)
@@ -44,7 +50,10 @@ def findExbyDID(listOfInput):
     return message
 
 def findFMbyPID(listOfInput):
-    pid = int(listOfInput[0])
+    try:  
+        pid = int(listOfInput[0])
+    except Exception as e : 
+        pid = 1e9 
     message = 'error'
     try : 
         client = MongoClient('35.185.182.63', 27018)

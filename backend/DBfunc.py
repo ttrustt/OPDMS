@@ -43,6 +43,7 @@ def register(listOfSystem_user):
     (connection, message) = connect()
     if (message[0]):
         try:
+            cursor = connection.cursor()
             cursor.execute("insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
                 mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (""'"+str(fname)+"','"+str(lname)+"','"+str(religion)+ \
                 "','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+ \
@@ -446,6 +447,7 @@ def getReceipt_number():
     return message
 
 def createReceipt(): 
+    receipt_number = getReceipt_number()[2]+1
     (connection, message) = connect()
     if (message[0]):
         try: 

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
 from flask_cors import CORS, cross_origin
 from DBfunc import *
-from PyMongoTest import * 
+from Mongofunc import * 
 import json
 app = Flask(__name__)
 cors = CORS(app)
@@ -304,8 +304,8 @@ def findexpertise_endpoint():
 
     dbfunc_status = findExbyDID(params_list)
     print(dbfunc_status)
-    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
-    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2],'columns':dbfunc_status[3]}),200)
     return response
 
 @app.route('/findunderlyingdisease', methods=['POST'])

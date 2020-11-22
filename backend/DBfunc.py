@@ -191,7 +191,8 @@ def showUser():
             for x in pharmacist:
                 userToPharmacist[x[0]] = x[1]
             attribute = ["username", "fname", "lname", "password", "user_type", "occupation_id"]
-            column = [{"title":x, "dataKey":x, "key":x} for x in attribute]
+            attr = ["fname", "lname", "user_type", "username", "password", "occupation_id"]
+            column = [{"title":x, "dataKey":x, "key":x} for x in attr]
             if (user == []):
                 message = (True, "No User", user, column)
             else :
@@ -199,7 +200,6 @@ def showUser():
                 for i in range(len(user)):
                     for j in range(5):
                         listOfUser[i][attribute[j]] = user[i][j].strip()
-                    print(user[i][5], "\n")
                     if user[i][4].strip() == "Patient":
                         listOfUser[i][attribute[5]] = userToPatient[user[i][5]]
                     elif user[i][4].strip() == "Doctor":

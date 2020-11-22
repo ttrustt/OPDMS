@@ -1,6 +1,7 @@
 import os
 import mysql.connector
 from mysql.connector import Error
+from mysql.connector import errorcode
 from dotenv import load_dotenv
 import json
 from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
@@ -307,26 +308,25 @@ def updateMedicineOrder(listofInput):
     return message
 
 
-def addShow_icd(listofInput):
+def addShow_icd(listofInput, connection, message, cursor):
     visit_number = listofInput[0]
     icd = []    
     for i in range(1,len(listofInput)):
         if listofInput[i] != '':
             icd.append(listofInput[i])
-    
-    (connection, message) = connect()
+    # (connection, message) = connect()
     if (message[0]):
         try:
-            cursor = connection.cursor()
+            # cursor = connection.cursor()
             for i in icd :
                 cursor.execute("insert into SHOW_ICD values('"+str(visit_number)+"','"+i+"');")
-                connection.commit()     
+                # connection.commit()     
             message = (True,'Sucess inputting ICD codes')     
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
-        cursor.close()
-        connection.close()
-    return message
+        # cursor.close()
+        # connection.close()
+    return message, cursor
 
 
 def createDiagnosis(listOfInput):
@@ -339,14 +339,15 @@ def createDiagnosis(listOfInput):
     (connection, message) = connect()
     if (message[0]):
         try: 
+            connection.autocommit = False
             cursor = connection.cursor()
             cursor.execute("insert into DIAGNOSIS (visit_number, schedule_number, doctors_recommendation, created_time, clinic_id) \
                 values (""'"+str(visit_number)+"','"+str(schedule_number)+"','"+str(doctors_recommendation)+ \
                 "','"+str(created_time)+"','"+str(clinic_id)+"');")
-            connection.commit()
+            
             diagnosisMessage = (True,'Create diagnosis success')
             if (len(listOfInput) > 4):
-                show_icdMessage = addShow_icd([visit_number]+listOfInput[4:])
+                show_icdMessage, cursor = addShow_icd([visit_number]+listOfInput[4:], connection, diagnosisMessage, cursor)
                 if (diagnosisMessage[0] and show_icdMessage[0]):
                     # message = (True, diagnosisMessage[1] + " and " + show_icdMessage[1])
                     message = (True, "Success")
@@ -356,10 +357,13 @@ def createDiagnosis(listOfInput):
                 elif (not diagnosisMessage[0] and not show_icdMessage[0]):
                     # message = (False, "Cannot create diagnosis success and cannot add to Show_icd")
                     message = (False, diagnosisMessage[0] + show_icdMessage[1])
+
+                connection.commit()
             else:
                 message = diagnosisMessage
         except Error as e:
             message = (False,("Error while executing to MySQL "+str(e)))
+            connection.rollback()
         cursor.close()
         connection.close()
     return message
@@ -417,12 +421,13 @@ def createDispensation(listOfinput):
             cursor = connection.cursor()
             cursor.execute("select price from MEDICINE where pharma_code='"+pharmaCode+"';")
             record = cursor.fetchall()
+            print(record)
             if (record == []) : 
                 price= 0 
             else : 
-                price = record[0][3]
+                price = record[0][0]
             cursor.execute("insert into DISPENSATION (quantity,price,created_time,visit_number,pharma_code,receipt_number,description) values('"+
-                str(quantity)+"','"+str(price*quantity)+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
+                str(quantity)+"','"+str(round(price*float(quantity),2))+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
                 str(receiptNumber)+"','"+str(description)+"');")
             connection.commit()
             message = (True,"createDispensation Success")

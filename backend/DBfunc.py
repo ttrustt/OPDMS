@@ -598,8 +598,34 @@ def getReceipt_number():
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
-    return message 
+    return message
 
+def createReciept(): 
+    message = 'error'
+    receipt_number = getReceipt_number()[2]+1  
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("insert into RECEIPT values('"+str(receipt_number)+"','UNPAID');")
+            connection.commit()       
+            message = (True, "Create Receipt Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
 
 def deleteSchedule(listOfInput):
     selected_schedule_number = listOfInput[0]

@@ -130,7 +130,7 @@ class Header extends Component {
       <React.Fragment>
         {/* <Button onClick={this.routerChange}>Change link</Button> */}
       <Navbar bg='light'>
-        <Navbar.Brand href="#">OPDMS</Navbar.Brand>
+        <Navbar.Brand >OPDMS</Navbar.Brand>
         {userContent}
         <Navbar.Collapse className="justify-content-end">
         <Nav>

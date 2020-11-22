@@ -275,7 +275,7 @@ def generatereceipt_endpoint():
     dbfunc_status = createReceipt()
     print(dbfunc_status)
     if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
-    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1],'data':dbfunc_status[2]}),200)
     return response
 
 @app.route('/deleteschedule', methods=['POST'])

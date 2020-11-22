@@ -520,8 +520,10 @@ def createReceipt():
 
 
 def deleteSchedule(listOfInput):
-    selected_schedule_number = listOfInput[0]
-    
+    try:  
+        selected_schedule_number = int(listOfInput[0])
+    except Exception as e : 
+        selected_schedule_number = 1e9 
     (connection, message) = connect()
     if (message[0]):
         try: 
@@ -532,7 +534,7 @@ def deleteSchedule(listOfInput):
         except Error as e : 
             message = (False,"Error while executing First to MySQL "+str(e))
         try:
-            if int(selected_schedule_number) in schedule_number :
+            if selected_schedule_number in schedule_number :
                 cursor.execute("delete from SCHEDULE where schedule_number = '"+str(selected_schedule_number)+"';")
                 connection.commit()
                 message = (True, "Delete schedule success")

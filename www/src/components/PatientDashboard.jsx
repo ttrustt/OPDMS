@@ -104,21 +104,24 @@ class PatientDashboard extends Component { //Wrap up component for Grid layout a
                 <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicine" payload={{username:this.props.username}}></ShowTable></div>
                 </Route>
                 <Route exact path="/dispensation ">
-                <div></div>
+                <div></div><div></div>
                 <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicine" payload={{username:this.props.username}}></ShowTable></div>
                 </Route>
                 <Route exact path="/schedule">
+                <div></div><div></div><div></div>
                 <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedule" payload={{ username:this.props.username}}></ShowTable></div>
                 </Route>
                 <Route exact path="/schedule ">
+                <div></div><div></div><div></div>
                     <div></div>
                 <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedule" payload={{ username:this.props.username}}></ShowTable></div>
                 </Route>
                 <Route exact path="/expertise">
-                    <div></div>
+                    <div></div><div></div><div></div><div></div><div></div><div></div>
                     <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="findexpertise" payload={{ doctor_id:this.state.doctor_id}}></ShowTable></div>
                 </Route>
                 <Route exact path="/expertise ">
+                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
                 <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="findexpertise" payload={{ doctor_id:this.state.doctor_id}}></ShowTable></div>
                 </Route>
             </Switch>

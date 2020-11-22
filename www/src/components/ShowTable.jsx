@@ -52,15 +52,16 @@ class ShowTable extends Component {
                 transform: 'translate(-50%, -50%)',
                 // color:'#000'
                  }}
-            ><ReactSpinner type="grow" color="primary" size="7.5" /></div>:<div></div>}
+            ><ReactSpinner type="border" color="primary" size="7.5" /></div>:<div></div>}
                 {/* </Row> */}
             {this.state.table}
             {this.state.failed_indicator?<div style={{padding:10}}> <Alert variant="danger" onClose={() => this.setState({failed_indicator:false})} dismissible>
-                  <Alert.Heading>Database failed!</Alert.Heading>
+                  <Alert.Heading>ถ้าการเมืองดีดาต้าเบสจะไม่พัง</Alert.Heading>
                   <p>
-                     MySQL failed: Chaichana Thavornthaveekul's lack of responsibility
+                      สองคนนี้มันไม่ทำงานครับจารย์ ดาต้าเบสเลยพัง<br></br>
+                   6130112321 ชัยชนะ ถาวรทวีกุล
                       <br></br>
-                      MongoDB failed: Saranthorn Juramongkol's lack of responsibility 
+                     6131046821 สรัณธร จูระมงคล
 
                       {/* Supervise failed: ปิยะวัด อำนวย กระจอก */}
                   </p>

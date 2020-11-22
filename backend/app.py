@@ -293,6 +293,21 @@ def deleteschedule_endpoint():
     else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
     return response
 
+@app.route('/deletereceipt', methods=['POST'])
+@cross_origin()
+def deletereceipt_endpoint():
+    params = request.get_json()
+
+    params_list = [
+        params.get('receipt_number','null')
+    ]
+
+    dbfunc_status = deleteReceipt(params_list)
+    print(dbfunc_status)
+    if(not dbfunc_status[0]):response=make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    else: response = make_response(jsonify({'success':dbfunc_status[0],'status':dbfunc_status[1]}),200)
+    return response
+
 @app.route('/findexpertise', methods=['POST'])
 @cross_origin()
 def findexpertise_endpoint():

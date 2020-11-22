@@ -545,6 +545,31 @@ def deleteSchedule(listOfInput):
         connection.close()
     return message
 
+def deleteReceipt(listOfInput):
+    try:  
+        selected_receipt_number = int(listOfInput[0])
+    except Exception as e : 
+        selected_receipt_number = 1e9 
+    (connection, message) = connect()
+    if (message[0]):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select receipt_number from RECEIPT")
+            temp = cursor.fetchall()
+            receipt_number = [x[0] for x in temp]
+        except Error as e : 
+            message = (False,"Error while executing First to MySQL "+str(e))
+        try:
+            if selected_receipt_number in receipt_number :
+                cursor.execute("delete from RECEIPT where receipt_number = '"+str(selected_receipt_number)+"';")
+                connection.commit()
+                message = (True, "Delete receipt success")
+            else : message = (True, "Selected receipt not exist")
+        except Error as e : 
+            message = (False,"Error while executing Second to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message
 
 def showReceipt():
     (connection, message) = connect()

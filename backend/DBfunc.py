@@ -381,7 +381,8 @@ def addShow_icd(listofInput):
     visit_number = listofInput[0]
     icd = []    
     for i in range(1,len(listofInput)):
-        icd.append(listofInput[i])
+        if listofInput[i] != '':
+            icd.append(listofInput[i])
     try:
         connection = mysql.connector.connect(host='35.185.182.63',
                                             database='opdms',
@@ -398,7 +399,7 @@ def addShow_icd(listofInput):
             for i in icd :
                 cursor.execute("insert into SHOW_ICD values('"+str(visit_number)+"','"+i+"');")
                 connection.commit()     
-            message = (True,'Added to Show_icd')     
+            message = (True,'Sucess inputting ICD codes')     
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -434,11 +435,14 @@ def createDiagnosis(listOfInput):
             if (len(listOfInput) > 4):
                 show_icdMessage = addShow_icd([visit_number]+listOfInput[4:])
                 if (diagnosisMessage[0] and show_icdMessage[0]):
-                    message = (True, diagnosisMessage[1] + " and " + show_icdMessage[1])
+                    # message = (True, diagnosisMessage[1] + " and " + show_icdMessage[1])
+                    message = (True, "Success")
                 elif (diagnosisMessage[0] and not show_icdMessage[0]):
-                    message = (False, "Create diagnosis success but cannot add to Show_icd")
+                    # message = (False, "Create diagnosis success but cannot add to Show_icd")
+                    message = (False, show_icdMessage[1])
                 elif (not diagnosisMessage[0] and not show_icdMessage[0]):
-                    message = (False, "Cannot create diagnosis success and cannot add to Show_icd")
+                    # message = (False, "Cannot create diagnosis success and cannot add to Show_icd")
+                    message = (False, diagnosisMessage[0] + show_icdMessage[1])
             else:
                 message = diagnosisMessage
         except Error as e:
@@ -446,7 +450,6 @@ def createDiagnosis(listOfInput):
         cursor.close()
         connection.close()
     return message
-
 
 def showScheduleForDoctor(listOfInput):
     username = listOfInput[0]
@@ -483,3 +486,29 @@ def showScheduleForDoctor(listOfInput):
         cursor.close()
         connection.close()
         return message
+
+def getVisitNumber():
+    message = 'error'
+    try:
+        connection = mysql.connector.connect(host='35.185.182.63',
+                                            database='opdms',
+                                            user='root',
+                                            password='!Opdmstrust69')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            message = ("Connected to MySQL Server version ", db_Info)  
+
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try: 
+            cursor = connection.cursor()
+            cursor.execute("select max(visit_number) from DIAGNOSIS")
+            visit_number = cursor.fetchall()           
+            message = (True, "Success", visit_number[0][0])
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message

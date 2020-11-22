@@ -600,7 +600,7 @@ def getReceipt_number():
         connection.close()
     return message
 
-def createReciept(): 
+def createReceipt(): 
     message = 'error'
     receipt_number = getReceipt_number()[2]+1  
     try:

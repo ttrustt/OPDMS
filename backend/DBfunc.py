@@ -200,7 +200,6 @@ def showUser():
                 for i in range(len(user)):
                     for j in range(5):
                         listOfUser[i][attribute[j]] = user[i][j].strip()
-                    print(user[i][5], "\n")
                     if user[i][4].strip() == "Patient":
                         listOfUser[i][attribute[5]] = userToPatient[user[i][5]]
                     elif user[i][4].strip() == "Doctor":

@@ -40,20 +40,25 @@ def register(listOfSystem_user):
     username = listOfSystem_user[13]
     password = listOfSystem_user[14]
     user_type = listOfSystem_user[15]
-
     (connection, message) = connect()
     if (message[0]):
         try:
             cursor = connection.cursor()
-            cursor.execute("insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number, \
-                mobile_number,nationality,sex,birthdate,email,username,password,user_type) values (""'"+str(fname)+"','"+str(lname)+"','"+str(religion)+ \
-                "','"+str(address)+"','"+str(province)+"','"+str(postal_code)+"','"+str(identification_number)+"','"+str(passport_number)+"','"+ \
-                str(mobile_number)+"','"+str(nationality)+"','"+str(sex)+"','"+str(birthdate)+ "','"+str(email)+"','"+str(username)+"','"+str(password)+ \
-                "','"+str(user_type)+"');")
+            if (identification_number == "" and passport_number == "") :
+                message = (False,'Must have either identification number or passport number')
+            elif (sex not in ['Male', 'Female']) :
+                message = (False,'Wrong sex')
+            elif (user_type not in ['Patient', 'Doctor', 'Pharmacist']) :
+                message = (False,'Wrong user type')
+            elif (identification_number == "") :
+                cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
+                message = (True,'Register success!')
+            elif (passport_number == "") :
+                cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
+                message = (True,'Register success!')
             connection.commit()
-            message =  (True,'Register success!')
         except Error as e:
-            message = (False,str(e).split(':')[1])
+            message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
         connection.close()
     return message 

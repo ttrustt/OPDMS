@@ -73,3 +73,4 @@ END $$
 DELIMITER ;
 
 CREATE INDEX password ON SYSTEM_USER(password);
+CREATE INDEX medicine_price ON MEDICINE(price);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DataTable from './DataTable'
 import axios from 'axios'
 import ReactSpinner from 'react-bootstrap-spinner'
+import {Row} from 'react-bootstrap'
 class ShowTable extends Component {
     state = { data:[], columns:[] ,table:<div></div>,loading:false}
 
@@ -20,7 +21,14 @@ class ShowTable extends Component {
         
         return (
             <React.Fragment>
-                {this.state.loading?<div style={{alignItems:"center" ,alignSelf:"center", alignContent:"center", marginLeft:100 , marginRight:100, marginTop:100}}><ReactSpinner type="border" color="primary" size="5"/></div>:<div></div>}
+                {/* <Row> */}
+                {this.state.loading?<div style={{
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)',
+                // color:'#000'
+                 }}
+            ><ReactSpinner type="grow" color="primary" size="8" /></div>:<div></div>}
+                {/* </Row> */}
             {this.state.table}
             </React.Fragment>
         );

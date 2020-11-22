@@ -70,6 +70,34 @@ BEGIN
 	INSERT INTO ORDER_LOG VALUES (OLD.order_id, NOW());
 END $$
 
+CREATE FUNCTION StorageLevel (storage int, max_storage int)
+	RETURNS varchar(10)
+    DETERMINISTIC
+BEGIN
+	DECLARE level varchar(10);
+    IF storage / max_storage < 0.3 THEN
+		SET level = 'DANGER';
+	ELSEIF (storage / max_storage >= 0.3 AND storage / max_storage <= 0.7) THEN
+		SET level = 'SAFE';
+	ELSEIF storage / max_storage > 0.7 THEN
+		SET level = 'OVERLOAD';
+	END IF;
+    RETURN (level);
+END $$
+
+CREATE FUNCTION CreditReceivable (price int)
+	RETURNS varchar(4)
+    DETERMINISTIC
+BEGIN
+	DECLARE level varchar(4);
+    IF price < 300 THEN
+		SET level = 'NO';
+	ELSE
+		SET level = 'YES';
+	END IF;
+    RETURN (level);
+END $$
+
 DELIMITER ;
 
 CREATE INDEX password ON SYSTEM_USER(password);

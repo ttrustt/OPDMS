@@ -176,3 +176,17 @@ CREATE TABLE MEDICINE_ORDER(
     FOREIGN KEY (supplier_id) REFERENCES SUPPLIER(supplier_id),
     FOREIGN KEY (pharma_code) REFERENCES MEDICINE(pharma_code)
 );
+
+CREATE TABLE RECEIPT_LOG(
+    receipt_number int,
+    update_time datetime,
+    PRIMARY KEY (receipt_number, update_time),
+    FOREIGN KEY (receipt_number) REFERENCES RECEIPT(receipt_number)
+);
+
+CREATE TABLE ORDER_LOG(
+    order_id int,
+    update_time datetime,
+    PRIMARY KEY (order_id, update_time),
+    FOREIGN KEY (order_id) REFERENCES MEDICINE_ORDER(order_id)
+);

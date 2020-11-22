@@ -13,7 +13,9 @@ state = { toggleActiveUserTable: false,
     renders:<div></div>, medId:'',
     storageTable:<div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:""}}></ShowTable></div>,
     redirect:false,
-    redirect2:false
+    redirect2:false,
+    redirect3:false,
+    redirect4:false,
 }
 constructor(props) {
     super(props);
@@ -55,6 +57,17 @@ onKeyDown=(e)=>{
         this.refreshTable()
     }
 }
+refreshReceipt=()=>{
+    console.log('Refresh')
+    if(this.state.redirect3){
+        this.setState({redirect3:false, redirect4:true})
+    }else{
+        this.setState({redirect3:true, redirect4:false})
+    }
+    // this.setState({redirect:!this.state.redirect})
+    // this.setState({redirect2:temp})
+    console.log(this.state.redirect3,this.state.redirect4)
+}
 
 render() {
     const fillH = { width: '100%', height: '55%' }
@@ -62,12 +75,15 @@ render() {
         
         <Router>
             {!this.state.redirect && !this.state.redirect2? (<Redirect push to="/"/>):null}
-            {this.state.redirect ? (<Redirect push to="/storage"/>):null}
+            {this.state.redirect? (<Redirect push to="/storage"/>):null}
             {this.state.redirect2? (<Redirect push to="/storage "/>):null}
+            {this.state.redirect3? (<Redirect push to="/receipt"/>):null}
+            {this.state.redirect4? (<Redirect push to="/receipt2"/>):null}
         <Navbar style={{backgroundColor:"#eeeeee" ,height:40}}>
             {/* <Navbar.Brand as={Link} to='/home'>Menu</Navbar.Brand> */}
             <Nav className="mr-auto">
                 {/* <Nav.Link as={Link} to='/dispensation'>View Dispensation</Nav.Link> */}
+                <Nav.Link onClick={this.refreshReceipt} >View Receipt </Nav.Link>
                 <Nav.Link onClick={this.refreshTable} >Search Medicine: </Nav.Link>
                 <Form inline>
       <FormControl type="text" placeholder="Medicine ID" className="mr-sm-2"  size='sm' onChange={this.changeMedicine} onKeyDown={(e)=> this.onKeyDown(e)}/>
@@ -80,11 +96,27 @@ render() {
                 {/* Welcome {this.props.username} */}
             </Route>
             <Route exact path="/storage ">
-                <div></div>
-                {this.state.storageTable}
+            <div></div>
+             <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>
             </Route>
             <Route exact path="/storage">
-                {this.state.storageTable}
+            <div></div>
+            <div></div>
+            <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>
+            </Route>
+            <Route exact path="/receipt2">
+            <div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div>
+            <div style={{width: '100%', height: '71%'}}><ShowTable APIendpoint="showreceipt" payload={{}}></ShowTable></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            </Route>
+            <Route exact path="/receipt">
+            <div></div><div></div><div></div>
+            <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showreceipt" payload={{}}></ShowTable></div>
+            <div></div>
+            <div></div>
             </Route>
         </Switch>
     </Router>

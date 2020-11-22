@@ -20,6 +20,8 @@ constructor(props) {
     
 
 }
+
+
 componentDidUpdate(){
     // console.log(this.props.username)
     // console.log(this.state.medId)
@@ -47,6 +49,13 @@ refreshTable=()=>{
     this.setState({storageTable:<div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>})
 
 }
+onKeyDown=(e)=>{
+    if (e.keyCode === 13) {
+        e.preventDefault()
+        this.refreshTable()
+    }
+}
+
 render() {
     const fillH = { width: '100%', height: '55%' }
     return (
@@ -61,7 +70,7 @@ render() {
                 {/* <Nav.Link as={Link} to='/dispensation'>View Dispensation</Nav.Link> */}
                 <Nav.Link onClick={this.refreshTable} >Search Medicine</Nav.Link>
                 <Form inline>
-      <FormControl type="text" placeholder="Medicine ID" className="mr-sm-2"  size='sm' onChange={this.changeMedicine}/>
+      <FormControl type="text" placeholder="Medicine ID" className="mr-sm-2"  size='sm' onChange={this.changeMedicine} onKeyDown={(e)=> this.onKeyDown(e)}/>
       {/* <Button variant="outline-success" size='sm' onClick={this.refreshTable}>Search</Button> */}
     </Form>
             </Nav>

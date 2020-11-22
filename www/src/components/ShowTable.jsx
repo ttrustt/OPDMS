@@ -9,17 +9,21 @@ class ShowTable extends Component {
 
     componentDidMount(){
         this.setState({loading:true})
+        console.log('API request to '+'http://127.0.0.1:5000/'+this.props.APIendpoint, this.props.payload)
         axios.post('http://127.0.0.1:5000/'+this.props.APIendpoint, this.props.payload)
         .then((response) => {
             console.log(response)
+            if(response.data.success){
             this.setState({status:response.data.status, data:response.data.data, columns:response.data.columns,loading:false,failed_indicator:false})
             this.setState({table:<DataTable data={this.state.data} columns={this.state.columns}></DataTable>})
+            }else{
+                this.setState({loading:false,table:null,failed_indicator:true})
+            }
         }, (error) => {
             console.log(error);
             this.setState({loading:false,table:null,failed_indicator:true})
         });
     }
-    
     render() {
         // function AlertDismissibleExample() {
         //     const [show, setShow] = useState(this.props.failed_indicator);

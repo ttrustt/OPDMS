@@ -74,7 +74,7 @@ CREATE TRIGGER updateStorage
 BEFORE UPDATE ON MEDICINE_ORDER
 FOR EACH ROW
 BEGIN
-	IF (OLD.status = "ORDERED") THEN
+	IF (OLD.status = "ORDERED" and NEW.status = "RECEIVED") THEN
 		UPDATE STORED_MEDICINE 
         SET quantity = (select quantity from (select quantity from STORED_MEDICINE 
         where pharma_room_id = OLD.pharma_room_id and pharma_code = OLD.pharma_code) as SM) + OLD.quantity

@@ -40,7 +40,8 @@ def showUser():
             for x in pharmacist:
                 userToPharmacist[x[0]] = x[1]
             attribute = ["username", "fname", "lname", "password", "user_type", "occupation_id"]
-            column = [{"title":x, "dataKey":x, "key":x} for x in attribute]
+            attr = ["fname", "lname", "user_type", "username", "password", "occupation_id"]
+            column = [{"title":x, "dataKey":x, "key":x} for x in attr]
             if (user == []):
                 message = (True, "No User", user, column)
             else :

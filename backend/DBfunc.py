@@ -534,3 +534,39 @@ def getVisitNumber():
         cursor.close()
         connection.close()
     return message
+
+def createDispensation(listOfinput):
+    visitNumber = listOfinput[0] 
+    receiptNumber = listOfinput[1] 
+    pharmaCode = listOfinput[2]
+    quantity = listOfinput[3]
+    description = listOfinput[4] 
+    message = 'error'
+    
+    try:
+        connection = mysql.connector.connect(host='localhost',
+                                            database='opdms',
+                                            user='root',
+                                            password='kin184492318')
+        if connection.is_connected():
+            db_Info = connection.get_server_info()
+            print("Connected to MySQL Server version ", db_Info)
+    except Error as e:
+        message = (False,"Error while connecting to MySQL", e)
+
+    if (connection.is_connected()):
+        try:
+            cursor = connection.cursor()
+            cursor.execute("select * from MEDICINE where pharma_code='"+pharmaCode+"';")
+            record = cursor.fetchall()
+            price = record[0][3]
+            cursor.execute("insert into DISPENSATION (quantity,price,created_time,visit_number,pharma_code,receipt_number,description) values('"+
+                str(quantity)+"','"+str(price*quantity)+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
+                str(receiptNumber)+"','"+str(description)+"');")
+            connection.commit()
+            message = (True,"createDispensation Success")
+        except Error as e : 
+            message = (False,"Error while executing to MySQL "+str(e))
+        cursor.close()
+        connection.close()
+    return message 

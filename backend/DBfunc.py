@@ -578,10 +578,10 @@ def showReceipt():
             cursor = connection.cursor()
             cursor.execute("select r.receipt_number, SUM(price) as total_price, CreditReceivable(SUM(price)) as credit_receivable, \
                             MAX(created_time) as created_time, r.status \
-                            from DISPENSATION d, RECEIPT r \
-                            where d.receipt_number = r.receipt_number \
+                            from DISPENSATION d right join RECEIPT r \
+                            on d.receipt_number = r.receipt_number \
                             group by r.receipt_number \
-                            order by created_time DESC;")
+                            order by MAX(created_time) IS NOT NULL, status DESC, MAX(created_time) DESC;")
             receipt = cursor.fetchall()
             attribute = ["receipt_number", "total_price", "credit_receivable", "created_time", "status"]
             column = [{"title":x, "dataKey":x, "key":x} for x in attribute]

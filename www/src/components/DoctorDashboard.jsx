@@ -4,7 +4,7 @@ import Header from './Header'
 import _ from "lodash";
 // import TableComponent from './TableComponent'
 // import DataTable from './DataTable'
-import { Navbar ,  Nav, Button, Form,FormControl} from 'react-bootstrap'
+import { Navbar ,  Nav, Button, Form,FormControl,Row,Col, Container} from 'react-bootstrap'
 import ShowTable from './ShowTable'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 class DoctorDashboard extends Component {//Wrap up component for Grid layout and header and all of the 'module' state being stored here from the react component map in docs
@@ -76,6 +76,20 @@ onKeyDiseaseDown=(e)=>{
 }
 render() {
     const fillH = { width: '100%', height: '55%' }
+    const styles = {
+        grid: {
+            paddingLeft: 0,
+            paddingRight: 0
+        },
+        row: {
+            marginLeft: 0,
+            marginRight: 0
+        },
+        col: {
+            paddingLeft: 0,
+            paddingRight: 0
+        }
+    };
     return (
         <Router>
             {!this.state.redirect && !this.state.redirect2? (<Redirect push to="/"/>):null}
@@ -95,10 +109,10 @@ render() {
                 <br />
         
                 <Form inline>
-                <Nav.Link onClick={this.refreshDisease}>Search Underlying Disease: </Nav.Link>
+                <Nav.Link onClick={this.refreshDisease}>Search Underlying Disease and Limitation: </Nav.Link>
                 <FormControl type="text" placeholder="Patient ID" className="mr-sm-2"  size='sm' onChange={(e)=>{this.setState({patient_id:e.target.value})}} onKeyDown={(e)=> this.onKeyDiseaseDown(e)}/>
-                <Nav.Link onClick={this.refreshLimitation}>Search Limitation: </Nav.Link>
-                <FormControl type="text" placeholder="Patient ID" className="mr-sm-2"  size='sm' onChange={(e)=>{this.setState({patient_id2:e.target.value})}} onKeyDown={(e)=> this.onKeyLimitationDown(e)}/>
+                {/* <Nav.Link onClick={this.refreshLimitation}>Search Limitation: </Nav.Link> */}
+                {/* <FormControl type="text" placeholder="Patient ID" className="mr-sm-2"  size='sm' onChange={(e)=>{this.setState({patient_id2:e.target.value})}} onKeyDown={(e)=> this.onKeyLimitationDown(e)}/> */}
                 </Form>
                 
 
@@ -119,18 +133,53 @@ render() {
             </Route> */}
             <Route exact path="/schedule">
                 <div></div>
+                <div></div>
             <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
+            <div></div>
+            <div></div>
             </Route>
             <Route exact path="/schedule ">
+            <div></div>
+            <div></div>
+            <div></div>
             <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
             </Route>
+
             <Route exact path="/underlyingdisease">
-                <div>underlyingdisesae</div>
-           
+                <Container fluid>
+                <Row>
+                {/* <div>underlyingdisesae and limitation</div> */}
+                <Col lg={true} style={styles.col}>
+                <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}} width='1'></ShowTable>
+                </Col>
+                <Col lg={true} style={styles.col}>
+                <div style={{height:'70vh'}}>
+                <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}width='1'></ShowTable>
+                </div>
+                
+                </Col>
+                </Row>
+                </Container>
             </Route>
             <Route exact path="/underlyingdisease ">
+            <Container fluid>
+                <Row>
+                    <Col lg={true} style={styles.col}>
                 <div></div>
-                <div>underlylingdisease2</div>
+                <div></div>
+               <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}width='1'></ShowTable>
+                <div></div>
+                </Col>
+                <Col lg={true} style={styles.col}>
+                <div style={{height:'70vh'}}>
+                    <div></div>
+                <ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}width='1'></ShowTable>
+                </div>
+                <div></div>
+                </Col>
+                </Row>
+                </Container>
+                {/* <div>underlylingdisease2 and limitation</div> */}
                 
             </Route>
             <Route exact path="/limitation">

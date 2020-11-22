@@ -134,7 +134,7 @@ render() {
             <Route exact path="/schedule">
                 <div></div>
                 <div></div>
-            <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
+            <div style={{width: '100%', height: '88%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
             <div></div>
             <div></div>
             </Route>
@@ -142,7 +142,7 @@ render() {
             <div></div>
             <div></div>
             <div></div>
-            <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
+            <div style={{width: '100%', height: '88%'}}><ShowTable APIendpoint="showschedulefordoctor" payload={{ username:this.props.username}}></ShowTable></div>
             </Route>
 
             <Route exact path="/underlyingdisease">
@@ -153,7 +153,7 @@ render() {
                 <ShowTable APIendpoint="findlimitation" payload={{  patient_id:this.state.patient_id}}width='1'></ShowTable>
                 </Col>
                 <Col lg={true} style={styles.col}>
-                <div style={{height:'70vh'}}>
+                <div style={{height:'88vh'}}>
                 <ShowTable APIendpoint="findunderlyingdisease" payload={{ patient_id:this.state.patient_id}} width='1'></ShowTable>
                 </div>
                 
@@ -171,7 +171,7 @@ render() {
                 <div></div>
                 </Col>
                 <Col lg={true} style={styles.col}>
-                <div style={{height:'70vh'}}>
+                <div style={{height:'88vh'}}>
                     <div></div>
                     <ShowTable APIendpoint="findunderlyingdisease" payload={{ patient_id:this.state.patient_id}} width='1'></ShowTable>
                 </div>

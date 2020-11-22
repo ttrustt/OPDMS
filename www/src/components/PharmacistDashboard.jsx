@@ -97,24 +97,24 @@ render() {
             </Route>
             <Route exact path="/storage ">
             <div></div>
-             <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>
+             <div style={{width: '100%', height: '88%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>
             </Route>
             <Route exact path="/storage">
             <div></div>
             <div></div>
-            <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>
+            <div style={{width: '100%', height: '88%'}}><ShowTable APIendpoint="showmedicinesq" payload={{PC:this.state.medId}}></ShowTable></div>
             </Route>
             <Route exact path="/receipt2">
             <div></div>
             <div></div><div></div><div></div><div></div><div></div><div></div>
-            <div style={{width: '100%', height: '71%'}}><ShowTable APIendpoint="showreceipt" payload={{}}></ShowTable></div>
+            <div style={{width: '100%', height: '88%'}}><ShowTable APIendpoint="showreceipt" payload={{}}></ShowTable></div>
             <div></div>
             <div></div>
             <div></div>
             </Route>
             <Route exact path="/receipt">
             <div></div><div></div><div></div>
-            <div style={{width: '100%', height: '70%'}}><ShowTable APIendpoint="showreceipt" payload={{}}></ShowTable></div>
+            <div style={{width: '100%', height: '88%'}}><ShowTable APIendpoint="showreceipt" payload={{}}></ShowTable></div>
             <div></div>
             <div></div>
             </Route>

@@ -169,7 +169,7 @@ def showUser():
             for x in pharmacist:
                 userToPharmacist[x[0]] = x[1]
             attribute = ["username", "fname", "lname", "password", "user_type", "occupation_id"]
-            attr = ["fname", "lname", "user_type", "username", "password", "occupation_id"]
+            attr = ["fname", "lname", "user_type", "username","occupation_id"]
             column = [{"title":x, "dataKey":x, "key":x} for x in attr]
             if (user == []):
                 message = (True, "No User", user, column)
@@ -320,7 +320,7 @@ def checkUpdateReceipt(listofInput):
             cursor.execute("select status from RECEIPT where receipt_number='"+str(ID)+"';")
             record = cursor.fetchall()
             if(record==[]):
-                message = (True,"No receipt with this number!")
+                message = (True,"No have Receipt")
             else : 
                 message = (True,"Success",record[0][0].strip())
         except Error as e : 
@@ -386,7 +386,6 @@ def addShow_icd(listofInput, connection, message, cursor):
             message = (True,'Sucess inputting ICD codes')     
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
-            connection.rollback()
         # cursor.close()
         # connection.close()
     return message, cursor
@@ -434,7 +433,6 @@ def createDiagnosis(listOfInput):
 
 def showScheduleForDoctor(listOfInput):
     username = listOfInput[0]
-    
     (connection, message) = connect()
     if (message[0]):
         try: 
@@ -496,7 +494,7 @@ def createDispensation(listOfinput):
                 str(quantity)+"','"+str(round(price*float(quantity),2))+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
                 str(receiptNumber)+"','"+str(description)+"');")
             connection.commit()
-            message = (True,"Create dispensation success!")
+            message = (True,"createDispensation Success")
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

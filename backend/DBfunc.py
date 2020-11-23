@@ -59,13 +59,13 @@ def register(listOfSystem_user):
                 message = (False,'Wrong user type')
             elif (identification_number == "") :
                 cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
-                message = (True,'Register success!')
+                message = (True,'Register Success!')
             elif (passport_number == "") :
                 cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,identification_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
-                message = (True,'Register success!')
+                message = (True,'Register Success!')
             elif (identification_number != "" and passport_number != "") :
                 cursor.execute('''insert into SYSTEM_USER (fname,lname,religion,address_,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type) values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');'''%(fname,lname,religion,address,province,postal_code,identification_number,passport_number,mobile_number,nationality,sex,birthdate,email,username,password,user_type))
-                message = (True,'Register success!')
+                message = (True,'Register Success!')
             connection.commit()
         except Error as e:
             message = (False,"Error while executing to MySQL "+str(e))
@@ -116,7 +116,7 @@ def showMedicine(listOfinput):
             else : 
                 for i in range(len(medicine)): 
                     medicine[i] = {'created_time':medicine[i][0].strftime('%Y-%m-%d %H:%M:%S'),'doctor_name':medicine[i][1],'general_name':medicine[i][2],'quantity':medicine[i][3],'description':medicine[i][4].strip()}
-                message = (True,'Show Medicine Success',medicine,column)
+                message = (True,'Show Medicine Success!',medicine,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
@@ -138,7 +138,7 @@ def createAppointment(listOfSystem):
             cursor.execute("insert into SCHEDULE (patient_id, doctor_id, time_in, time_out, diagnosis_room_id) values (""'"+str(patient_id)+"','"+str(doctor_id)+"','"+str(time_in)+ \
                 "','"+str(time_out)+"','"+str(diagnosis_room_id)+"');")
             connection.commit()
-            message = (True,'Create appointment success!')
+            message = (True,'Create Appointment Success!')
         except Error as e:
             message = (False,("Error while executing to MySQL "+str(e)))
         cursor.close()
@@ -184,7 +184,7 @@ def showUser():
                         listOfUser[i][attribute[5]] = userToDoctor[user[i][5]]
                     elif user[i][4].strip() == "Pharmacist":
                         listOfUser[i][attribute[5]] = userToPharmacist[user[i][5]]
-                message = (True, "Success", listOfUser, column)
+                message = (True, "Show User Success!", listOfUser, column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -212,7 +212,7 @@ def showSchedule(listOfinput):
             else : 
                 for i in range(len(schedule)): 
                     schedule[i] = {'doctor_id':schedule[i][0],'doctor_name':schedule[i][1],'clinic_name':schedule[i][2],'location':schedule[i][3],'room':schedule[i][4],'time_in':schedule[i][5].strftime('%Y-%m-%d %H:%M:%S'),'time_out':schedule[i][6].strftime('%Y-%m-%d %H:%M:%S')}
-                message = (True,'Show Schedule Success',schedule,column)
+                message = (True,'Show Schedule Success!',schedule,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
@@ -237,7 +237,7 @@ def getMedicineSQ(listOfinput):
             if(medicine ==[]):
                 message = (True,'Not Medicine',medicine,column)
             else : 
-                message = (True,'OK',medicine,column)
+                message = (True,'Show Medicine Success!',medicine,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -282,7 +282,7 @@ def createMedicine(listOfInput):
                 "','"+str(supplier_id)+"','"+str(manufacturing_date)+"','"+str(expired_date)+"','"+str(quantity)+ \
                 "','"+str(price)+"','"+str(pharma_code)+"','"+str(status)+"');")
             connection.commit()              
-            message = (True, "Success")
+            message = (True, "Create Medicine Order Success!")
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -300,11 +300,11 @@ def updateReceipt(listofInput):
             message = checkUpdateReceipt(listofInput) 
             if(len(message)==3 and message[0]) : 
                 if(message[2].strip()=='PAID'):
-                    message = (True,"Already Paid")
+                    message = (True,"Already Paid!")
                 else:
                     cursor.execute("UPDATE RECEIPT SET status = 'PAID' where receipt_number = '"+str(ID) +"';")
                     connection.commit()              
-                    message = (True, "Success")
+                    message = (True, "Update Receipt Success!")
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -320,9 +320,9 @@ def checkUpdateReceipt(listofInput):
             cursor.execute("select status from RECEIPT where receipt_number='"+str(ID)+"';")
             record = cursor.fetchall()
             if(record==[]):
-                message = (True,"No have Receipt")
+                message = (True,"Receipt Number Incorrect!")
             else : 
-                message = (True,"Success",record[0][0].strip())
+                message = (True,"Update Receipt Success!",record[0][0].strip())
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -344,7 +344,7 @@ def updateMedicineOrder(listofInput):
                 else : 
                     cursor.execute("UPDATE MEDICINE_ORDER SET status = 'RECEIVED' where order_id = '"+str(ID) +"';")
                     connection.commit()              
-                    message = (True, "Success")
+                    message = (True, "Update Medicine Order Success!")
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -360,7 +360,7 @@ def checkUpdateMedicineOrder(listofInput):
             cursor.execute("select status from MEDICINE_ORDER where order_id='"+str(ID)+"';")
             record = cursor.fetchall()
             if(record==[]):
-                message = (True,"No have ID")
+                message = (True,"Not have ID")
             else : 
                 message = (True,"Success",record[0][0].strip())
         except Error as e : 
@@ -407,7 +407,7 @@ def createDiagnosis(listOfInput):
                 values (""'"+str(visit_number)+"','"+str(schedule_number)+"','"+str(doctors_recommendation)+ \
                 "','"+str(created_time)+"','"+str(clinic_id)+"');")
             
-            diagnosisMessage = (True,'Create diagnosis success')
+            diagnosisMessage = (True,'Create Diagnosis Success!')
             if (len(listOfInput) > 4):
                 show_icdMessage, cursor = addShow_icd([visit_number]+listOfInput[4:], connection, diagnosisMessage, cursor)
                 if (diagnosisMessage[0] and show_icdMessage[0]):
@@ -449,7 +449,7 @@ def showScheduleForDoctor(listOfInput):
             else : 
                 for i in range(len(schedule)): 
                     schedule[i] = {'patient_id':schedule[i][0],'schedule_number':schedule[i][1],'patient_name':schedule[i][2],'clinic_name':schedule[i][3],'location':schedule[i][4],'room':schedule[i][5],'time_in':schedule[i][6].strftime('%Y-%m-%d %H:%M:%S'),'time_out':schedule[i][7].strftime('%Y-%m-%d %H:%M:%S')}
-                message = (True,'Show Schedule Success',schedule,column)
+                message = (True,'Show Schedule Success!',schedule,column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))   
         cursor.close()
@@ -494,7 +494,7 @@ def createDispensation(listOfinput):
                 str(quantity)+"','"+str(round(price*float(quantity),2))+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
                 str(receiptNumber)+"','"+str(description)+"');")
             connection.commit()
-            message = (True,"createDispensation Success")
+            message = (True,"Create Dispensation Success!")
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -525,7 +525,7 @@ def createReceipt():
             cursor = connection.cursor()
             cursor.execute("insert into RECEIPT values('"+str(receipt_number)+"','UNPAID');")
             connection.commit()       
-            message = (True, "Create Receipt Success", receipt_number)
+            message = (True, "Create Receipt Success!", receipt_number)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()
@@ -551,7 +551,7 @@ def deleteSchedule(listOfInput):
             if selected_schedule_number in schedule_number :
                 cursor.execute("delete from SCHEDULE where schedule_number = '"+str(selected_schedule_number)+"';")
                 connection.commit()
-                message = (True, "Delete schedule success")
+                message = (True, "Delete Schedule Success!")
             else : message = (True, "Selected schedule not exist")
         except Error as e : 
             message = (False,"Error while executing Second to MySQL "+str(e))
@@ -577,7 +577,7 @@ def deleteReceipt(listOfInput):
             if selected_receipt_number in receipt_number :
                 cursor.execute("delete from RECEIPT where receipt_number = '"+str(selected_receipt_number)+"';")
                 connection.commit()
-                message = (True, "Delete receipt success")
+                message = (True, "Delete Receipt Success!")
             else : message = (True, "Selected receipt not exist")
         except Error as e : 
             message = (False,"Error while executing Second to MySQL "+str(e))
@@ -606,7 +606,7 @@ def showReceipt():
                 for i in range(len(receipt)):
                     for j in range(5):
                         data[i][attribute[j]] =  receipt[i][j]
-                message = (True, "Show Receipt Success", data, column)
+                message = (True, "Show Receipt Success!", data, column)
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

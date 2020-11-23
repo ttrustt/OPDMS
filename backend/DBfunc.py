@@ -386,6 +386,7 @@ def addShow_icd(listofInput, connection, message, cursor):
             message = (True,'Sucess inputting ICD codes')     
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
+            connection.rollback()
         # cursor.close()
         # connection.close()
     return message, cursor
@@ -595,7 +596,7 @@ def showReceipt():
                             from DISPENSATION d right join RECEIPT r \
                             on d.receipt_number = r.receipt_number \
                             group by r.receipt_number \
-                            order by MAX(created_time) IS NOT NULL, status DESC, MAX(created_time) DESC;")
+                            order by MAX(created_time) DESC;")
             receipt = cursor.fetchall()
             attribute = ["receipt_number", "total_price", "credit_receivable", "created_time", "status"]
             column = [{"title":x, "dataKey":x, "key":x} for x in attribute]

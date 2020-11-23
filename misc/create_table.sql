@@ -20,6 +20,8 @@ CREATE TABLE SYSTEM_USER(
     UNIQUE (username),
     UNIQUE (identification_number),
     UNIQUE (passport_number),
+    UNIQUE (email),
+    UNIQUE (mobile_number),
     CHECK (NOT(identification_number IS NULL AND passport_number IS NULL))
 );
 
@@ -70,7 +72,10 @@ CREATE TABLE SCHEDULE(
     PRIMARY KEY (schedule_number),
     FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id) ON DELETE CASCADE,
     FOREIGN KEY (doctor_id) REFERENCES DOCTOR(doctor_id) ON DELETE CASCADE,
-    FOREIGN KEY (diagnosis_room_id) REFERENCES DIAGNOSIS_ROOM(diagnosis_room_id) ON DELETE CASCADE
+    FOREIGN KEY (diagnosis_room_id) REFERENCES DIAGNOSIS_ROOM(diagnosis_room_id) ON DELETE CASCADE,
+    UNIQUE (patient_id, time_in),
+    UNIQUE (doctor_id, time_in),
+    UNIQUE (diagnosis_room_id, time_in)
 );
 
 CREATE TABLE DIAGNOSIS(
@@ -80,8 +85,9 @@ CREATE TABLE DIAGNOSIS(
     created_time datetime NOT NULL,
     clinic_id char(4),
     PRIMARY KEY (visit_number),
-    FOREIGN KEY (schedule_number) REFERENCES SCHEDULE(schedule_number)
-    FOREIGN KEY (clinic_id) REFERENCES CLINIC(clinic_id)
+    FOREIGN KEY (schedule_number) REFERENCES SCHEDULE(schedule_number),
+    FOREIGN KEY (clinic_id) REFERENCES CLINIC(clinic_id),
+    UNIQUE (visit_number, schedule_number)
 );
 
 CREATE TABLE DISEASE(

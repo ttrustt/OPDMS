@@ -67,7 +67,7 @@ class DataTable extends Component {
         let frozen
         // console.log(column)
         if(typeof(this.props.width)!=='undefined' && this.props.width!=null){
-          column.width = this.state.width/(columnNo*2)
+          column.width = this.state.width/(columnNo*2.1)
           console.log(this.props.width)
         }
         else column.width = this.state.width/columnNo

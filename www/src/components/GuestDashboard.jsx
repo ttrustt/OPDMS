@@ -25,7 +25,7 @@ class GuestDashboard extends Component {
     <Button onClick={this.toggleShowActiveUser}>{this.state.toggleActiveUserTable?<div>Hide Active User</div>:<div>Active User</div>}</Button>
           </Container>
         </Jumbotron>
-          {this.state.toggleActiveUserTable?<div  style={{width: '100%', height: '55%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div>:<div></div>}
+          {this.state.toggleActiveUserTable?<div  style={{width: '100%', height: '68%'}}><ShowTable APIendpoint="showuser" payload={{}}></ShowTable></div>:<div></div>}
             </React.Fragment>
         );
     }

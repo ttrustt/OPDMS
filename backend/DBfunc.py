@@ -320,7 +320,7 @@ def checkUpdateReceipt(listofInput):
             cursor.execute("select status from RECEIPT where receipt_number='"+str(ID)+"';")
             record = cursor.fetchall()
             if(record==[]):
-                message = (True,"No have Receipt")
+                message = (True,"No receipt with this number!")
             else : 
                 message = (True,"Success",record[0][0].strip())
         except Error as e : 
@@ -386,6 +386,7 @@ def addShow_icd(listofInput, connection, message, cursor):
             message = (True,'Sucess inputting ICD codes')     
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
+            connection.rollback()
         # cursor.close()
         # connection.close()
     return message, cursor
@@ -495,7 +496,7 @@ def createDispensation(listOfinput):
                 str(quantity)+"','"+str(round(price*float(quantity),2))+"','"+str(datetime.now())+"','"+str(visitNumber)+"','"+str(pharmaCode)+"','"+
                 str(receiptNumber)+"','"+str(description)+"');")
             connection.commit()
-            message = (True,"createDispensation Success")
+            message = (True,"Create dispensation success!")
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
         cursor.close()

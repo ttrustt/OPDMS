@@ -73,9 +73,9 @@ CREATE TABLE SCHEDULE(
     FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id) ON DELETE CASCADE,
     FOREIGN KEY (doctor_id) REFERENCES DOCTOR(doctor_id) ON DELETE CASCADE,
     FOREIGN KEY (diagnosis_room_id) REFERENCES DIAGNOSIS_ROOM(diagnosis_room_id) ON DELETE CASCADE,
-    UNIQUE (patient_id, time_in),
-    UNIQUE (doctor_id, time_in),
-    UNIQUE (diagnosis_room_id, time_in)
+    UNIQUE KEY 'patient_time' (patient_id, time_in),
+    UNIQUE KEY 'doctor_time' (doctor_id, time_in),
+    UNIQUE KEY 'room_time' (diagnosis_room_id, time_in)
 );
 
 CREATE TABLE DIAGNOSIS(

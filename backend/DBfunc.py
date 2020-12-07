@@ -376,19 +376,14 @@ def addShow_icd(listofInput, connection, message, cursor):
     for i in range(1,len(listofInput)):
         if listofInput[i] != '':
             icd.append(listofInput[i])
-    # (connection, message) = connect()
     if (message[0]):
         try:
-            # cursor = connection.cursor()
             for i in icd :
                 cursor.execute("insert into SHOW_ICD values('"+str(visit_number)+"','"+i+"');")
-                # connection.commit()     
             message = (True,'Sucess inputting ICD codes')     
         except Error as e : 
             message = (False,"Error while executing to MySQL "+str(e))
             connection.rollback()
-        # cursor.close()
-        # connection.close()
     return message, cursor
 
 
@@ -412,13 +407,10 @@ def createDiagnosis(listOfInput):
             if (len(listOfInput) > 4):
                 show_icdMessage, cursor = addShow_icd([visit_number]+listOfInput[4:], connection, diagnosisMessage, cursor)
                 if (diagnosisMessage[0] and show_icdMessage[0]):
-                    # message = (True, diagnosisMessage[1] + " and " + show_icdMessage[1])
                     message = (True, "Success")
                 elif (diagnosisMessage[0] and not show_icdMessage[0]):
-                    # message = (False, "Create diagnosis success but cannot add to Show_icd")
                     message = (False, show_icdMessage[1])
                 elif (not diagnosisMessage[0] and not show_icdMessage[0]):
-                    # message = (False, "Cannot create diagnosis success and cannot add to Show_icd")
                     message = (False, diagnosisMessage[0] + show_icdMessage[1])
 
                 connection.commit()

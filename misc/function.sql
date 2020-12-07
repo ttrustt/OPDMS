@@ -29,7 +29,6 @@ AND p.user_id = su.user_id
 AND su.username = UN;
 END $$
 
-
 CREATE PROCEDURE getScheduleForDoctor(IN UN varchar(32))
 BEGIN
 SELECT p.patient_id, s.schedule_number, CONCAT(su.fname, " ", su.lname) AS patient_name, clinic_name, 
@@ -114,8 +113,5 @@ END $$
 
 DELIMITER ;
 
-CREATE INDEX first_name ON SYSTEM_USER(fname);
-CREATE INDEX last_name ON SYSTEM_USER(lname);
-CREATE INDEX password ON SYSTEM_USER(password);
-CREATE INDEX medicine_price ON MEDICINE(price);
-CREATE INDEX stored_quantity ON STORED_MEDICINE(quantity);
+CREATE INDEX username ON SYSTEM_USER(username);
+CREATE INDEX pharma_code ON MEDICINE(pharma_code);
